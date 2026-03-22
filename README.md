@@ -34,4 +34,4 @@ For full contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Licensing
 
-Xomoi-Core is released under the MIT License.
+Xomoi-Core is released under the GNU Affero General Public License v3.0 (AGPLv3). This ensures the software remains a public good and protects it from proprietary, closed-source cloud capture.

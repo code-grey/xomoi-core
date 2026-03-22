@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package v1;
+
+import "common.proto";
+
+option go_package = "github.com/code-grey/xomoi-core/internal/core/proto";
+
+// TelemetryPacket is the individual sensor component reading.
+message TelemetryPacket {
+  uint32 tag_id = 1;      // Sensor/Component identifier
+
+  oneof data {
+    float   f_val = 2;    // BASE: Temperature, Humidity
+    int64   i_val = 3;    // BASE: GPIO, Counter
+    bool    b_val = 4;    // BASE: Motion, Switch
+    string  s_val = 5;    // BASE: Status, RFID
+    bytes   raw_val = 6;  // PRO: Images, Waveforms
+    Vector3 v_val = 7;    // PRO: GPS, IMU
+    string  json_val = 8; // PRO: AI Inference, Complex state
+  }
+}
+
+// TelemetryBatch is the signed envelope for a set of readings from a device.
+message TelemetryBatch {
+  string device_mac = 1;  // MAC Address as primary ID
+  int64  timestamp = 2;   // Bulk timestamp (UTC)
+  repeated TelemetryPacket readings = 3; 
+  bytes signature = 4;    // HMAC-Lite signature for authenticity
+}

@@ -1,0 +1,40 @@
+version: '3'
+
+tasks:
+  proto:go:
+    desc: Generate Go Protobuf code
+    cmds:
+      - mkdir -p internal/core/proto
+      - protoc --proto_path=proto/v1 --go_out=internal/core/proto --go_opt=paths=source_relative proto/v1/*.proto
+
+  proto:sdk:
+    desc: Generate NanoPB C code for the SDK
+    cmds:
+      - mkdir -p sdk/proto
+      - protoc --proto_path=proto/v1 --nanopb_out=sdk/proto proto/v1/*.proto
+
+  ui:build:
+    desc: Build the Svelte 5 frontend
+    dir: ui
+    cmds:
+      - npm install
+      - npm run build
+
+  build:
+    desc: Build the final Xomoi-Core binary
+    deps: [proto:go, ui:build]
+    cmds:
+      - go build -o build/xomoi.exe cmd/xomoi/main.go
+    sources:
+      - cmd/**/*.go
+      - internal/**/*.go
+    generates:
+      - build/xomoi.exe
+
+  clean:
+    desc: Clean all generated files
+    cmds:
+      - rm -rf internal/core/proto/*.go
+      - rm -rf sdk/proto/*.h sdk/proto/*.c
+      - rm -rf build/xomoi.exe
+      - rm -rf ui/dist

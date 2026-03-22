@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package v1;
+
+import "common.proto";
+
+option go_package = "github.com/code-grey/xomoi-core/internal/core/proto";
+
+// CommandPacket represents a command from the dashboard to a device component.
+message CommandPacket {
+  uint32 tag_id = 1;
+  oneof payload {
+    bool   toggle = 2;      // On/Off
+    int64  value = 3;       // Intensity/Speed
+    string text = 4;        // Message/LCD
+  }
+  bytes signature = 5;
+}

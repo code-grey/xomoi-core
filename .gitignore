@@ -1,0 +1,36 @@
+# Go workspace
+bin/
+pkg/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+build/
+
+# Protobuf/NanoPB generated files
+internal/core/proto/*.go
+sdk/proto/*.pb.h
+sdk/proto/*.pb.c
+
+# Svelte UI generated assets
+ui/node_modules/
+ui/.svelte-kit/
+ui/build/
+ui/dist/
+
+# --- OPSEC: INTERNAL AI & DRAFT DOCUMENTS ---
+docs/xomoi_persona.md
+docs/report.md
+docs/GEMINI.md
+docs/decisions.md
+
+# Environment variables
+.env
+.env.*
+
+# OS specific files
+.DS_Store
+Thumbs.db

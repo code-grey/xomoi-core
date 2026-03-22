@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package v1;
+
+import "common.proto";
+
+option go_package = "github.com/code-grey/xomoi-core/internal/core/proto";
+
+// SensorDefinition defines the metadata for a specific sensor tag.
+message SensorDefinition {
+  uint32   tag_id = 1; 
+  string   name = 2;        // "Living Room Temp"
+  DataType type = 3;        // Type (Float, Int, Vector3, etc.)
+  string   unit = 4;        // "°C", "%", "lux"
+  string   widget = 5;      // "gauge", "toggle", "graph", "map"
+  string   icon = 6;        // "thermometer", "water-percent"
+}
+
+// RegistryPacket is the one-time registration handshake.
+message RegistryPacket {
+  string   device_mac = 1;
+  string   device_name = 2; // "Main Hub"
+  repeated SensorDefinition sensors = 3;
+  bytes    signature = 4;
+}
+
+// CommandPacket represents a command from the dashboard to a device component.
+message CommandPacket {
+  uint32 tag_id = 1;
+  oneof payload {
+    bool   toggle = 2;      // On/Off
+    int64  value = 3;       // Intensity/Speed
+    string text = 4;        // Message/LCD
+  }
+  bytes signature = 5;
+}

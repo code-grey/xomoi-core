@@ -1,0 +1,79 @@
+XOMOI-CORE: SOVEREIGN EDGE INFRASTRUCTURE (TECHNICAL SPECIFICATION v1.0)
+-----------------------------------------------------------------------
+Authors: Adrish Bora (@code-grey), Simanjit Hujuri (@code-zephyrus)
+Date: March 2026
+Grant Application: OTF IFF-2026-03
+
+1. THE SOVEREIGN MONOLITH ARCHITECTURE
+-----------------------------------------------------------------------
+Xomoi-Core is a single-binary Go 1.26 monolith designed to eliminate
+external dependencies and cloud-surveillance traps.
+
+[ SYSTEM DIAGRAM ]
++------------------------------------------------------------+
+| XOMOI-CORE (SINGLE GO BINARY)                              |
+|                                                            |
+| +-----------------+   +------------------+   +----------+  |
+| | MOCHI-MQTT      |-->| INGESTION WORKER |-->| SYNC.MAP |  |
+| | (EMBEDDED BROKER)|  | (BUFFERED POOL)  |   | (HOT)    |  |
+| +-----------------+   +------------------+   +----|-----+  |
+|                                                   |        |
+| +-----------------+   +------------------+   +----v-----+  |
+| | SVELTE 5 UI     |<--| JSON-API ROUTER  |<--| SQLITE WAL| |
+| | (EMBEDDED STATIC)|  | (NET/HTTP MUX)   |   | (COLD)   |  |
+| +-----------------+   +------------------+   +----------+  |
++------------------------------------------------------------+
+        ^                       ^
+        |                       |
+[ SENSOR NODES (ESP32/PICO) ]  [ USER DASHBOARD (LOCAL) ]
+
+2. SECURITY: THE HMAC-LITE HANDSHAKE
+-----------------------------------------------------------------------
+Xomoi replaces memory-intensive mTLS/JWT with HMAC-Lite for edge nodes.
+
+SIGNATURE = HMAC-SHA256(PAYLOAD + TIMESTAMP, DEVICE_TOKEN)
+
+Step-by-Step Flow:
+1. Sensor: Packs Protobuf TelemetryBatch.
+2. Sensor: Signs Payload + current Unix Timestamp using Device_Token.
+3. Node: Verifies Signature within a 60-second drift window.
+4. Node: If valid, persists to in-memory Hot State.
+
+3. ADAPTIVE PRUNING (THE XOMOI-CTL TRANSPILER)
+-----------------------------------------------------------------------
+To protect the tiny RAM of 8-bit/32-bit sensors, Xomoi uses a
+"Holey Header" generation technique.
+
+MASTER PROTO (ALL FIELDS)        LITE SDK HEADER (PRUNED)
++------------------------+      +------------------------+
+| tag_id = 1             |      | tag_id = 1             |
+| f_val  = 2             |      | f_val  = 2             |
+| i_val  = 3             |      | i_val  = 3             |
+| raw_val = 8 (IMAGES)   |----->| // [PRUNED FOR RAM]    |
+| json_val = 9 (AI)      |----->| // [PRUNED FOR RAM]    |
++------------------------+      +------------------------+
+(Go Backend Sees All)           (Sensor Allocates ~8 Bytes)
+
+4. FLASH-WEAR PROTECTION (SD-CARD LONGEVITY)
+-----------------------------------------------------------------------
+Xomoi preserves the life of edge storage (SD/eMMC) by minimizing writes.
+
+- REAL-TIME DATA: Handled entirely in-memory (Go sync.Map).
+- SNAPSHOT CYCLE: Every 5 minutes, Xomoi flushes the Hot State to
+  SQLite WAL (Write-Ahead Log) in a single atomic transaction.
+- JANITOR: Background aggregation of telemetry into 1m, 5m, and 1h
+  buckets to ensure O(1) charting performance.
+
+5. HARDWARE AGNOSTIC MATRIX
+-----------------------------------------------------------------------
+| TARGET HARDWARE | RAM    | TRANSPORT | SDK FOOTPRINT |
+|-----------------|--------|-----------|---------------|
+| ESP32-S3        | 512KB  | WiFi/MQTT | Full (Pro)    |
+| Raspberry Pi Pw | 264KB  | WiFi/MQTT | Base (Lite)   |
+| Arduino Nano    | 2KB    | Serial    | Ultra-Lite    |
+| Orange Pi Zero 3| 1GB+   | Ethernet  | Core Node     |
+-----------------------------------------------------------------------
+
+xomoi-core: Digital Freedom at the Edge.
+
+Contact: adrishbora@gmail.com

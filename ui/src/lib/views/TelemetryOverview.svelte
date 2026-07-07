@@ -164,7 +164,8 @@
     gap: 20px;
     align-content: flex-start;
     overflow-y: auto;
-    padding-right: 8px; /* Scrollbar space */
+    padding: 12px 12px 12px 4px; /* Space for hover shadow/transform */
+    margin: -12px -12px -12px -4px; /* Offset padding to maintain alignment */
   }
 
   .mini-chart-panel {

@@ -10,21 +10,45 @@
   let timeframes = ['1H', '3H', '6H', '12H', '24H', '7D', '30D'];
   let activeTimeframe = $state('24H');
 
-  // Generate mock historical data based on timeframe changes
   let mockHistory = $derived.by(() => {
-    // Just a dummy reactivity trigger on timeframe change
     const t = activeTimeframe; 
-    return Array.from({ length: 100 }, (_, i) => {
+    const points = 100;
+    return Array.from({ length: points }, (_, i) => {
       const base = sensor.val ? parseFloat(sensor.val) : 25;
-      const noise = (Math.random() - 0.5) * 4;
-      const wave = Math.sin(i / 10) * 5;
-      return base + noise + wave;
+      // Smooth telemetry curves using slow sine/cosine combinations
+      const wave1 = Math.sin((i / points) * Math.PI * 1.5) * 3;
+      const wave2 = Math.cos((i / points) * Math.PI * 3.5) * 1.5;
+      const tinyNoise = (Math.random() - 0.5) * 0.4;
+      
+      const multiplier = activeTimeframe.includes('D') ? 2 : 1;
+      return base + (wave1 + wave2 + tinyNoise) * multiplier;
     });
   });
 
+  let minVal = $derived(Math.min(...mockHistory));
+  let maxVal = $derived(Math.max(...mockHistory));
+
+  let yLabels = $derived([
+    (maxVal).toFixed(1) + sensor.unit,
+    ((maxVal + minVal) / 2).toFixed(1) + sensor.unit,
+    (minVal).toFixed(1) + sensor.unit
+  ]);
+
+  let xLabels = $derived(
+    activeTimeframe === '1H' ? ['60m ago', '30m ago', 'Now'] :
+    activeTimeframe === '24H' ? ['24h ago', '12h ago', 'Now'] :
+    activeTimeframe === '7D' ? ['7d ago', '3d ago', 'Now'] :
+    ['30d ago', '15d ago', 'Now']
+  );
+
   function buildPoints(history: number[]) {
-    const min = Math.min(...history) - 2;
-    const max = Math.max(...history) + 2;
+    // Add 10% padding to top and bottom to prevent line clipping
+    const rawMin = Math.min(...history);
+    const rawMax = Math.max(...history);
+    const range = Math.max(0.1, rawMax - rawMin);
+    const min = rawMin - (range * 0.1);
+    const max = rawMax + (range * 0.1);
+
     return history.map((val, i) => {
       const x = (i / 99) * 100;
       const y = 100 - ((val - min) / (max - min)) * 100;
@@ -66,24 +90,36 @@
            {/each}
         </div>
       {:else}
-        <div class="svg-container">
-          <!-- Background Grid -->
-          <div class="grid-lines">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
+        <div class="chart-layout">
+          <div class="y-axis-labels">
+            {#each yLabels as label}
+              <span>{label}</span>
+            {/each}
           </div>
-          <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-             <defs>
-                <linearGradient id="histGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="var(--chart-color)" stop-opacity="0.5" />
-                  <stop offset="100%" stop-color="var(--chart-color)" stop-opacity="0.0" />
-                </linearGradient>
-              </defs>
-            <polygon points="0,100 {buildPoints(mockHistory)} 100,100" fill="url(#histGrad)" />
-            <polyline points={buildPoints(mockHistory)} fill="none" stroke="var(--chart-color)" stroke-width="2.5" vector-effect="non-scaling-stroke" />
-          </svg>
+          <div class="chart-main-col">
+            <div class="svg-container">
+              <div class="grid-lines">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+              </div>
+              <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="histGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--chart-color)" stop-opacity="0.3" />
+                      <stop offset="100%" stop-color="var(--chart-color)" stop-opacity="0.0" />
+                    </linearGradient>
+                  </defs>
+                <polygon points="0,100 {buildPoints(mockHistory)} 100,100" fill="url(#histGrad)" />
+                <polyline points={buildPoints(mockHistory)} fill="none" stroke="var(--chart-color)" stroke-width="2" vector-effect="non-scaling-stroke" />
+              </svg>
+            </div>
+            <div class="x-axis-labels">
+              {#each xLabels as label}
+                <span>{label}</span>
+              {/each}
+            </div>
+          </div>
         </div>
       {/if}
     </div>
@@ -194,17 +230,56 @@
 
   .big-chart {
     flex-grow: 1;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Prevent flex children from blowing out container bounds */
     border: 1px solid var(--bg-panel-border);
     border-radius: 8px;
     padding: 16px;
     background: rgba(0, 0, 0, 0.2);
   }
 
+  .chart-layout {
+    display: flex;
+    gap: 16px;
+    flex-grow: 1;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .y-axis-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 24px; /* offset for x-axis space */
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+  }
+
+  .chart-main-col {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 0;
+  }
+
+  .x-axis-labels {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    margin-top: 12px;
+  }
+
   .svg-container {
     width: 100%;
-    height: 100%;
+    flex-grow: 1;
     position: relative;
+    overflow: hidden; /* Fix graph overflow */
+    border-radius: 4px;
   }
 
   .grid-lines {

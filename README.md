@@ -38,5 +38,34 @@ Xomoi utilizes **WebRTC Peer-to-Peer Data Channels** to punch through your home 
 - **Not a Smart Home Hub:** Xomoi does not integrate with proprietary consumer brands (Alexa, Ring) out of the box. It is designed for custom-built hardware telemetry.
 - **Requires Arduino Knowledge (For Custom Chips):** While we provide the Web-Flasher for standard ESP32s, getting the absolute most out of Xomoi requires basic C++ or PlatformIO knowledge.
 
+## Getting Started (Quick Start)
+
+Xomoi-Core is designed to run instantly without complex Docker setups or external databases.
+
+### 1. Running the Broker & Dashboard
+1. Clone the repository: `git clone https://github.com/code-grey/xomoi-core.git`
+2. Install [Task](https://taskfile.dev/), Go 1.26+, and Node.js.
+3. Build the Svelte UI: `task ui:build`
+4. Build the core binary: `task build`
+5. Run the executable: `./build/xomoi` (or `.\build\xomoi.exe` on Windows).
+
+The Xomoi Engine is now running locally. 
+- The embedded Mochi-MQTT Broker is active on Port 1883.
+- The Svelte 5 Dashboard is live at `http://localhost:8085`.
+
+### 2. Provisioning Devices (The Golden Path)
+If you are using standard ESP32s, you do not need to write C++ code:
+1. Open the Dashboard at `http://localhost:8085`.
+2. Navigate to the **Device Fleet** tab and click **Provision New Device**.
+3. Plug your ESP32 into your computer via USB.
+4. Click **Connect via WebSerial** to flash the generic firmware directly from your browser.
+5. The device will automatically connect to your Wi-Fi and appear on the dashboard.
+
+### 3. Writing Custom Firmware (The Blacksmith Path)
+If you are building custom hardware, you can use our zero-allocation C++ SDK:
+1. Generate the NanoPB headers: `task proto:sdk` (requires Python).
+2. Include the SDK in your PlatformIO or Arduino project (located in `sdk/cpp`).
+3. Call `node.addSensor(...)` and send the telemetry!
+
 ## Roadmap Status
 We are actively building V1.0. Check `docs/MASTER_TASKLIST.md` for current progress.

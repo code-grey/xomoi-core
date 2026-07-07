@@ -49,24 +49,23 @@
   let humPoints = $derived(buildPoints(humHistory, 40, 50));
   let pressPoints = $derived(buildPoints(pressHistory, 1010, 1015));
 
-  let activePoints = $derived(
-    activeMetric === 'temperature' ? tempPoints :
-    activeMetric === 'humidity' ? humPoints : pressPoints
-  );
-
   let activeColor = $derived(
     activeMetric === 'temperature' ? 'var(--accent-orange)' :
     activeMetric === 'humidity' ? 'var(--accent-cyan)' : 'var(--accent-purple)'
   );
 
-  let activeTitle = $derived(
-    activeMetric === 'temperature' ? 'Live Temperature Feed' :
-    activeMetric === 'humidity' ? 'Live Humidity Feed' : 'Live Pressure Feed'
-  );
-
-  let yAxisLabels = $derived(
-    activeMetric === 'temperature' ? ['30°C', '25°C', '20°C'] :
-    activeMetric === 'humidity' ? ['50%', '45%', '40%'] : ['1015hPa', '1012hPa', '1010hPa']
+  // Mocking multiple sensors to demonstrate the Grid UI
+  let mockSensors = $derived(
+    activeMetric === 'temperature' ? [
+      { id: 's1', name: 'Garage Ambient', val: temperature, hist: tempHistory, min: 20, max: 30, unit: '°C' },
+      { id: 's2', name: 'Living Room', val: (parseFloat(temperature) + 1.5).toFixed(1), hist: tempHistory.map(v => v + 1.5), min: 20, max: 30, unit: '°C' },
+      { id: 's3', name: 'Outdoor Node', val: (parseFloat(temperature) - 8.2).toFixed(1), hist: tempHistory.map(v => v - 8.2), min: 10, max: 30, unit: '°C' }
+    ] : activeMetric === 'humidity' ? [
+      { id: 'h1', name: 'Garage Ambient', val: humidity, hist: humHistory, min: 40, max: 60, unit: '%' },
+      { id: 'h2', name: 'Greenhouse', val: (parseFloat(humidity) + 25.0).toFixed(1), hist: humHistory.map(v => v + 25.0), min: 40, max: 100, unit: '%' }
+    ] : [
+      { id: 'p1', name: 'Basement', val: pressure, hist: pressHistory, min: 1010, max: 1020, unit: 'hPa' }
+    ]
   );
 </script>
 
@@ -78,36 +77,47 @@
     <MetricCard title="Active Devices" value={activeDevices} unit="Sensors" Icon={Network} onclick={() => window.location.hash = 'fleet'} />
   </div>
 
-  <div class="chart-panel glass-panel" style="--chart-color: {activeColor}">
-    <div class="chart-header">
-      {#if activeMetric === 'temperature'} <Thermometer size={18} color="var(--chart-color)" />
-      {:else if activeMetric === 'humidity'} <Droplets size={18} color="var(--chart-color)" />
-      {:else} <Gauge size={18} color="var(--chart-color)" /> {/if}
-      <h3>{activeTitle}</h3>
-    </div>
-    <div class="chart-body">
-      <div class="y-axis">
-        {#each yAxisLabels as label}
-          <span>{label}</span>
-        {/each}
-      </div>
-      <div class="svg-container">
-        <!-- Background Grid -->
-        <div class="grid-lines">
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
+  <div class="content-layout">
+    <!-- Grid of all sensors reporting the active metric -->
+    <div class="charts-grid">
+      {#each mockSensors as sensor (sensor.id)}
+        <div class="mini-chart-panel glass-panel" style="--chart-color: {activeColor}">
+          <div class="mini-header">
+            <span class="sensor-name">{sensor.name}</span>
+            <span class="sensor-val" style="color: var(--chart-color)">{sensor.val}{sensor.unit}</span>
+          </div>
+          <div class="mini-body">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="grad-{sensor.id}" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="var(--chart-color)" stop-opacity="0.4" />
+                  <stop offset="100%" stop-color="var(--chart-color)" stop-opacity="0.0" />
+                </linearGradient>
+              </defs>
+              <polygon points="0,100 {buildPoints(sensor.hist, sensor.min, sensor.max)} 100,100" fill="url(#grad-{sensor.id})" />
+              <polyline points={buildPoints(sensor.hist, sensor.min, sensor.max)} fill="none" stroke="var(--chart-color)" stroke-width="2.5" vector-effect="non-scaling-stroke" />
+            </svg>
+          </div>
         </div>
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="var(--chart-color)" stop-opacity="0.3" />
-              <stop offset="100%" stop-color="var(--chart-color)" stop-opacity="0.0" />
-            </linearGradient>
-          </defs>
-          <polygon points="0,100 {activePoints} 100,100" fill="url(#chartGrad)" />
-          <polyline points={activePoints} fill="none" stroke="var(--chart-color)" stroke-width="2" vector-effect="non-scaling-stroke" />
-        </svg>
+      {/each}
+    </div>
+
+    <!-- Alert History Sidebar -->
+    <div class="alerts-sidebar glass-panel">
+      <h3 class="sidebar-title">Alert History</h3>
+      <div class="alerts-list">
+        <div class="alert-item critical">
+          <div class="alert-time">09:12 AM</div>
+          <div class="alert-msg">Outdoor Node offline</div>
+        </div>
+        <div class="alert-item warning">
+          <div class="alert-time">14:32 PM</div>
+          <div class="alert-msg">Greenhouse {activeMetric} spike</div>
+        </div>
+        <div class="alert-item info">
+          <div class="alert-time">18:05 PM</div>
+          <div class="alert-msg">System OTA Success</div>
+        </div>
       </div>
     </div>
   </div>
@@ -127,73 +137,111 @@
     gap: 24px;
   }
 
-  .chart-panel {
+  .content-layout {
+    display: flex;
+    gap: 24px;
+    flex-grow: 1;
+    min-height: 0; /* Important for flex children scrolling */
+  }
+
+  .charts-grid {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    align-content: flex-start;
+    overflow-y: auto;
+    padding-right: 8px; /* Scrollbar space */
+  }
+
+  .mini-chart-panel {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    height: 250px; /* Fixed smaller height */
-    overflow: hidden; /* Fix layout breakout */
+    height: 180px;
+    padding: 16px;
   }
 
-  .chart-header {
+  .mini-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-    flex-shrink: 0;
+    margin-bottom: 12px;
   }
 
-  h3 {
-    color: var(--text-primary);
-    font-size: 1.1rem;
+  .sensor-name {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
     font-weight: 500;
   }
 
-  .chart-body {
-    flex-grow: 1;
-    display: flex;
-    gap: 16px;
-    position: relative;
-    height: 100%;
-    min-height: 0; /* Important for flex children scrolling/overflow */
-  }
-
-  .y-axis {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: var(--text-secondary);
-    font-size: 0.8rem;
+  .sensor-val {
+    font-size: 1.2rem;
+    font-weight: 700;
     font-family: var(--font-mono);
   }
 
-  .svg-container {
+  .mini-body {
     flex-grow: 1;
     position: relative;
-    height: 100%;
-    overflow: hidden; /* Prevent SVG from spilling */
-  }
-
-  .grid-lines {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    pointer-events: none;
-  }
-
-  .line {
-    width: 100%;
-    height: 1px;
-    background: var(--bg-panel-border);
-    opacity: 0.5;
+    overflow: hidden;
+    border-radius: 4px;
   }
 
   svg {
     width: 100%;
     height: 100%;
-    display: block; /* Remove ghost margins under SVGs */
-    overflow: visible; /* We hide overflow in .svg-container instead */
+    display: block;
+    overflow: visible;
+  }
+
+  /* Sidebar */
+  .alerts-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .sidebar-title {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--bg-panel-border);
+  }
+
+  .alerts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+  }
+
+  .alert-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border-left: 3px solid transparent;
+  }
+
+  .alert-item.critical { border-left-color: #ff4757; }
+  .alert-item.warning { border-left-color: var(--accent-orange); }
+  .alert-item.info { border-left-color: var(--accent-cyan); }
+
+  .alert-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+  }
+
+  .alert-msg {
+    font-size: 0.85rem;
+    color: var(--text-primary);
   }
 </style>

@@ -1,0 +1,71 @@
+:root {
+  /* Xomoi Sovereign Design System */
+  --bg-base: #0a0a0c;         /* Deepest OLED black */
+  --bg-panel: rgba(18, 18, 22, 0.65);
+  --bg-panel-border: rgba(255, 255, 255, 0.08);
+  --bg-panel-hover: rgba(255, 255, 255, 0.03);
+  
+  --accent-cyan: #00FFCC;     /* Primary Action Color */
+  --accent-cyan-dim: rgba(0, 255, 204, 0.15);
+  --accent-orange: #FF5500;   /* Warning/Alert Color */
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #909099;
+  --text-code: #A0A0A5;
+
+  --glass-blur: blur(16px);
+  --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Core Glassmorphism Utility */
+.glass-panel {
+  background: var(--bg-panel);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--bg-panel-border);
+  border-radius: 12px;
+  transition: var(--transition-smooth);
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.neon-text {
+  color: var(--accent-cyan);
+  text-shadow: 0 0 12px var(--accent-cyan-dim);
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}

@@ -10,6 +10,15 @@ Xomoi-Core is a sovereign, open-source edge node dedicated to **Digital Freedom*
 - **Efficiency:** Resource-conscious architecture ensures longevity on the edge.
 
 ## 1. THE ANTI-TRAPS (THE RED LINES)
+- **The AGPLv3 Mandate:** Every single source code file (`.go`, `.cpp`, `.ts`) MUST include the standard GNU AGPLv3 copyright header at the top. This legally protects the sovereign nature of the code. The exact header to use is:
+  ```
+  // Copyright (C) 2026 Adrish Bora, Simanjit Hujuri
+  //
+  // This program is free software: you can redistribute it and/or modify
+  // it under the terms of the GNU Affero General Public License as published
+  // by the Free Software Foundation, either version 3 of the License, or
+  // (at your option) any later version.
+  ```
 - **The SD-Card Killer:** Never write to SQLite on every sensor update. High-frequency data *must* live in volatile memory (`sync.Map`) and only snapshot to disk in bulk.
 - **Microservice Sprawl:** Xomoi must never be split into multiple binaries. If a feature requires a separate process, it doesn't belong in Xomoi-Core.
 - **The Dependency Leak:** No Node.js, Python, or heavy C++ runtimes allowed in the production edge binary. 

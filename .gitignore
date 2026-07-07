@@ -34,3 +34,8 @@ docs/decisions.md
 # OS specific files
 .DS_Store
 Thumbs.db
+
+# Database files
+*.db
+*.db-shm
+*.db-wal

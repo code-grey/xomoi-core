@@ -1,70 +1,95 @@
 # XOMOI-CORE v1.0 MASTER TASKLIST (5-MONTH SOVEREIGN ROADMAP)
 
 ## PHASE 1: THE SOVEREIGN CONTRACT (WEEKS 1-2)
-- [ ] **1.1: Modular Protobuf "Core + Plugins" (`proto/v1/`)**
-    - [ ] `common.proto`: Shared enums, Vector3, and Field ID locks.
-    - [ ] `telemetry_base.proto`: Standard sensor types (Float, Int, Bool).
-    - [ ] `telemetry_pro.proto`: Advanced types (JSON, Bytes) for AI/Imaging.
-    - [ ] `registry.proto`: Tag-to-Name handshake mapping.
-    - [ ] `command.proto`: Bidirectional control (Toggle, Value, Text).
-- [ ] **1.2: Core Domain Models (`internal/core/`)**
-    - [ ] `models.go`: Define `User`, `Device`, `Session`, `SensorTag`, and `AlertRule` Go structs.
-- [ ] **1.3: Repository Interfaces (`internal/repository/`)**
-    - [ ] `interfaces.go`: Define pure interfaces for User, Session, Device, and Telemetry.
+- [x] **1.1: Modular Protobuf "Core + Plugins" (`proto/v1/`)**
+    - [x] `common.proto`: Shared enums, Vector3, and Field ID locks.
+    - [x] `telemetry_base.proto`: Standard sensor types (Float, Int, Bool).
+    - [x] `telemetry_pro.proto`: Advanced types (JSON, Bytes) for AI/Imaging.
+    - [x] `registry.proto`: Tag-to-Name handshake mapping.
+    - [x] `command.proto`: Bidirectional control (Toggle, Value, Text).
+- [x] **1.2: Core Domain Models (`internal/core/`)**
+    - [x] `models.go`: Define `User`, `Device`, `Session`, `SensorTag`, and `AlertRule` Go structs.
+- [x] **1.3: Repository Interfaces (`internal/repository/`)**
+    - [x] `interfaces.go`: Define pure interfaces for User, Session, Device, and Telemetry.
 
 ## PHASE 2: STORAGE & MEMORY ENGINE (WEEKS 3-4)
-- [ ] **2.1: SQLite Engine (`internal/repository/sqlite/`)**
-    - [ ] `db.go`: Initialize `sql.DB` with WAL mode and `PRAGMA busy_timeout`.
-    - [ ] `migrations/`: Create embedded SQL files for all core tables.
-- [ ] **2.2: Volatile State Manager (`internal/state/`)**
-    - [ ] `hot_state.go`: Implement `sync.Map` for O(1) real-time sensor status.
-    - [ ] `snapshot.go`: Implement the 5-minute bulk-flush routine to SQLite.
+- [x] **2.1: SQLite Engine (`internal/repository/sqlite/`)**
+    - [x] `db.go`: Initialize `sql.DB` with WAL mode and `PRAGMA busy_timeout`.
+    - [x] `migrations/`: Create embedded SQL files for all core tables.
+- [x] **2.2: Volatile State Manager (`internal/state/`)**
+    - [x] `hot_state.go`: Implement `sync.Map` for O(1) real-time sensor status.
+    - [x] `snapshot.go`: Implement the 5-minute bulk-flush routine to SQLite.
 
 ## PHASE 3: THE EMBEDDED BROKER (WEEKS 5-6)
-- [ ] **3.1: Mochi-MQTT Integration (`internal/broker/`)**
-    - [ ] `mochi.go`: Initialize embedded server (TCP + WebSockets).
-    - [ ] `auth.go`: Implement **HMAC-Lite Hook** (Verify MAC + Timestamp + Signature).
-- [ ] **3.2: The Ingestion Pipeline**
-    - [ ] `worker_pool.go`: Fixed-size Worker Pool for message processing.
-    - [ ] `processor.go`: OnPublish -> Proto Unmarshal -> Worker Channel (Backpressure enabled).
+- [x] **3.1: Mochi-MQTT Integration (`internal/broker/`)**
+    - [x] `mochi.go`: Initialize embedded server (TCP + WebSockets).
+    - [x] `auth.go`: Implement **HMAC-Lite Hook** (Verify MAC + Timestamp + Signature).
+- [x] **3.2: The Ingestion Pipeline**
+    - [x] `worker_pool.go`: Fixed-size Worker Pool for message processing.
+    - [x] `processor.go`: OnPublish -> Proto Unmarshal -> Worker Channel (Backpressure enabled).
 
 ## PHASE 4: SOVEREIGN API & SECURITY (WEEKS 7-8)
-- [ ] **4.1: The Web Server (`internal/api/`)**
-    - [ ] `router.go`: Go 1.26 `net/http` ServeMux initialization.
-    - [ ] `middleware/`: Stateful Session check and Anti-CSRF.
-- [ ] **4.2: Auth & Session Endpoints**
-    - [ ] `POST /api/v1/auth/login`: Argon2ID verify + Session create.
-    - [ ] `POST /api/v1/auth/logout`: Session deletion.
+- [x] **4.1: The Headless Web Server (`internal/api/`)**
+    - [x] `router.go`: Go 1.26 `net/http` ServeMux initialization.
+    - [x] `middleware/`: Stateful Session check, Anti-CSRF, and Panic Recovery.
+- [x] **4.2: Auth & Session Endpoints**
+    - [x] `POST /api/v1/auth/login`: Argon2ID verify + Session create.
+    - [x] `POST /api/v1/auth/logout`: Session deletion.
 
 ## PHASE 5: THE GRAND ARCHITECT (WEEKS 9-11)
-- [ ] **5.1: Xomoi-Transpiler (`xomoi-ctl`)**
-    - [ ] `parser`: Go-based Protobuf parser to read `proto/v1/`.
-    - [ ] `generator/cpp`: Adaptive pruning logic to generate "Lite" C++ SDK headers.
-    - [ ] `generator/svelte`: Metadata generation for UI widgets and icons.
-- [ ] **5.2: Xomoi-Claim Flow**
-    - [ ] `GET /api/v1/devices/discover`: Scan for `Xomoi-Claim-XXXX` signals.
-    - [ ] `POST /api/v1/devices/claim`: Generate HMAC-Lite token and push to device.
+- [x] **5.1: Xomoi-Transpiler (`xomoi-ctl`)**
+    - [x] `parser`: Go-based Protobuf parser to read `proto/v1/`.
+    - [x] `generator/cpp`: Adaptive pruning logic to generate "Lite" C++ SDK headers.
+- [x] **5.2: Xomoi-Claim Flow**
+    - [x] `GET /api/v1/devices/discover`: Scan for `Xomoi-Claim-XXXX` signals.
+    - [x] `POST /api/v1/devices/claim`: Generate HMAC-Lite token and push to device.
 
-## PHASE 6: THE SOVEREIGN DASHBOARD (WEEKS 12-14)
-- [ ] **6.1: Svelte 5 Frontend (`ui/`)**
-    - [ ] `realtime/`: SSE listener for hot state.
-    - [ ] `charts/`: Native SVG/Canvas visualization (Zero-heavy-lib).
+## PHASE 6: THE CROSS-PLATFORM UI (WEEKS 12-14)
+- [ ] **6.1: Flutter Dashboard (`ui/`)**
+    - [ ] Single codebase for iOS, Android, and Web.
+    - [ ] Real-time telemetry via MQTT-over-WebSockets.
+    - [ ] Embed Web build into Go binary via `go:embed`.
 - [ ] **6.2: Low-Code Onboarding**
     - [ ] Web-Flasher: WebSerial/WebUSB integration for one-click sensor flashing.
 
 ## PHASE 7: THE BLACKSMITH SDK (WEEKS 15-16)
-- [ ] **7.1: Xomoi C++ SDK (`sdk/`)**
-    - [ ] `XomoiCore.h`: Static memory MQTT/NanoPB client.
-    - [ ] Template Library: JSON blueprints for DHT, BME, PIR, and GPIO.
+- [x] **7.1: Xomoi C++ SDK (`sdk/`)**
+    - [x] `XomoiCore.h`: Static memory MQTT/NanoPB client.
+    - [x] Template Library: JSON blueprints for DHT, BME, PIR, and GPIO.
 
-## PHASE 8: ALERTS & ENTERPRISE BRIDGE (WEEKS 17-18)
-- [ ] **8.1: Alert Engine (`internal/alerts/`)**
-    - [ ] `evaluator.go`: Match hot state against user-defined threshold rules.
-- [ ] **8.2: Upstream Worker (`internal/bridge/`)**
-    - [ ] Store-and-Forward logic for off-grid Enterprise syncing.
+## PHASE 8: ALERTS & HEXAGONAL BACKUP (WEEKS 17-18)
+- [x] **8.1: Alert Engine (`internal/alerts/`)**
+    - [x] `evaluator.go`: Match hot state against user-defined threshold rules.
+- [x] **8.2: Hexagonal Backup Engine (`internal/backup/`)**
+    - [x] `BackupProvider` Interface: Abstract `Save()` and `Restore()`.
+    - [x] Implement `DiscordPreserver` (Webhook attachments).
+    - [x] Implement `DrivePreserver` (Google Drive Service Account).
+    - [x] Implement `PostgresPreserver` (Cloud syncing).
 
 ## PHASE 9: THE JANITOR & HARDENING (WEEKS 19-20)
-- [ ] **9.1: Background Janitor (`internal/worker/`)**
-    - [ ] 1m/5m/1h telemetry aggregation and raw data pruning.
-- [ ] **9.2: Final Polish**
-    - [ ] Security Audit, Binary Optimization (`ldflags`), and v1.0 Release.
+- [x] **9.1: Background Janitor (`internal/worker/`)**
+    - [x] 1m/5m/1h telemetry aggregation and raw data pruning for threshold control.
+- [x] **9.2: Final Polish**
+    - [x] Graceful Shutdown (force SQLite flush + Backup on SIGTERM).
+    - [x] Security Audit, Binary Optimization (`ldflags`), and v1.0 Release.
+
+## PHASE 9.5: THE TERMINAL DASHBOARD (TUI)
+- [x] **9.5.1: Xomoi-CLI (`cmd/xomoi-cli/`)**
+    - [x] `charmbracelet/bubbletea` integration for a zero-bloat standalone terminal UI.
+    - [x] Matrix-style real-time Telemetry, Worker Pool health, and Active Claims viewing.
+
+## PHASE 10: REMOTE OPERATIONS & OTA (WEEKS 21-22)
+- [ ] **10.1: OTA (Over-The-Air) Engine**
+    - [ ] MQTT-based binary stream for zero-downtime remote firmware updates.
+    - [ ] Dynamic NVS (Non-Volatile Storage) config updates to change ping frequency without flashing.
+- [ ] **10.2: Remote Access & Discovery**
+    - [ ] WebRTC P2P Hole-punching (Zero-config, zero-port-forwarding, via free Render signaling server).
+    - [ ] Fallback support for Tailscale / Custom Signaling Servers for advanced Homelab users.
+	- [ ] mDNS (`xomoi.local`) zero-config auto-discovery for local network UX.
+
+## PHASE 11: FEDERATION (MESH NETWORKING)
+- [ ] **11.1: Node-to-Node Bridging**
+    - [ ] Mochi-MQTT Bridge configuration to forward `/xomoi/+/telemetry` to a Primary Node.
+    - [ ] Auto-discovery of local Satellite nodes.
+- [ ] **11.2: Unified Federation Dashboard**
+    - [ ] Display aggregate fleet health and sensor data from all Satellite nodes in one single UI.

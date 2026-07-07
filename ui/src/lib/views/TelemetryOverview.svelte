@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import MetricCard from '../MetricCard.svelte';
+  import HistoricalExplorer from './HistoricalExplorer.svelte';
   import { Thermometer, Droplets, Gauge, Network } from 'lucide-svelte';
 
   let temperature = $state('0.0');
@@ -67,6 +68,8 @@
       { id: 'p1', name: 'Basement', val: pressure, hist: pressHistory, min: 1010, max: 1020, unit: 'hPa' }
     ]
   );
+
+  let selectedSensor = $state<any>(null);
 </script>
 
 <div class="view-container">
@@ -81,7 +84,9 @@
     <!-- Grid of all sensors reporting the active metric -->
     <div class="charts-grid">
       {#each mockSensors as sensor (sensor.id)}
-        <div class="mini-chart-panel glass-panel" style="--chart-color: {activeColor}">
+        <!-- svelte-ignore a11y_click_events_have_key_events -->
+        <!-- svelte-ignore a11y_no_static_element_interactions -->
+        <div class="mini-chart-panel glass-panel interactive" style="--chart-color: {activeColor}" onclick={() => selectedSensor = sensor}>
           <div class="mini-header">
             <span class="sensor-name">{sensor.name}</span>
             <span class="sensor-val" style="color: var(--chart-color)">{sensor.val}{sensor.unit}</span>
@@ -123,6 +128,14 @@
   </div>
 </div>
 
+{#if selectedSensor}
+  <HistoricalExplorer 
+    sensor={selectedSensor}
+    color={activeColor}
+    onclose={() => selectedSensor = null}
+  />
+{/if}
+
 <style>
   .view-container {
     display: flex;
@@ -159,6 +172,16 @@
     flex-direction: column;
     height: 180px;
     padding: 16px;
+  }
+
+  .interactive {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    border-color: var(--chart-color);
   }
 
   .mini-header {

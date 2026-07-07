@@ -18,6 +18,8 @@ Xomoi is a single 15MB Go executable. You drop it onto a $5 Raspberry Pi Zero, d
 * **The "Blacksmith SDK":** For advanced engineers, a NanoPB-backed C++ SDK to write custom firmware for any esoteric microcontroller on the market.
 * **Protobuf Auto-Discovery:** Devices blast a tiny Protobuf Discovery struct over MQTT on boot. The Svelte UI parses this and instantly auto-generates Line Charts, Status Boxes, and Alert Rules—zero JSON memory bloat, zero manual UI configuration.
 * **Zero-Allocation Routing:** The backend uses `vtprotobuf` (Go) and the C++ SDK uses `nanopb`. This prevents heap fragmentation and guarantees your ESP32s will never crash from memory leaks.
+* **Hexagonal Disaster Recovery:** Built-in Background Janitor and automatic SQLite snapshot uploads to free webhooks (like Discord) to prevent SD card exhaustion.
+* **Xomoi-Enterprise Ready:** Because we strictly enforce the Hexagonal Repository Pattern, you can swap out SQLite and Mochi-MQTT for TimescaleDB and EMQX with just a few lines of code to run Xomoi on a massive cloud VPS.
 * **HMAC-Lite Security:** Bypasses the massive RAM overhead of mTLS certificates on edge microcontrollers. Devices authenticate using lightweight SHA-256 cryptographic signatures natively accelerated by ESP32 silicon.
 * **Zero-Dependency SPA Routing:** The Svelte 5 dashboard uses native browser Hash state (`window.location.hash`) for mathematical perfection, avoiding massive third-party router libraries.
 

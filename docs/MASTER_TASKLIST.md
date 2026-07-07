@@ -72,7 +72,11 @@
 ## PHASE 9: THE JANITOR & HARDENING (WEEKS 19-20)
 - [x] **9.1: Background Janitor (`internal/worker/`)**
     - [x] 1m/5m/1h telemetry aggregation and raw data pruning for threshold control.
-- [x] **9.2: Final Polish**
+- [ ] **9.2: Testing & QA**
+    - [ ] Go unit tests (`go test`) for all core business logic (evaluators, parsers, state maps).
+    - [ ] Svelte UI component tests using Vitest or Playwright.
+    - [ ] E2E integration tests (spin up broker -> mock C++ hardware -> verify UI state).
+- [x] **9.3: Final Polish**
     - [x] Graceful Shutdown (force SQLite flush + Backup on SIGTERM).
     - [x] Security Audit, Binary Optimization (`ldflags`), and v1.0 Release.
 

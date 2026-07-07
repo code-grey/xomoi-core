@@ -12,8 +12,7 @@ tasks:
   proto:sdk:
     desc: Generate NanoPB C code for the SDK
     cmds:
-      - mkdir -p sdk/proto
-      - protoc --proto_path=proto/v1 --nanopb_out=sdk/proto proto/v1/*.proto
+      - protoc --plugin=protoc-gen-nanopb --proto_path=sdk/proto --nanopb_out=sdk/proto sdk/proto/*.proto
 
   ui:build:
     desc: Build the Svelte 5 frontend

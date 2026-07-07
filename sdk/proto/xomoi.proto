@@ -1,0 +1,35 @@
+syntax = "proto3";
+package xomoi;
+
+// Discovery message sent once on boot to enable Svelte UI Auto-Generation
+message SensorConfig {
+    string key = 1;
+    string display_name = 2;
+    string unit = 3;
+    uint32 data_type = 4; // 0 = Float (Chart), 1 = Bool (Status Box)
+}
+
+message Discovery {
+    string mac_address = 1;
+    string firmware_version = 2;
+    repeated SensorConfig sensors = 3;
+}
+
+// The core Telemetry message emitted continuously
+message Telemetry {
+    uint32 timestamp = 1;
+    string device_type = 2; // e.g., "DHT11", "PIR_SENSOR"
+    repeated DataPoint data = 3;
+}
+
+message DataPoint {
+    string key = 1;      // e.g., "temperature", "humidity", "motion"
+    float value = 2;     // All values cast to float (Prometheus style)
+}
+
+// Handshake message for Claiming/Auth (HMAC-Lite)
+message AuthPayload {
+    string mac_address = 1;
+    string hmac_signature = 2;
+    string firmware_version = 3;
+}

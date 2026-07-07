@@ -36,6 +36,7 @@ func (s *Server) SetupRouter() http.Handler {
 
 	// Real-time WebSockets
 	mux.HandleFunc("GET /api/v1/ws/health", handlers.HealthWebSocket)
+	mux.HandleFunc("GET /api/v1/ws/telemetry", handlers.TelemetryWebSocket)
 
 	// Apply global Panic Recovery middleware to ensure the broker never crashes from an API panic.
 	return middleware.PanicRecovery(mux)

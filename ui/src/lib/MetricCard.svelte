@@ -1,17 +1,19 @@
 <script lang="ts">
   import type { Component, Snippet } from 'svelte';
   
-  let { title, value, unit, Icon, sparkline, children } = $props<{
+  let { title, value, unit, Icon, sparkline, children, onclick, active } = $props<{
     title: string;
     value: string | number;
     unit: string;
     Icon: Component<any>;
     sparkline?: string;
     children?: Snippet;
+    onclick?: () => void;
+    active?: boolean;
   }>();
 </script>
 
-<div class="metric-card glass-panel">
+<div class="metric-card glass-panel {active ? 'active' : ''} {onclick ? 'clickable' : ''}" {onclick} onkeydown={(e) => e.key === 'Enter' && onclick?.()} role={onclick ? 'button' : 'group'} tabindex={onclick ? 0 : -1}>
   <div class="card-header">
     <span class="title">{title}</span>
     <span class="icon"><Icon size={18} /></span>
@@ -43,6 +45,19 @@
     flex-direction: column;
     gap: 12px;
     min-width: 200px;
+    transition: all 0.2s ease;
+  }
+
+  .clickable {
+    cursor: pointer;
+  }
+  .clickable:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+  .active {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 16px rgba(0, 255, 204, 0.1);
   }
 
   .card-header {

@@ -8,6 +8,7 @@
   --accent-cyan: #00FFCC;     /* Primary Action Color */
   --accent-cyan-dim: rgba(0, 255, 204, 0.15);
   --accent-orange: #FF5500;   /* Warning/Alert Color */
+  --accent-purple: #B266FF;   /* Tertiary Data Color */
   
   --text-primary: #FFFFFF;
   --text-secondary: #909099;

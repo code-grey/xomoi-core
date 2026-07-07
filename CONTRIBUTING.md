@@ -10,28 +10,28 @@ You can contribute to Xomoi-Core from **Linux, macOS, or Windows**. We use tools
 ### Prerequisites:
 - **Go 1.26+**
 - **Task** (Taskfile runner): `task` or `go-task`.
-- **Protoc** (Protobuf Compiler): `protoc` must be in your PATH.
 - **Node.js 20+** (For the Svelte 5 UI build).
+- **Python 3.x & NanoPB** (For compiling the Protobuf headers).
 
 ## 2. The Build Workflow
 Instead of complex Makefiles, we use `Taskfile.yml`. These commands work on Bash, Zsh, and PowerShell:
 
-- `task proto:go`: Generate Go internal models (Phase 1.1).
-- `task proto:sdk`: Generate the adaptive C++ SDK (Phase 7).
-- `task ui:build`: Compile the Svelte 5 frontend (Phase 6).
-- `task build`: Build the final `xomoi` binary for your OS.
-- `task clean`: Remove all generated artifacts.
+- `task proto:sdk`: Compile the `xomoi.proto` schema into `nanopb` C++ headers using the strict constraints in `xomoi.options`.
+- `task ui:build`: Compile the Svelte 5 frontend using Vite.
+- `task build`: Build the final `xomoi.exe` binary.
 
 ## 3. Contribution Rules (The Rulebook)
-Before writing any code, you MUST read the `docs/rulebook.md`. Key highlights:
-- **No 3rd-Party Web Frameworks:** Use `net/http` ServeMux.
-- **Zero-Allocation Ingestion:** Telemetry must not trigger heap escapes.
-- **Repository Pattern:** Logic and storage must be separated by interfaces.
+We have extremely strict architectural rules to maintain zero-bloat:
+- **No 3rd-Party Web Frameworks in Go:** Use `net/http` ServeMux.
+- **No Heavy Frontend Routers:** Use Svelte 5 `$effect` bindings to `window.location.hash`.
+- **Zero-Allocation Ingestion:** Telemetry must not trigger heap escapes in Go.
+- **Protobuf over JSON:** All IoT data must use the `.proto` schema. ESP32s cannot handle parsing large JSON strings.
+- **Static Strings in C++:** When contributing to the SDK, you must use fixed-size `char` arrays dictated by `xomoi.options`. Dynamic allocation (`std::string`) is strictly forbidden to prevent heap fragmentation.
 
 ## 4. Submitting Changes
 1. Fork the repository.
 2. Create a branch: `feature/your-feature-name`.
-3. Ensure all tests pass: `task test` (Coming soon).
-4. Submit a PR with a detailed description of the architectural impact.
+3. Ensure all tests pass.
+4. Submit a PR explaining *why* your architecture is mathematically optimal.
 
 Join us in reclaiming the edge.

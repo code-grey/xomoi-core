@@ -4,8 +4,12 @@
   import DeviceFleet from './lib/views/DeviceFleet.svelte';
   import NodeHealth from './lib/views/NodeHealth.svelte';
 
-  // Svelte 5 Rune for reactive state
-  let activeTab = $state('overview');
+  // Svelte 5 Rune for reactive state synced with URL Hash
+  let activeTab = $state(window.location.hash.replace('#', '') || 'overview');
+  
+  $effect(() => {
+    window.location.hash = activeTab;
+  });
 </script>
 
 <main class="app-layout">

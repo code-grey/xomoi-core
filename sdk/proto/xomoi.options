@@ -1,0 +1,21 @@
+# NanoPB Configuration File
+# This file enforces maximum string lengths and array sizes so the ESP32 can allocate 
+# safe, predictable memory without causing heap fragmentation.
+
+# Discovery Protocol Constraints
+xomoi.SensorConfig.key max_size:16
+xomoi.SensorConfig.display_name max_size:32
+xomoi.SensorConfig.unit max_size:8
+xomoi.Discovery.mac_address max_size:18
+xomoi.Discovery.firmware_version max_size:16
+xomoi.Discovery.sensors max_count:8
+
+# Telemetry Constraints
+xomoi.Telemetry.device_type max_size:16
+xomoi.Telemetry.data max_count:8
+xomoi.DataPoint.key max_size:16
+
+# Auth Constraints
+xomoi.AuthPayload.mac_address max_size:18
+xomoi.AuthPayload.hmac_signature max_size:65
+xomoi.AuthPayload.firmware_version max_size:16

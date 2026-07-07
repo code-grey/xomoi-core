@@ -45,17 +45,20 @@
     - [x] `POST /api/v1/devices/claim`: Generate HMAC-Lite token and push to device.
 
 ## PHASE 6: THE CROSS-PLATFORM UI (WEEKS 12-14)
-- [ ] **6.1: Flutter Dashboard (`ui/`)**
-    - [ ] Single codebase for iOS, Android, and Web.
-    - [ ] Real-time telemetry via MQTT-over-WebSockets.
-    - [ ] Embed Web build into Go binary via `go:embed`.
-- [ ] **6.2: Low-Code Onboarding**
-    - [ ] Web-Flasher: WebSerial/WebUSB integration for one-click sensor flashing.
+- [x] **6.1: Svelte 5 Dashboard (`ui/`)**
+    - [x] Zero-dependency SPA Hash Routing.
+    - [x] Real-time telemetry via MQTT-over-WebSockets with SVG gradients.
+    - [x] Embed Web build into Go binary via `go:embed`.
+- [x] **6.2: Low-Code Onboarding**
+    - [x] Web-Flasher: WebSerial integration (`esptool-js`) for one-click generic firmware flashing directly from Chrome.
 
 ## PHASE 7: THE BLACKSMITH SDK (WEEKS 15-16)
-- [x] **7.1: Xomoi C++ SDK (`sdk/`)**
-    - [x] `XomoiCore.h`: Static memory MQTT/NanoPB client.
-    - [x] Template Library: JSON blueprints for DHT, BME, PIR, and GPIO.
+- [x] **7.1: Xomoi C++ SDK Foundation (`sdk/`)**
+    - [x] Protobuf Discovery Schema (`xomoi.proto`) and NanoPB constraints (`xomoi.options`).
+    - [x] Generated NanoPB C headers (`xomoi.pb.c`) for zero-allocation memory on the ESP32.
+- [ ] **7.2: Xomoi C++ Engine Implementation**
+    - [ ] Hardware SHA-256 HMAC-Lite Cryptography via `mbedtls`.
+    - [ ] Implement Protobuf byte streaming and Discovery callbacks in `XomoiCore.cpp`.
 
 ## PHASE 8: ALERTS & HEXAGONAL BACKUP (WEEKS 17-18)
 - [x] **8.1: Alert Engine (`internal/alerts/`)**

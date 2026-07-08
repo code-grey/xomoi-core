@@ -88,7 +88,7 @@
 
 ## PHASE 10: REMOTE OPERATIONS & OTA (WEEKS 21-22)
 - [ ] **10.1: OTA (Over-The-Air) Engine**
-    - [ ] MQTT-based binary stream for zero-downtime remote firmware updates.
+    - [x] HTTP-Pull based binary stream for zero-downtime remote firmware updates (with MQTT RPC Trigger).
     - [ ] Dynamic NVS (Non-Volatile Storage) config updates to change ping frequency without flashing.
 - [ ] **10.2: Remote Access & Discovery**
     - [ ] WebRTC P2P Hole-punching (Zero-config, zero-port-forwarding, via free Render signaling server).

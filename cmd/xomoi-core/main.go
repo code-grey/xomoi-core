@@ -75,8 +75,8 @@ func main() {
 	go janitor.Start(ctx)
 
 	// 6. Start the Headless API Server
-	// Provide nil repos for skeleton, to be wired later
-	apiServer := api.NewServer(nil, nil)
+	// Provide nil repos and nil publisher for skeleton, to be wired later
+	apiServer := api.NewServer(nil, nil, nil)
 	router := apiServer.SetupRouter()
 	
 	httpSrv := &http.Server{

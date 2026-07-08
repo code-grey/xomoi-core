@@ -12,13 +12,15 @@ import (
 type Server struct {
 	userRepo    repository.UserRepository
 	sessionRepo repository.SessionRepository
+	otaHandler  *handlers.OTAHandler
 }
 
 // NewServer creates a new API Server instance.
-func NewServer(uRepo repository.UserRepository, sRepo repository.SessionRepository) *Server {
+func NewServer(uRepo repository.UserRepository, sRepo repository.SessionRepository, pub handlers.MQTTPublisher) *Server {
 	return &Server{
 		userRepo:    uRepo,
 		sessionRepo: sRepo,
+		otaHandler:  handlers.NewOTAHandler(pub, "data/ota"),
 	}
 }
 
@@ -37,6 +39,11 @@ func (s *Server) SetupRouter() http.Handler {
 	// Real-time WebSockets
 	mux.HandleFunc("GET /api/v1/ws/health", handlers.HealthWebSocket)
 	mux.HandleFunc("GET /api/v1/ws/telemetry", handlers.TelemetryWebSocket)
+
+	// OTA (Over-The-Air) Firmware Endpoints
+	mux.Handle("POST /api/v1/devices/{mac}/ota", middleware.SessionCheck(s.sessionRepo, http.HandlerFunc(s.otaHandler.UploadFirmware)))
+	// The download endpoint is public so the hardware device can pull it without session cookies
+	mux.HandleFunc("GET /api/v1/devices/{mac}/ota/download", s.otaHandler.DownloadFirmware)
 
 	// Apply global Panic Recovery middleware to ensure the broker never crashes from an API panic.
 	return middleware.PanicRecovery(mux)

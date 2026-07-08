@@ -20,6 +20,15 @@ public:
     // Publish raw binary NanoPB payload
     virtual bool publish(const char* topic, const uint8_t* payload, size_t length) = 0;
     
+    // Subscribe to a topic (for RPC / Commands)
+    virtual bool subscribe(const char* topic) = 0;
+    
+    // Define the callback function signature for incoming messages
+    typedef void (*MessageCallback)(const char* topic, const uint8_t* payload, size_t length);
+    
+    // Register the callback to route incoming MQTT messages back to the SDK
+    virtual void setCallback(MessageCallback cb) = 0;
+    
     // Keep connection alive
     virtual void loop() = 0;
 };

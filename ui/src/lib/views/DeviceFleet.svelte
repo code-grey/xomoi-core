@@ -1,5 +1,4 @@
-<script lang="ts">
-  import { ShieldAlert, CheckCircle, Activity, Cpu, Thermometer, Droplets, Zap, Settings } from 'lucide-svelte';
+  import { ShieldAlert, CheckCircle, Activity, Cpu, Thermometer, Droplets, Zap, Settings, UploadCloud } from 'lucide-svelte';
   import WebFlasher from '../WebFlasher.svelte';
   
   // Simulated State for the Fleet Matrix
@@ -13,8 +12,41 @@
   let selectedDevice = $state<any>(null);
   let showFlasher = $state(false);
 
+  // OTA Upload State
+  let otaFile = $state<File | null>(null);
+  let otaStatus = $state<'idle' | 'uploading' | 'success' | 'error'>('idle');
+  let otaMessage = $state('');
+
   function getStatusColor(status: string) {
     return status === 'alert' ? 'var(--accent-orange)' : 'var(--accent-cyan)';
+  }
+
+  async function handleOTAUpload() {
+    if (!otaFile || !selectedDevice) return;
+    
+    otaStatus = 'uploading';
+    otaMessage = 'Pushing firmware to Edge Node...';
+    
+    const formData = new FormData();
+    formData.append('firmware', otaFile);
+    
+    try {
+      const res = await fetch(`/api/v1/devices/${selectedDevice.id}/ota`, {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (res.ok) {
+        otaStatus = 'success';
+        otaMessage = 'OTA Triggered! Device is flashing and rebooting.';
+        setTimeout(() => { otaStatus = 'idle'; otaFile = null; }, 5000);
+      } else {
+        throw new Error('Upload failed');
+      }
+    } catch (err) {
+      otaStatus = 'error';
+      otaMessage = 'Failed to push OTA update.';
+    }
   }
 </script>
 
@@ -149,6 +181,46 @@
         <div class="rule-actions">
           <button class="save-btn">+ Add Rule</button>
         </div>
+      </div>
+
+      <!-- 4. OTA (OVER-THE-AIR) UPDATE ENGINE -->
+      <div class="ota-engine glass-panel">
+        <div class="ota-header">
+          <UploadCloud size={20} color="var(--accent-cyan)" />
+          <h3>Over-The-Air (OTA) Update</h3>
+        </div>
+        <p class="ota-desc">Push a new binary payload directly to this device over the sovereign network.</p>
+        
+        <div class="ota-controls">
+          <input 
+            type="file" 
+            accept=".bin" 
+            id="ota-file" 
+            class="file-input" 
+            onchange={(e) => otaFile = e.currentTarget.files?.[0] || null}
+          />
+          <label for="ota-file" class="file-label">
+            {otaFile ? otaFile.name : 'Select .bin Firmware'}
+          </label>
+          
+          <button 
+            class="upload-btn" 
+            disabled={!otaFile || otaStatus === 'uploading'} 
+            onclick={handleOTAUpload}
+          >
+            {#if otaStatus === 'uploading'}
+              Deploying...
+            {:else}
+              Flash Firmware
+            {/if}
+          </button>
+        </div>
+        
+        {#if otaStatus !== 'idle'}
+          <div class="ota-status {otaStatus}">
+            {otaMessage}
+          </div>
+        {/if}
       </div>
     </div>
   {/if}
@@ -395,4 +467,75 @@
     background: var(--accent-cyan);
     color: #000;
   }
+
+  /* OTA Engine */
+  .ota-engine {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-color: rgba(0, 255, 204, 0.2);
+  }
+  .ota-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .ota-header h3 { color: var(--text-primary); }
+  .ota-desc { color: var(--text-secondary); font-size: 0.9rem; }
+  
+  .ota-controls {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  
+  .file-input { display: none; }
+  .file-label {
+    background: rgba(0,0,0,0.4);
+    border: 1px dashed var(--accent-cyan-dim);
+    color: var(--text-secondary);
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    flex-grow: 1;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .file-label:hover {
+    background: rgba(0, 255, 204, 0.05);
+    color: var(--accent-cyan);
+  }
+  
+  .upload-btn {
+    background: var(--accent-cyan-dim);
+    color: var(--accent-cyan);
+    border: 1px solid var(--accent-cyan);
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .upload-btn:hover:not(:disabled) {
+    background: var(--accent-cyan);
+    color: #000;
+  }
+  .upload-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .ota-status {
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  .ota-status.uploading { background: rgba(255, 255, 255, 0.1); color: var(--text-primary); }
+  .ota-status.success { background: rgba(0, 255, 204, 0.1); color: var(--accent-cyan); }
+  .ota-status.error { background: rgba(255, 85, 0, 0.1); color: var(--accent-orange); }
 </style>

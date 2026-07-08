@@ -55,6 +55,30 @@
         h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1px; }
         .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 650px; margin-bottom: 2rem; }
 
+        /* MANIFESTO */
+        .manifesto {
+            max-width: 900px;
+            margin: 0 auto 4rem auto;
+            padding: 2rem;
+            border-left: 4px solid var(--accent);
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .manifesto h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .manifesto p {
+            color: var(--fg);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .manifesto strong { color: #fff; }
+
         /* RESPONSIVE ARCHITECTURE DIAGRAM */
         .monolith-container {
             margin: 2rem auto;
@@ -177,6 +201,14 @@
         <h1>Sovereign Edge Infrastructure.</h1>
         <p>A single-binary Go monolith designed for digital freedom. Private MQTT, encrypted SQLite, and real-time visualization at the edge.</p>
         <a href="https://github.com/code-grey/xomoi-core" class="btn">[ EXPLORE REPOSITORY ]</a>
+    </section>
+
+    <section class="manifesto">
+        <h2>The Open-Source, Single-Binary Assassin to Blynk.</h2>
+        <p>Xomoi is an industrial-grade, sovereign IoT telemetry engine. It bridges the massive gap between the "3-lines of code" simplicity of commercial platforms and the grueling 15-hour DevOps nightmare of setting up your own open-source stack.</p>
+        <p>If you are a maker or an indie hardware startup trying to build a custom fleet of sensors, you usually face bad choices: heavy Python monoliths, enterprise Java stacks that demand 4GB of RAM, or closed-source cloud platforms where you pay monthly subscriptions and do not own your data.</p>
+        <p><strong>Xomoi is the "SQLite of IoT Platforms".</strong></p>
+        <p>It is a single 15MB Go executable. You drop it onto a $5 Raspberry Pi Zero, double-click it, and it instantly spins up an embedded Mochi-MQTT Broker, a SQLite (WAL) time-series database, and a stunning Svelte 5 Web Dashboard. Zero dependencies. Zero configuration.</p>
     </section>
 
     <section class="monolith-container">

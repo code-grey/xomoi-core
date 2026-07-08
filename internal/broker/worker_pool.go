@@ -54,7 +54,10 @@ func (wp *WorkerPool) worker(id int) {
 			log.Printf("[Worker %d] Failed to process job for device %s: %v", id, job.DeviceID, err)
 		}
 		
-		// CRITICAL OPTIMIZATION: Return the object to the pool so the GC never has to clean it up.
+		// CRITICAL SAFETY RULES FOR SYNC.POOL:
+		// 1. You MUST NOT hold any references to 'job' after this Put().
+		// 2. You MUST NOT call Put() twice on the same object (fatal memory corruption).
+		// By doing it exactly once at the bottom of the range loop, we guarantee safety.
 		wp.jobPool.Put(job)
 	}
 }
@@ -63,6 +66,11 @@ func (wp *WorkerPool) worker(id int) {
 func (wp *WorkerPool) Submit(deviceID string, payload []byte) {
 	// Borrow a job struct from the pool (Zero Heap Allocation)
 	job := wp.jobPool.Get().(*Job)
+	
+	// DEFENSIVE ZEROING: 
+	// We MUST overwrite every single field of the struct here. If we miss a field,
+	// data from the previous request (which used this struct) will leak into the new request,
+	// causing silent data corruption.
 	job.DeviceID = deviceID
 	job.Payload = payload 
 

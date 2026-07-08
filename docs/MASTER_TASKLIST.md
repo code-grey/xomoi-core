@@ -91,7 +91,7 @@
     - [x] HTTP-Pull based binary stream for zero-downtime remote firmware updates (with MQTT RPC Trigger).
     - [ ] Dynamic NVS (Non-Volatile Storage) config updates to change ping frequency without flashing.
 - [ ] **10.2: Remote Access & Discovery**
-    - [ ] WebRTC P2P Hole-punching (Zero-config, zero-port-forwarding, via free Render signaling server).
+    - [x] WebRTC P2P Hole-punching (Zero-config, zero-port-forwarding, via free Render signaling server).
     - [ ] Fallback support for Tailscale / Custom Signaling Servers for advanced Homelab users.
 	- [ ] mDNS (`xomoi.local`) zero-config auto-discovery for local network UX.
 

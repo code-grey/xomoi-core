@@ -56,9 +56,10 @@
 - [x] **7.1: Xomoi C++ SDK Foundation (`sdk/`)**
     - [x] Protobuf Discovery Schema (`xomoi.proto`) and NanoPB constraints (`xomoi.options`).
     - [x] Generated NanoPB C headers (`xomoi.pb.c`) for zero-allocation memory on the ESP32.
-- [ ] **7.2: Xomoi C++ Engine Implementation**
-    - [ ] Hardware SHA-256 HMAC-Lite Cryptography via `mbedtls`.
-    - [ ] Implement Protobuf byte streaming and Discovery callbacks in `XomoiCore.cpp`.
+- [x] **7.2: Xomoi C++ Engine Implementation**
+    - [x] Hardware SHA-256 HMAC-Lite Cryptography via `mbedtls`.
+    - [x] Implement Protobuf byte streaming and Discovery callbacks in `XomoiCore.cpp`.
+    - [x] Implement Telemetry Batching and two-way RPC hooks.
 
 ## PHASE 8: ALERTS & HEXAGONAL BACKUP (WEEKS 17-18)
 - [x] **8.1: Alert Engine (`internal/alerts/`)**

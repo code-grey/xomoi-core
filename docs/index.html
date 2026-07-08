@@ -207,6 +207,10 @@
             <h3>Sovereign UI</h3>
             <p>Real-time Svelte 5 dashboard embedded via `go:embed`. Visualization and control that stays inside your local network.</p>
         </div>
+        <div class="card">
+            <h3>The Blacksmith SDK</h3>
+            <p>A C++ hardware client enforcing zero-allocation NanoPB batching and two-way RPC, slashing SD-card writes by up to 80%.</p>
+        </div>
     </section>
 
     <section class="code-block">
@@ -216,6 +220,12 @@ $ xomoi-ctl generate --mcu esp32 --sensor dht22
 > Pruning 'pro' fields for ESP32 RAM safety...
 > Generating Lite C++ SDK Header [Holey-Header mode]...
 > SUCCESS: Project ready in ./build/esp32_dht22
+
+// C++ Implementation
+xomoi.beginBatch();
+xomoi.addTemperature(25.4);
+xomoi.addHumidity(60.2);
+xomoi.publishBatch(); // 1 JSON row in SQLite!
 </pre>
     </section>
 </main>

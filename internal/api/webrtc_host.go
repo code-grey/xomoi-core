@@ -6,6 +6,8 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
+	mqtt "github.com/mochi-mqtt/server/v2"
+	"github.com/mochi-mqtt/server/v2/packets"
 	"github.com/pion/webrtc/v4"
 )
 
@@ -23,14 +25,16 @@ type WebRTCHost struct {
 	signalingURL string
 	ws           *websocket.Conn
 	api          *webrtc.API
+	broker       *mqtt.Server
 }
 
 // NewWebRTCHost creates a new WebRTC host instance
-func NewWebRTCHost(nodeID, signalingURL string) *WebRTCHost {
+func NewWebRTCHost(nodeID, signalingURL string, broker *mqtt.Server) *WebRTCHost {
 	return &WebRTCHost{
 		nodeID:       nodeID,
 		signalingURL: signalingURL,
 		api:          webrtc.NewAPI(),
+		broker:       broker,
 	}
 }
 
@@ -121,11 +125,17 @@ func (h *WebRTCHost) handleOffer(offer webrtc.SessionDescription, clientID strin
 	pc.OnDataChannel(func(d *webrtc.DataChannel) {
 		slog.Info("E2E Encrypted DataChannel opened!", "label", d.Label())
 
+		// Subscribe the WebRTC Tunnel directly to the embedded MQTT Broker
+		h.broker.Subscribe("/xomoi/+/telemetry", 1, func(cl *mqtt.Client, sub packets.Subscription, pk packets.Packet) {
+			// Real-time: As soon as an ESP32 fires telemetry, stream it P2P to the Web UI
+			if d.ReadyState() == webrtc.DataChannelStateOpen {
+				d.SendText(string(pk.Payload))
+			}
+		})
+
 		d.OnMessage(func(msg webrtc.DataChannelMessage) {
-			slog.Info("Received P2P Message", "data", string(msg.Data))
-			
-			// Echo it back for testing
-			d.SendText("Xomoi-Core Acknowledges: " + string(msg.Data))
+			slog.Info("Received P2P Command from Dashboard", "data", string(msg.Data))
+			// TODO: Forward WebRTC commands into Mochi-MQTT to trigger OTA or relay toggles
 		})
 	})
 

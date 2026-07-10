@@ -3,8 +3,10 @@ package api
 import (
 	"encoding/json"
 	"log/slog"
+	"math/rand"
 	"time"
 
+	"github.com/cenkalti/backoff/v4"
 	"github.com/gorilla/websocket"
 	mqtt "github.com/mochi-mqtt/server/v2"
 	"github.com/mochi-mqtt/server/v2/packets"
@@ -38,28 +40,40 @@ func NewWebRTCHost(nodeID, signalingURL string, broker *mqtt.Server) *WebRTCHost
 	}
 }
 
-// Start connects to the signaling server and listens for incoming connections
+// Start connects to the signaling server and maintains the connection forever using Exponential Backoff
 func (h *WebRTCHost) Start() {
-	url := h.signalingURL + "?id=" + h.nodeID
-	slog.Info("WebRTC Host connecting to signaling server", "url", url)
+	go func() {
+		operation := func() error {
+			url := h.signalingURL + "?id=" + h.nodeID
+			slog.Info("WebRTC Host connecting to signaling server", "url", url)
 
-	var err error
-	for {
-		h.ws, _, err = websocket.DefaultDialer.Dial(url, nil)
-		if err == nil {
-			break
+			var err error
+			h.ws, _, err = websocket.DefaultDialer.Dial(url, nil)
+			if err != nil {
+				slog.Warn("Signaling connection failed. Backing off...", "error", err)
+				return err // Returning error triggers the exponential backoff retry
+			}
+
+			slog.Info("WebRTC Signaling Connected. Awaiting E2E E2E connections...")
+			
+			// This blocks until the WebSocket physically disconnects
+			return h.listenLoop()
 		}
-		slog.Warn("Signaling server offline. Retrying in 5s...", "error", err)
-		time.Sleep(5 * time.Second)
-	}
 
-	slog.Info("WebRTC Signaling Connected. Awaiting connections...")
+		// Configure Exponential Backoff with Jitter
+		b := backoff.NewExponentialBackOff()
+		b.MaxElapsedTime = 0 // Never stop retrying (Infinite retry for edge nodes)
+		b.InitialInterval = 1 * time.Second
+		b.MaxInterval = 60 * time.Second
 
-	// Listen for incoming offers
-	go h.listenLoop()
+		// This loop runs forever. If operation() returns an error, it sleeps (with backoff) and retries.
+		backoff.Retry(operation, b)
+	}()
 }
 
-func (h *WebRTCHost) listenLoop() {
+func (h *WebRTCHost) listenLoop() error {
+	defer h.ws.Close()
+
 	// A single map to hold the active peer connection for now. 
 	// In production, we'd manage multiple concurrent peer connections in a map.
 	var pc *webrtc.PeerConnection
@@ -68,7 +82,7 @@ func (h *WebRTCHost) listenLoop() {
 		_, msgBytes, err := h.ws.ReadMessage()
 		if err != nil {
 			slog.Error("Signaling WebSocket disconnected", "error", err)
-			return // Ideally trigger a reconnect loop here
+			return err // Return the error to trigger the Backoff Reconnection!
 		}
 
 		var msg SignalMessage
@@ -94,10 +108,36 @@ func (h *WebRTCHost) listenLoop() {
 	}
 }
 
+var publicSTUNServers = []string{
+	"stun:stun.l.google.com:19302",
+	"stun:stun1.l.google.com:19302",
+	"stun:stun.cloudflare.com:3478",
+	"stun:stun.services.mozilla.com:3478",
+	"stun:stun.twilio.com:3478",
+	"stun:stun.framasoft.org:3478",
+	"stun:stun.miwifi.com:3478",
+	"stun:stun.3cx.com:3478",
+	"stun:stun.voip.blackberry.com:3478",
+}
+
+func getActiveSTUNPool() []string {
+	// Copy the slice so we don't permanently alter the global array order
+	pool := make([]string, len(publicSTUNServers))
+	copy(pool, publicSTUNServers)
+
+	// Shuffle the array to distribute load randomly
+	rand.Shuffle(len(pool), func(i, j int) {
+		pool[i], pool[j] = pool[j], pool[i]
+	})
+
+	// Return exactly 2 STUN servers to use (Active Pool), leaving 8 in the Cold Pool
+	return pool[:2]
+}
+
 func (h *WebRTCHost) handleOffer(offer webrtc.SessionDescription, clientID string) *webrtc.PeerConnection {
 	config := webrtc.Configuration{
 		ICEServers: []webrtc.ICEServer{
-			{URLs: []string{"stun:stun.l.google.com:19302"}},
+			{URLs: getActiveSTUNPool()},
 		},
 	}
 

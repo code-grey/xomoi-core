@@ -10,6 +10,26 @@ import (
 	"strings"
 )
 
+// isValidMAC provides ultra-fast, zero-allocation MAC address validation
+func isValidMAC(mac string) bool {
+	if len(mac) != 17 {
+		return false
+	}
+	for i := 0; i < len(mac); i++ {
+		c := mac[i]
+		if i%3 == 2 {
+			if c != ':' && c != '_' {
+				return false
+			}
+		} else {
+			if !((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
+				return false
+			}
+		}
+	}
+	return true
+}
+
 // MQTTPublisher defines the interface to interact with the embedded Mochi-MQTT broker
 // or any external broker for the OTA RPC command.
 type MQTTPublisher interface {
@@ -37,8 +57,8 @@ func NewOTAHandler(pub MQTTPublisher, otaDir string) *OTAHandler {
 func (h *OTAHandler) UploadFirmware(w http.ResponseWriter, r *http.Request) {
 	// Simple path param extraction (Assuming Go 1.22+ ServeMux routing: /api/v1/devices/{mac}/ota)
 	mac := r.PathValue("mac")
-	if mac == "" {
-		http.Error(w, "Missing MAC address", http.StatusBadRequest)
+	if !isValidMAC(mac) {
+		http.Error(w, "Invalid or missing MAC address", http.StatusBadRequest)
 		return
 	}
 
@@ -100,8 +120,8 @@ func (h *OTAHandler) UploadFirmware(w http.ResponseWriter, r *http.Request) {
 // The ESP32 calls this endpoint after receiving the MQTT RPC trigger.
 func (h *OTAHandler) DownloadFirmware(w http.ResponseWriter, r *http.Request) {
 	mac := r.PathValue("mac")
-	if mac == "" {
-		http.Error(w, "Missing MAC address", http.StatusBadRequest)
+	if !isValidMAC(mac) {
+		http.Error(w, "Invalid or missing MAC address", http.StatusBadRequest)
 		return
 	}
 

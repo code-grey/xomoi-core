@@ -87,17 +87,22 @@
     - [x] Matrix-style real-time Telemetry, Worker Pool health, and Active Claims viewing.
 
 ## PHASE 10: REMOTE OPERATIONS & OTA (WEEKS 21-22)
-- [ ] **10.1: OTA (Over-The-Air) Engine**
+- [ ] **10.1: OTA Engine & Device Management**
     - [x] HTTP-Pull based binary stream for zero-downtime remote firmware updates (with MQTT RPC Trigger).
-    - [ ] Dynamic NVS (Non-Volatile Storage) config updates to change ping frequency without flashing.
+    - [x] Dynamic NVS (Non-Volatile Storage) config updates via Retained MQTT RPCs.
+    - [ ] Hardware RTC Deep Sleep Scheduling (Command ESP32 to sleep to save battery, wake on schedule).
 - [ ] **10.2: Remote Access & Discovery**
     - [x] WebRTC P2P Hole-punching (Zero-config, zero-port-forwarding, via free Render signaling server).
     - [ ] Fallback support for Tailscale / Custom Signaling Servers for advanced Homelab users.
 	- [x] mDNS (`xomoi.local`) zero-config auto-discovery for local network UX.
 
-## PHASE 11: FEDERATION (MESH NETWORKING)
-- [ ] **11.1: Node-to-Node Bridging**
-    - [ ] Mochi-MQTT Bridge configuration to forward `/xomoi/+/telemetry` to a Primary Node.
-    - [ ] Auto-discovery of local Satellite nodes.
-- [ ] **11.2: Unified Federation Dashboard**
-    - [ ] Display aggregate fleet health and sensor data from all Satellite nodes in one single UI.
+## PHASE 11: FEDERATION & MESH NETWORKING
+- [ ] **11.1: The Immortal Gossip Mesh**
+    - [ ] Implement `hashicorp/memberlist` for O(log N) decentralized epidemic routing.
+    - [ ] Build CRDTs (Conflict-Free Replicated Data Types) for Split-Brain immunity during network partitions.
+    - [ ] Cross-node Mochi-MQTT bridging for seamless global telemetry aggregation.
+
+## PHASE 12: ENTERPRISE SECURITY & RBAC
+- [ ] **12.1: Granular Role-Based Access Control**
+    - [ ] Implement Owner, Editor, and Viewer roles for device sharing.
+    - [ ] Map Roles dynamically to Mochi-MQTT ACLs (e.g., Viewers can subscribe, but cannot publish RPC configs).

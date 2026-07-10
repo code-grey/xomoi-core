@@ -12,15 +12,17 @@ import (
 type Server struct {
 	userRepo    repository.UserRepository
 	sessionRepo repository.SessionRepository
-	otaHandler  *handlers.OTAHandler
+	otaHandler    *handlers.OTAHandler
+	configHandler *handlers.ConfigHandler
 }
 
 // NewServer creates a new API Server instance.
 func NewServer(uRepo repository.UserRepository, sRepo repository.SessionRepository, pub handlers.MQTTPublisher) *Server {
 	return &Server{
 		userRepo:    uRepo,
-		sessionRepo: sRepo,
-		otaHandler:  handlers.NewOTAHandler(pub, "data/ota"),
+		sessionRepo:   sRepo,
+		otaHandler:    handlers.NewOTAHandler(pub, "data/ota"),
+		configHandler: handlers.NewConfigHandler(pub),
 	}
 }
 
@@ -44,6 +46,9 @@ func (s *Server) SetupRouter() http.Handler {
 	mux.Handle("POST /api/v1/devices/{mac}/ota", middleware.SessionCheck(s.sessionRepo, http.HandlerFunc(s.otaHandler.UploadFirmware)))
 	// The download endpoint is public so the hardware device can pull it without session cookies
 	mux.HandleFunc("GET /api/v1/devices/{mac}/ota/download", s.otaHandler.DownloadFirmware)
+
+	// Dynamic NVS Config Endpoints
+	mux.Handle("POST /api/v1/devices/{mac}/config", middleware.SessionCheck(s.sessionRepo, http.HandlerFunc(s.configHandler.UpdateDeviceConfig)))
 
 	// Apply global Panic Recovery middleware to ensure the broker never crashes from an API panic.
 	return middleware.PanicRecovery(mux)

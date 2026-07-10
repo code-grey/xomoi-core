@@ -93,7 +93,7 @@
 - [ ] **10.2: Remote Access & Discovery**
     - [x] WebRTC P2P Hole-punching (Zero-config, zero-port-forwarding, via free Render signaling server).
     - [ ] Fallback support for Tailscale / Custom Signaling Servers for advanced Homelab users.
-	- [ ] mDNS (`xomoi.local`) zero-config auto-discovery for local network UX.
+	- [x] mDNS (`xomoi.local`) zero-config auto-discovery for local network UX.
 
 ## PHASE 11: FEDERATION (MESH NETWORKING)
 - [ ] **11.1: Node-to-Node Bridging**

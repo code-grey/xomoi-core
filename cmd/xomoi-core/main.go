@@ -18,6 +18,7 @@ import (
 	"github.com/code-grey/xomoi-core/internal/repository/sqlite"
 	"github.com/code-grey/xomoi-core/internal/state"
 	"github.com/code-grey/xomoi-core/internal/worker"
+	"github.com/code-grey/xomoi-core/internal/network"
 )
 
 func main() {
@@ -92,7 +93,13 @@ func main() {
 		}
 	}()
 
-	// 7. Graceful Shutdown & Signal Trapping
+	// 7. Start mDNS Zero-Config Broadcaster
+	mdnsServer, err := network.StartMDNS(8085)
+	if err != nil {
+		slog.Warn("mDNS failed to start, falling back to raw IP access", "error", err)
+	}
+
+	// 8. Graceful Shutdown & Signal Trapping
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
@@ -116,7 +123,12 @@ func main() {
 	// D. Stop Ingestion Workers
 	workerPool.Stop()
 
-	// E. Execute Hexagonal Backup Snapshot (e.g., upload to Discord)
+	// E. Stop mDNS
+	if mdnsServer != nil {
+		mdnsServer.Stop()
+	}
+
+	// F. Execute Hexagonal Backup Snapshot (e.g., upload to Discord)
 	// preserver := backup.NewDiscordPreserver("WEBHOOK_URL")
 	// preserver.Save(context.Background(), "xomoi.db")
 	slog.Info("Disaster recovery snapshot completed.")

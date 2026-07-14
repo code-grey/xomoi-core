@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+
+	"github.com/code-grey/xomoi-core/internal/api/response"
 )
 
 // isValidMAC provides ultra-fast, zero-allocation MAC address validation
@@ -48,13 +50,13 @@ func NewConfigHandler(pub MQTTPublisher) *ConfigHandler {
 func (h *ConfigHandler) UpdateDeviceConfig(w http.ResponseWriter, r *http.Request) {
 	mac := r.PathValue("mac")
 	if !isValidMAC(mac) {
-		http.Error(w, "Invalid or missing MAC address", http.StatusBadRequest)
+		response.Error(w, http.StatusBadRequest, "Invalid or missing MAC address")
 		return
 	}
 
 	var config DeviceConfig
 	if err := json.NewDecoder(r.Body).Decode(&config); err != nil {
-		http.Error(w, "Invalid JSON payload", http.StatusBadRequest)
+		response.Error(w, http.StatusBadRequest, "Invalid JSON payload")
 		return
 	}
 
@@ -62,7 +64,7 @@ func (h *ConfigHandler) UpdateDeviceConfig(w http.ResponseWriter, r *http.Reques
 	// (Or we could use Protobuf here if we want maximum efficiency)
 	payload, err := json.Marshal(config)
 	if err != nil {
-		http.Error(w, "Failed to marshal config", http.StatusInternalServerError)
+		response.Error(w, http.StatusInternalServerError, "Failed to marshal config")
 		return
 	}
 
@@ -76,7 +78,7 @@ func (h *ConfigHandler) UpdateDeviceConfig(w http.ResponseWriter, r *http.Reques
 		err := h.publisher.Publish(topic, payload, true, 1) // QoS 1 ensures delivery
 		if err != nil {
 			slog.Error("Failed to publish Config RPC", "mac", mac, "error", err)
-			http.Error(w, "Failed to send command to device", http.StatusInternalServerError)
+			response.Error(w, http.StatusInternalServerError, "Failed to send command to device")
 			return
 		}
 		
@@ -85,6 +87,8 @@ func (h *ConfigHandler) UpdateDeviceConfig(w http.ResponseWriter, r *http.Reques
 		slog.Warn("Config RPC requested but MQTTPublisher is nil (Headless Mode)", "mac", mac)
 	}
 
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(`{"status":"success", "message":"Configuration update sent to device"}`))
+	response.JSON(w, http.StatusOK, map[string]string{
+		"status": "success",
+		"message": "Configuration update sent to device",
+	})
 }

@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"time"
 
 	"github.com/code-grey/xomoi-core/internal/core"
 )
@@ -41,17 +42,17 @@ type SensorTagRepository interface {
 	GetByFieldID(ctx context.Context, deviceID string, fieldID uint8) (*core.SensorTag, error)
 }
 
-// TelemetryRepository is responsible for reading bulk telemetry data.
-// Note: Write operations are typically handled by the Hot State engine and bulk-flushed.
+// TelemetryRepository is responsible for TSDB telemetry data access.
 type TelemetryRepository interface {
-	// GetDeviceHistory retrieves historical telemetry points for a specific device and time range.
-	GetDeviceHistory(ctx context.Context, deviceID string, start, end int64) ([]byte, error)
+	InsertTelemetry(ctx context.Context, deviceID string, temp, hum *float64, state string) error
+	GetDeviceHistory(ctx context.Context, deviceID string, since time.Time) ([]core.TelemetryPoint, error)
 }
 
 // AlertRuleRepository manages threshold rules for devices.
 type AlertRuleRepository interface {
 	Create(ctx context.Context, rule *core.AlertRule) error
 	GetByDevice(ctx context.Context, deviceID string) ([]*core.AlertRule, error)
+	GetAll(ctx context.Context) ([]*core.AlertRule, error)
 	Update(ctx context.Context, rule *core.AlertRule) error
 	Delete(ctx context.Context, id string) error
 }

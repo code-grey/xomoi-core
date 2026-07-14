@@ -4,10 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"net/http"
+	"os"
 	"runtime"
 	"sync"
 	"time"
 
+	"github.com/code-grey/xomoi-core/internal/config"
 	"github.com/gorilla/websocket"
 )
 
@@ -48,6 +50,8 @@ var upgrader = websocket.Upgrader{
 type HealthStats struct {
 	RamUsageMB  float64  `json:"ram_usage_mb"`
 	NumWorkers  int      `json:"num_workers"`
+	NumCPU      int      `json:"num_cpu"`
+	WalSizeMB   float64  `json:"wal_size_mb"`
 	UptimeSec   int64    `json:"uptime_sec"`
 	GcPausesNs  uint64   `json:"gc_pauses_ns"`
 	HeapSysMb   float64  `json:"heap_sys_mb"`
@@ -73,9 +77,16 @@ func HealthWebSocket(w http.ResponseWriter, r *http.Request) {
 			var m runtime.MemStats
 			runtime.ReadMemStats(&m)
 
+			var walSize float64 = 0
+			if info, err := os.Stat(config.Load().DBPath + "-wal"); err == nil {
+				walSize = float64(info.Size()) / 1024 / 1024
+			}
+
 			stats := HealthStats{
 				RamUsageMB:  float64(m.Alloc) / 1024 / 1024,
-				NumWorkers:  runtime.NumCPU(),
+				NumWorkers:  config.Load().IngestionWorkers,
+				NumCPU:      runtime.NumCPU(),
+				WalSizeMB:   walSize,
 				UptimeSec:   int64(time.Since(serverStartTime).Seconds()),
 				GcPausesNs:  m.PauseNs[(m.NumGC+255)%256],
 				HeapSysMb:   float64(m.HeapSys) / 1024 / 1024,

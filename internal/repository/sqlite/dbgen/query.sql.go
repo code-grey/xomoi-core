@@ -7,6 +7,7 @@ package dbgen
 
 import (
 	"context"
+	"database/sql"
 	"encoding/json"
 	"time"
 )
@@ -110,6 +111,73 @@ func (q *Queries) GetDeviceRoles(ctx context.Context, deviceID string) ([]GetDev
 	return items, nil
 }
 
+const getTelemetryHistory = `-- name: GetTelemetryHistory :many
+SELECT id, device_id, temperature, humidity, state, timestamp FROM telemetry_history
+WHERE device_id = ? 
+  AND timestamp >= ?
+ORDER BY timestamp ASC
+`
+
+type GetTelemetryHistoryParams struct {
+	DeviceID  string       `json:"device_id"`
+	Timestamp sql.NullTime `json:"timestamp"`
+}
+
+func (q *Queries) GetTelemetryHistory(ctx context.Context, arg GetTelemetryHistoryParams) ([]TelemetryHistory, error) {
+	rows, err := q.db.QueryContext(ctx, getTelemetryHistory, arg.DeviceID, arg.Timestamp)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []TelemetryHistory
+	for rows.Next() {
+		var i TelemetryHistory
+		if err := rows.Scan(
+			&i.ID,
+			&i.DeviceID,
+			&i.Temperature,
+			&i.Humidity,
+			&i.State,
+			&i.Timestamp,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const insertTelemetry = `-- name: InsertTelemetry :exec
+INSERT INTO telemetry_history (
+    device_id, temperature, humidity, state
+) VALUES (
+    ?, ?, ?, ?
+)
+`
+
+type InsertTelemetryParams struct {
+	DeviceID    string          `json:"device_id"`
+	Temperature sql.NullFloat64 `json:"temperature"`
+	Humidity    sql.NullFloat64 `json:"humidity"`
+	State       sql.NullString  `json:"state"`
+}
+
+func (q *Queries) InsertTelemetry(ctx context.Context, arg InsertTelemetryParams) error {
+	_, err := q.db.ExecContext(ctx, insertTelemetry,
+		arg.DeviceID,
+		arg.Temperature,
+		arg.Humidity,
+		arg.State,
+	)
+	return err
+}
+
 const insertTelemetryRollup = `-- name: InsertTelemetryRollup :exec
 INSERT INTO telemetry_rollups (
     device_id, date, avg_payload, max_payload, min_payload
@@ -138,6 +206,16 @@ func (q *Queries) InsertTelemetryRollup(ctx context.Context, arg InsertTelemetry
 		arg.MaxPayload,
 		arg.MinPayload,
 	)
+	return err
+}
+
+const pruneTelemetryHistory = `-- name: PruneTelemetryHistory :exec
+DELETE FROM telemetry_history
+WHERE timestamp < datetime('now', '-30 days')
+`
+
+func (q *Queries) PruneTelemetryHistory(ctx context.Context) error {
+	_, err := q.db.ExecContext(ctx, pruneTelemetryHistory)
 	return err
 }
 

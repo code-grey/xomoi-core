@@ -11,6 +11,67 @@
   let otaStatus = $state<'idle' | 'uploading' | 'success' | 'error'>('idle');
   let otaMessage = $state('');
 
+  // Rules Engine State
+  let rules = $state<any[]>([]);
+  let newRuleTag = $state('temp');
+  let newRuleCondition = $state('>');
+  let newRuleThreshold = $state(30);
+
+  // Fetch rules whenever the selected device changes
+  $effect(() => {
+    if (selectedDevice) {
+      fetchRules();
+    } else {
+      rules = [];
+    }
+  });
+
+  async function fetchRules() {
+    if (!selectedDevice) return;
+    try {
+      const res = await fetch(`/api/v1/devices/${selectedDevice.id}/rules`);
+      if (res.ok) {
+        rules = await res.json() || [];
+      }
+    } catch (e) {
+      console.error("Failed to fetch rules", e);
+    }
+  }
+
+  async function addRule() {
+    if (!selectedDevice) return;
+    try {
+      const payload = {
+        tag_name: newRuleTag,
+        condition: newRuleCondition,
+        threshold: newRuleThreshold
+      };
+      const res = await fetch(`/api/v1/devices/${selectedDevice.id}/rules`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        await fetchRules(); // Refresh list
+      } else {
+        alert("Failed to add rule");
+      }
+    } catch (e) {
+      alert("Network error while adding rule");
+    }
+  }
+
+  async function deleteRule(id: string) {
+    try {
+      const res = await fetch(`/api/v1/rules/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        rules = rules.filter(r => r.id !== id);
+      }
+    } catch (e) {
+      console.error("Failed to delete rule", e);
+    }
+  }
+
   function getStatusColor(status: string) {
     return status === 'alert' ? 'var(--accent-orange)' : status === 'offline' ? 'var(--text-secondary)' : 'var(--accent-cyan)';
   }
@@ -191,27 +252,37 @@
           <Settings size={20} color="var(--accent-purple)" />
           <h3>Alert Rules Engine</h3>
         </div>
+
+        <div class="existing-rules">
+          {#each rules as rule}
+            <div class="rule-item">
+              <span class="rule-text mono">IF {rule.tag_name} {rule.condition} {rule.threshold} THEN Trigger Alert</span>
+              <button class="delete-btn" onclick={() => deleteRule(rule.id)}>Delete</button>
+            </div>
+          {/each}
+        </div>
+
         <div class="rule-builder">
           <span>IF</span>
-          <select class="rule-select">
-            <option>Temperature</option>
-            <option>Humidity</option>
+          <select class="rule-select" bind:value={newRuleTag}>
+            <option value="temp">Temperature</option>
+            <option value="hum">Humidity</option>
+            <option value="state">Relay/PIR State</option>
           </select>
-          <select class="rule-select">
-            <option>&gt;</option>
-            <option>&lt;</option>
-            <option>==</option>
+          <select class="rule-select" bind:value={newRuleCondition}>
+            <option value=">">&gt;</option>
+            <option value="<">&lt;</option>
+            <option value="==">==</option>
+            <option value="!=">!=</option>
           </select>
-          <input type="number" value={selectedDevice.type === 'DHT11 Env' ? 30 : 1} class="rule-input mono" />
+          <input type="number" bind:value={newRuleThreshold} class="rule-input mono" />
           <span>THEN</span>
           <select class="rule-select action">
             <option>Trigger Alert Status</option>
-            <option>Toggle Relay (ESP8266-D4)</option>
-            <option>Send Discord Webhook</option>
           </select>
         </div>
         <div class="rule-actions">
-          <button class="save-btn">+ Add Rule</button>
+          <button class="save-btn" onclick={addRule}>+ Add Rule</button>
         </div>
       </div>
 
@@ -471,6 +542,33 @@
   }
   .rules-header h3 { color: var(--text-primary); }
   
+  .existing-rules {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .rule-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .rule-text { color: var(--accent-cyan); font-size: 0.9rem; font-weight: 600; }
+  .delete-btn {
+    color: var(--accent-orange);
+    background: rgba(255, 85, 0, 0.1);
+    border: 1px solid rgba(255, 85, 0, 0.3);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+  .delete-btn:hover { background: rgba(255, 85, 0, 0.2); }
+
   .rule-builder {
     display: flex;
     align-items: center;

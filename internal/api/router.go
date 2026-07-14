@@ -6,30 +6,35 @@ import (
 	"github.com/code-grey/xomoi-core/internal/api/handlers"
 	"github.com/code-grey/xomoi-core/internal/api/middleware"
 	"github.com/code-grey/xomoi-core/internal/repository"
+	"github.com/code-grey/xomoi-core/internal/worker"
 	mqtt "github.com/mochi-mqtt/server/v2"
 )
 
 // Server holds the dependencies for the HTTP server.
 type Server struct {
-	userRepo    repository.UserRepository
-	sessionRepo repository.SessionRepository
-	otaHandler    *handlers.OTAHandler
-	configHandler *handlers.ConfigHandler
-	rpcHandler    *handlers.RPCHandler
-	claimHandler  *handlers.ClaimHandler
-	broker        *mqtt.Server
+	userRepo         repository.UserRepository
+	sessionRepo      repository.SessionRepository
+	otaHandler       *handlers.OTAHandler
+	configHandler    *handlers.ConfigHandler
+	rpcHandler       *handlers.RPCHandler
+	claimHandler     *handlers.ClaimHandler
+	telemetryHandler *handlers.TelemetryHandler
+	rulesHandler     *handlers.RulesHandler
+	broker           *mqtt.Server
 }
 
 // NewServer creates a new API Server instance.
-func NewServer(uRepo repository.UserRepository, sRepo repository.SessionRepository, dRepo repository.DeviceRepository, broker *mqtt.Server, pub handlers.MQTTPublisher) *Server {
+func NewServer(uRepo repository.UserRepository, sRepo repository.SessionRepository, dRepo repository.DeviceRepository, tsdb repository.TelemetryRepository, ruleRepo repository.AlertRuleRepository, broker *mqtt.Server, pub handlers.MQTTPublisher, rulesEngine *worker.RulesEngine) *Server {
 	return &Server{
-		userRepo:      uRepo,
-		sessionRepo:   sRepo,
-		otaHandler:    handlers.NewOTAHandler(pub, "data/ota"),
-		configHandler: handlers.NewConfigHandler(pub),
-		rpcHandler:    handlers.NewRPCHandler(pub),
-		claimHandler:  handlers.NewClaimHandler(dRepo),
-		broker:        broker,
+		userRepo:         uRepo,
+		sessionRepo:      sRepo,
+		otaHandler:       handlers.NewOTAHandler(pub, "data/ota"),
+		configHandler:    handlers.NewConfigHandler(pub),
+		rpcHandler:       handlers.NewRPCHandler(pub),
+		claimHandler:     handlers.NewClaimHandler(dRepo),
+		telemetryHandler: handlers.NewTelemetryHandler(tsdb),
+		rulesHandler:     handlers.NewRulesHandler(ruleRepo, rulesEngine),
+		broker:           broker,
 	}
 }
 
@@ -63,6 +68,9 @@ func (s *Server) SetupRouter() http.Handler {
 
 	// Dynamic NVS Config Endpoints
 	mux.Handle("POST /api/v1/devices/{mac}/config", middleware.SessionCheck(s.sessionRepo, http.HandlerFunc(s.configHandler.UpdateDeviceConfig)))
+
+	// TSDB History
+	mux.HandleFunc("GET /api/v1/devices/{mac}/history", s.telemetryHandler.GetHistory)
 
 	// Generic RPC Actuation Endpoints
 	mux.Handle("POST /api/v1/devices/{mac}/rpc", middleware.SessionCheck(s.sessionRepo, http.HandlerFunc(s.rpcHandler.ExecuteCommand)))

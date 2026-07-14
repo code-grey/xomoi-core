@@ -6,6 +6,8 @@
   let ramUsage = $state('0.00');
   let uptime = $state('0');
   let numWorkers = $state(0);
+  let numCpu = $state(0);
+  let walSize = $state('0.00');
   
   // Advanced Metrics
   let gcPauses = $state('0');
@@ -27,6 +29,8 @@
       ramUsage = data.ram_usage_mb.toFixed(2);
       uptime = data.uptime_sec;
       numWorkers = data.num_workers;
+      numCpu = data.num_cpu || 1;
+      walSize = (data.wal_size_mb || 0).toFixed(2);
       
       // Advanced
       gcPauses = (data.gc_pauses_ns / 1000000).toFixed(2); // ms
@@ -81,15 +85,15 @@
     <MetricCard title="RAM Usage" value={ramUsage} unit="MB" Icon={HardDrive} sparkline={points} />
     
     <!-- Worker Pool with visual blocks -->
-    <MetricCard title="Worker Pool" value={`${numWorkers} / ${numWorkers}`} unit="Active" Icon={Cpu}>
-      <div class="worker-grid">
+    <MetricCard title="Worker Pool" value={`${numWorkers}`} unit={`Workers (vs ${numCpu} CPU Cores)`} Icon={Cpu}>
+      <div class="worker-grid" title={`${Math.round((numWorkers/numCpu)*100)}% CPU Thread Saturation`}>
         {#each Array(numWorkers) as _, i}
           <div class="worker-block active"></div>
         {/each}
       </div>
     </MetricCard>
     
-    <MetricCard title="SQLite WAL" value="1.8" unit="MB" Icon={Database} />
+    <MetricCard title="SQLite WAL" value={walSize} unit="MB" Icon={Database} />
     <MetricCard title="Uptime" value={uptime} unit="Sec" Icon={Clock} />
   </div>
 

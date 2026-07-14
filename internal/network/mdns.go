@@ -2,6 +2,7 @@ package network
 
 import (
 	"log/slog"
+	"strconv"
 
 	"github.com/grandcat/zeroconf"
 )
@@ -13,8 +14,14 @@ type MDNSServer struct {
 
 // StartMDNS initializes the mDNS broadcast.
 // It tells all devices on the local network that xomoi.local points to this IP.
-func StartMDNS(port int) (*MDNSServer, error) {
+func StartMDNS(portStr string) (*MDNSServer, error) {
 	slog.Info("Starting mDNS Zero-Config Broadcaster...")
+
+	port, err := strconv.Atoi(portStr)
+	if err != nil {
+		slog.Error("Invalid port for mDNS", "error", err)
+		return nil, err
+	}
 
 	// Register a service pointing to xomoi.local
 	// "_http._tcp" is the standard service type for web servers.
@@ -25,7 +32,7 @@ func StartMDNS(port int) (*MDNSServer, error) {
 		return nil, err
 	}
 
-	slog.Info("mDNS Broadcast active. You can now access the dashboard at http://xomoi.local:8085")
+	slog.Info("mDNS Broadcast active. You can now access the dashboard at http://xomoi.local:" + portStr)
 	return &MDNSServer{server: server}, nil
 }
 

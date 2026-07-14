@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+
+	"github.com/code-grey/xomoi-core/internal/api/response"
 )
 
 // RPCPayload represents an arbitrary command sent from the Svelte UI to the edge device
@@ -29,20 +31,20 @@ func NewRPCHandler(pub MQTTPublisher) *RPCHandler {
 func (h *RPCHandler) ExecuteCommand(w http.ResponseWriter, r *http.Request) {
 	mac := r.PathValue("mac")
 	if !isValidMAC(mac) {
-		http.Error(w, "Invalid or missing MAC address", http.StatusBadRequest)
+		response.Error(w, http.StatusBadRequest, "Invalid or missing MAC address")
 		return
 	}
 
 	var payload RPCPayload
 	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
-		http.Error(w, "Invalid JSON payload", http.StatusBadRequest)
+		response.Error(w, http.StatusBadRequest, "Invalid JSON payload")
 		return
 	}
 
 	// Marshal back to bytes for MQTT
 	msgBytes, err := json.Marshal(payload)
 	if err != nil {
-		http.Error(w, "Failed to marshal payload", http.StatusInternalServerError)
+		response.Error(w, http.StatusInternalServerError, "Failed to marshal payload")
 		return
 	}
 
@@ -53,13 +55,15 @@ func (h *RPCHandler) ExecuteCommand(w http.ResponseWriter, r *http.Request) {
 		err := h.publisher.Publish(topic, msgBytes, payload.Retain, 1) // QoS 1, Dynamic Retain
 		if err != nil {
 			slog.Error("Failed to publish Generic RPC", "mac", mac, "error", err)
-			http.Error(w, "Failed to send command to device", http.StatusInternalServerError)
+			response.Error(w, http.StatusInternalServerError, "Failed to send command to device")
 			return
 		}
 		
 		slog.Info("Generic RPC command sent", "mac", mac, "command", payload.Command)
 	}
 
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(`{"status":"success", "message":"Command sent to device"}`))
+	response.JSON(w, http.StatusOK, map[string]string{
+		"status": "success",
+		"message": "Command sent to device",
+	})
 }

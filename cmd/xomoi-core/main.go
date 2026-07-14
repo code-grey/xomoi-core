@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"log/slog"
 	"net/http"
@@ -15,12 +16,12 @@ import (
 	"github.com/code-grey/xomoi-core/internal/api"
 	"github.com/code-grey/xomoi-core/internal/api/handlers"
 	"github.com/code-grey/xomoi-core/internal/broker"
+	"github.com/code-grey/xomoi-core/internal/config"
 	"github.com/code-grey/xomoi-core/internal/network"
 	"github.com/code-grey/xomoi-core/internal/repository/sqlite"
 	"github.com/code-grey/xomoi-core/internal/state"
 	"github.com/code-grey/xomoi-core/internal/worker"
 	mqtt "github.com/mochi-mqtt/server/v2"
-	"github.com/mochi-mqtt/server/v2/listeners"
 )
 
 type corePublisher struct {
@@ -37,17 +38,22 @@ func main() {
 	logger := slog.New(slog.NewJSONHandler(multiWriter, nil))
 	slog.SetDefault(logger)
 
-	slog.Info("BOOTING XOMOI-CORE SOVEREIGN EDGE NODE")
+	cfg := config.Load()
 
 	// 0. GC and Memory Tuning for Edge Hardware
-	// Set a soft memory limit (250MB) to prevent the OS OOM Killer from terminating 
+	// Set a soft memory limit to prevent the OS OOM Killer from terminating 
 	// the binary on memory-constrained devices like Raspberry Pi.
-	// Go will aggressively GC only when it nears this limit, otherwise it stays highly performant.
-	debug.SetMemoryLimit(250 * 1024 * 1024)
-	slog.Info("Hardware Check: GOMEMLIMIT enforced at 250MB")
+	debug.SetMemoryLimit(int64(cfg.MemoryLimitMB) * 1024 * 1024)
+	
+	// Hard-limit the Go Scheduler OS threads to simulate constraints
+	if cfg.IngestionWorkers > 0 {
+		runtime.GOMAXPROCS(cfg.IngestionWorkers)
+	}
+
+	slog.Info("BOOTING XOMOI-CORE SOVEREIGN EDGE NODE")
 
 	// 1. Initialize SQLite Database (WAL Mode)
-	db, err := sqlite.NewDB("xomoi.db")
+	db, err := sqlite.NewDB(cfg.DBPath)
 	if err != nil {
 		slog.Error("Failed to initialize SQLite", "error", err)
 		os.Exit(1)
@@ -57,53 +63,51 @@ func main() {
 	// 2. Initialize Memory Barrier (sync.Map HotState)
 	hotState := state.NewHotState()
 
-	// 3. Start Snapshot Worker (5-minute bulk flush)
+	// 3. Start Snapshot Worker (bulk flush)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	
-	snapshotWorker := state.NewSnapshotWorker(hotState, db.DB, 5*time.Minute)
+	flushInterval := time.Duration(cfg.FlushIntervalSec) * time.Second
+	slog.Info("Configured HotState Flush Interval", "interval", flushInterval)
+	snapshotWorker := state.NewSnapshotWorker(hotState, db.DB, flushInterval)
 	go snapshotWorker.Start(ctx)
 
 	// 4. Initialize Mochi-MQTT Broker & Ingestion Pipeline
-	processor := broker.NewProcessor(hotState)
+	tsdb := sqlite.NewTelemetryRepository(db)
+	ruleRepo := sqlite.NewRuleRepository(db)
+
+	rulesEngine := worker.NewRulesEngine(ruleRepo)
+	if err := rulesEngine.Start(ctx); err != nil {
+		slog.Error("Failed to start Rules Engine", "error", err)
+	}
+
+	processor := broker.NewProcessor(hotState, tsdb, rulesEngine)
 	
 	// Dynamic Worker Sizing: Prevent context-switching hell on low-end edge nodes.
 	// We bind the number of ingestion workers strictly to the available hardware threads.
-	numWorkers := runtime.NumCPU()
-	if numWorkers < 2 {
-		numWorkers = 2 // Ensure at least 2 workers on ultra-low-end single-core setups (e.g., Pi Zero)
-	}
-	slog.Info("Hardware Check: Sizing Ingestion Pool", "cpu_cores", runtime.NumCPU(), "workers", numWorkers)
+	slog.Info("Hardware Check: Sizing Ingestion Pool", "cpu_cores", runtime.NumCPU(), "workers", cfg.IngestionWorkers)
 	
-	workerPool := broker.NewWorkerPool(numWorkers, 1000, processor) // 1000 queue depth
-	workerPool.Start()
+	pool := broker.NewWorkerPool(cfg.IngestionWorkers, 10000, processor)
+	go pool.Start()
+	slog.Info(fmt.Sprintf("Starting GC-Optimized Ingestion Pool with %d workers", cfg.IngestionWorkers))
 
 	// 4b. Start Mochi-MQTT Broker
-	mqttServer := mqtt.New(&mqtt.Options{
-		InlineClient: true,
-	})
+	mqttServer, err := broker.NewMochiServer(cfg.MQTTPort)
 	
 	deviceRepo := sqlite.NewDeviceRepository(db)
 	mqttServer.AddHook(broker.NewHMACAuthHook(deviceRepo), nil) // Enforce HMAC-Lite Security
+	mqttServer.AddHook(broker.NewPublishHook(pool), nil)  // Hook the TSDB Worker Pool
 
-	tcp := listeners.NewTCP(listeners.Config{
-		ID:      "t1",
-		Address: ":1883",
-	})
-	if err := mqttServer.AddListener(tcp); err != nil {
-		slog.Error("Failed to add MQTT listener", "error", err)
-		os.Exit(1)
-	}
 	// Note: You would wire your custom broker Hooks here
 	go func() {
 		if err := mqttServer.Serve(); err != nil {
 			slog.Error("MQTT Server Failed", "error", err)
 		}
 	}()
-	slog.Info("MQTT Broker listening on :1883 (Dark Grid)")
+	slog.Info("MQTT Broker listening", "port", cfg.MQTTPort)
 
 	// 4c. Start the WebRTC Tunnel Host
-	rtcHost := api.NewWebRTCHost("XOMOI-CORE-SERVER", "ws://localhost:8086/ws", mqttServer)
+	rtcHost := api.NewWebRTCHost("XOMOI-CORE-SERVER", cfg.SignalingURL, cfg.STUNServers, mqttServer)
 	rtcHost.Start()
 
 	// 5. Start Background Janitor (Prunes data older than 30 days, checks every 24h)
@@ -111,16 +115,16 @@ func main() {
 	go janitor.Start(ctx)
 
 	// 6. Start the Headless API Server
-	apiServer := api.NewServer(nil, nil, deviceRepo, mqttServer, &corePublisher{broker: mqttServer})
+	apiServer := api.NewServer(nil, nil, deviceRepo, tsdb, ruleRepo, mqttServer, &corePublisher{broker: mqttServer}, rulesEngine)
 	router := apiServer.SetupRouter()
 	
 	httpSrv := &http.Server{
-		Addr:    ":8085",
+		Addr:    ":" + cfg.APIPort,
 		Handler: router,
 	}
 	
 	go func() {
-		slog.Info("API Server listening", "port", 8085)
+		slog.Info("API Server listening", "port", cfg.APIPort)
 		if err := httpSrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			slog.Error("API Server failed", "error", err)
 			os.Exit(1)
@@ -128,7 +132,7 @@ func main() {
 	}()
 
 	// 7. Start mDNS Zero-Config Broadcaster
-	mdnsServer, err := network.StartMDNS(8085)
+	mdnsServer, err := network.StartMDNS(cfg.APIPort)
 	if err != nil {
 		slog.Warn("mDNS failed to start, falling back to raw IP access", "error", err)
 	}
@@ -155,7 +159,7 @@ func main() {
 	}
 
 	// D. Stop Ingestion Workers
-	workerPool.Stop()
+	pool.Stop()
 
 	// E. Stop mDNS
 	if mdnsServer != nil {

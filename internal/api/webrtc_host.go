@@ -21,20 +21,21 @@ type SignalMessage struct {
 	Data   json.RawMessage `json:"data"`
 }
 
-// WebRTCHost manages the Pi-side NAT hole-punching
 type WebRTCHost struct {
 	nodeID       string
 	signalingURL string
+	stunServers  []string
 	ws           *websocket.Conn
 	api          *webrtc.API
 	broker       *mqtt.Server
 }
 
 // NewWebRTCHost creates a new WebRTC host instance
-func NewWebRTCHost(nodeID, signalingURL string, broker *mqtt.Server) *WebRTCHost {
+func NewWebRTCHost(nodeID, signalingURL string, stunServers []string, broker *mqtt.Server) *WebRTCHost {
 	return &WebRTCHost{
 		nodeID:       nodeID,
 		signalingURL: signalingURL,
+		stunServers:  stunServers,
 		api:          webrtc.NewAPI(),
 		broker:       broker,
 	}
@@ -108,36 +109,10 @@ func (h *WebRTCHost) listenLoop() error {
 	}
 }
 
-var publicSTUNServers = []string{
-	"stun:stun.l.google.com:19302",
-	"stun:stun1.l.google.com:19302",
-	"stun:stun.cloudflare.com:3478",
-	"stun:stun.services.mozilla.com:3478",
-	"stun:stun.twilio.com:3478",
-	"stun:stun.framasoft.org:3478",
-	"stun:stun.miwifi.com:3478",
-	"stun:stun.3cx.com:3478",
-	"stun:stun.voip.blackberry.com:3478",
-}
-
-func getActiveSTUNPool() []string {
-	// Copy the slice so we don't permanently alter the global array order
-	pool := make([]string, len(publicSTUNServers))
-	copy(pool, publicSTUNServers)
-
-	// Shuffle the array to distribute load randomly
-	rand.Shuffle(len(pool), func(i, j int) {
-		pool[i], pool[j] = pool[j], pool[i]
-	})
-
-	// Return exactly 2 STUN servers to use (Active Pool), leaving 8 in the Cold Pool
-	return pool[:2]
-}
-
 func (h *WebRTCHost) handleOffer(offer webrtc.SessionDescription, clientID string) *webrtc.PeerConnection {
 	config := webrtc.Configuration{
 		ICEServers: []webrtc.ICEServer{
-			{URLs: getActiveSTUNPool()},
+			{URLs: h.stunServers},
 		},
 	}
 
@@ -161,12 +136,15 @@ func (h *WebRTCHost) handleOffer(offer webrtc.SessionDescription, clientID strin
 		})
 	})
 
+	var subId int
+
 	// 2. Data Channel Handler: When the Svelte UI opens the encrypted tunnel
 	pc.OnDataChannel(func(d *webrtc.DataChannel) {
 		slog.Info("E2E Encrypted DataChannel opened!", "label", d.Label())
 
+		subId = rand.Intn(100000)
 		// Subscribe the WebRTC Tunnel directly to the embedded MQTT Broker
-		errSub := h.broker.Subscribe("/xomoi/+/telemetry", rand.Intn(100000), func(cl *mqtt.Client, sub packets.Subscription, pk packets.Packet) {
+		errSub := h.broker.Subscribe("/xomoi/+/telemetry", subId, func(cl *mqtt.Client, sub packets.Subscription, pk packets.Packet) {
 			// Real-time: As soon as an ESP32 fires telemetry, stream it P2P to the Web UI
 			if d.ReadyState() == webrtc.DataChannelStateOpen {
 				err := d.SendText(string(pk.Payload))
@@ -191,9 +169,16 @@ func (h *WebRTCHost) handleOffer(offer webrtc.SessionDescription, clientID strin
 		})
 	})
 
-	// 3. Connection State Logger
+	// 3. Connection State Logger and Cleanup
 	pc.OnConnectionStateChange(func(s webrtc.PeerConnectionState) {
 		slog.Info("WebRTC Connection State", "state", s.String())
+		if s == webrtc.PeerConnectionStateClosed || s == webrtc.PeerConnectionStateFailed || s == webrtc.PeerConnectionStateDisconnected {
+			if subId != 0 {
+				h.broker.Unsubscribe("/xomoi/+/telemetry", subId)
+				slog.Info("Unsubscribed from inline MQTT WebRTC hook to prevent leakage", "subId", subId)
+				subId = 0
+			}
+		}
 	})
 
 	// 4. Accept the offer and create an Answer

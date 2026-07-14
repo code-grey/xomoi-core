@@ -33,6 +33,14 @@ type Device struct {
 	SecretKey  string    `json:"-" db:"secret_key"`          // 16 bytes
 }
 
+// TelemetryPoint represents a single TSDB historical point
+type TelemetryPoint struct {
+	Timestamp time.Time `json:"timestamp"`
+	Temp      *float64  `json:"temp,omitempty"`
+	Hum       *float64  `json:"hum,omitempty"`
+	State     string    `json:"state,omitempty"`
+}
+
 // SensorTag maps a 1-byte field ID to a human-readable string and type.
 // This is critical for protocol efficiency (sending ID '1' instead of string 'temperature').
 type SensorTag struct {

@@ -50,6 +50,15 @@ type Telemetry struct {
 	Payload   json.RawMessage `json:"payload"`
 }
 
+type TelemetryHistory struct {
+	ID          int64           `json:"id"`
+	DeviceID    string          `json:"device_id"`
+	Temperature sql.NullFloat64 `json:"temperature"`
+	Humidity    sql.NullFloat64 `json:"humidity"`
+	State       sql.NullString  `json:"state"`
+	Timestamp   sql.NullTime    `json:"timestamp"`
+}
+
 type TelemetryRollup struct {
 	DeviceID   string          `json:"device_id"`
 	Date       time.Time       `json:"date"`

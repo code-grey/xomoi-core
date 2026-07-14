@@ -8,6 +8,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/code-grey/xomoi-core/internal/api/response"
 )
 
 // MQTTPublisher defines the interface to interact with the embedded Mochi-MQTT broker
@@ -38,20 +40,20 @@ func (h *OTAHandler) UploadFirmware(w http.ResponseWriter, r *http.Request) {
 	// Simple path param extraction (Assuming Go 1.22+ ServeMux routing: /api/v1/devices/{mac}/ota)
 	mac := r.PathValue("mac")
 	if !isValidMAC(mac) {
-		http.Error(w, "Invalid or missing MAC address", http.StatusBadRequest)
+		response.Error(w, http.StatusBadRequest, "Invalid or missing MAC address")
 		return
 	}
 
 	// Limit upload size to 2MB (Standard for ESP32 OTA partitions)
 	r.Body = http.MaxBytesReader(w, r.Body, 2<<20)
 	if err := r.ParseMultipartForm(2 << 20); err != nil {
-		http.Error(w, "File too large or invalid form", http.StatusBadRequest)
+		response.Error(w, http.StatusBadRequest, "File too large or invalid form")
 		return
 	}
 
 	file, _, err := r.FormFile("firmware")
 	if err != nil {
-		http.Error(w, "Missing 'firmware' file field", http.StatusBadRequest)
+		response.Error(w, http.StatusBadRequest, "Missing 'firmware' file field")
 		return
 	}
 	defer file.Close()
@@ -64,14 +66,14 @@ func (h *OTAHandler) UploadFirmware(w http.ResponseWriter, r *http.Request) {
 	destFile, err := os.Create(destPath)
 	if err != nil {
 		slog.Error("Failed to create OTA file", "path", destPath, "error", err)
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		response.Error(w, http.StatusInternalServerError, "Internal server error")
 		return
 	}
 	defer destFile.Close()
 
 	if _, err := io.Copy(destFile, file); err != nil {
 		slog.Error("Failed to write OTA file", "path", destPath, "error", err)
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		response.Error(w, http.StatusInternalServerError, "Internal server error")
 		return
 	}
 
@@ -92,8 +94,10 @@ func (h *OTAHandler) UploadFirmware(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(`{"status":"success", "message":"Firmware uploaded and OTA triggered"}`))
+	response.JSON(w, http.StatusOK, map[string]string{
+		"status": "success",
+		"message": "Firmware uploaded and OTA triggered",
+	})
 }
 
 // DownloadFirmware handles GET /api/v1/devices/{mac}/ota/download
@@ -101,7 +105,7 @@ func (h *OTAHandler) UploadFirmware(w http.ResponseWriter, r *http.Request) {
 func (h *OTAHandler) DownloadFirmware(w http.ResponseWriter, r *http.Request) {
 	mac := r.PathValue("mac")
 	if !isValidMAC(mac) {
-		http.Error(w, "Invalid or missing MAC address", http.StatusBadRequest)
+		response.Error(w, http.StatusBadRequest, "Invalid or missing MAC address")
 		return
 	}
 
@@ -110,7 +114,7 @@ func (h *OTAHandler) DownloadFirmware(w http.ResponseWriter, r *http.Request) {
 	filePath := filepath.Join(h.otaDir, fmt.Sprintf("%s.bin", safeMac))
 
 	if _, err := os.Stat(filePath); os.IsNotExist(err) {
-		http.Error(w, "Firmware not found", http.StatusNotFound)
+		response.Error(w, http.StatusNotFound, "Firmware not found")
 		return
 	}
 

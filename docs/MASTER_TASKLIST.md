@@ -62,8 +62,9 @@
     - [x] Implement Telemetry Batching and two-way RPC hooks.
 
 ## PHASE 8: ALERTS & HEXAGONAL BACKUP (WEEKS 17-18)
-- [x] **8.1: Alert Engine (`internal/alerts/`)**
-    - [x] `evaluator.go`: Match hot state against user-defined threshold rules.
+- [x] **8.1: Alert Engine (`internal/worker/rules_engine.go`)**
+    - [x] Zero-Allocation `sync.RWMutex` evaluation cache against hot state.
+    - [x] Svelte UI Rule Builder and `GET/POST/DELETE` API endpoints (`handlers/rules.go`).
 - [x] **8.2: Hexagonal Backup Engine (`internal/backup/`)**
     - [x] `BackupProvider` Interface: Abstract `Save()` and `Restore()`.
     - [x] Implement `DiscordPreserver` (Webhook attachments).
@@ -76,10 +77,14 @@
 - [ ] **9.2: Testing & QA**
     - [ ] Go unit tests (`go test`) for all core business logic (evaluators, parsers, state maps).
     - [ ] Svelte UI component tests using Vitest or Playwright.
-    - [ ] E2E integration tests (spin up broker -> mock C++ hardware -> verify UI state).
-- [x] **9.3: Final Polish**
+    - [x] E2E integration tests (spin up broker -> mock C++ hardware -> verify UI state).
+- [x] **9.3: Pre-Production Polish & Hardening**
     - [x] Graceful Shutdown (force SQLite flush + Backup on SIGTERM).
-    - [x] Security Audit, Binary Optimization (`ldflags`), and v1.0 Release.
+    - [x] Centralized Environment Configuration (`internal/config/config.go`).
+    - [x] Migration Squashing (`001_init.sql`).
+    - [x] Robust WebRTC Signaling (Exponential Backoff).
+    - [x] Time-Series UI legend interpolation logic fixed.
+    - [ ] Security Audit, Binary Optimization (`ldflags`), and v1.0 Release.
 
 ## PHASE 9.5: THE TERMINAL DASHBOARD (TUI)
 - [x] **9.5.1: Xomoi-CLI (`cmd/xomoi-cli/`)**

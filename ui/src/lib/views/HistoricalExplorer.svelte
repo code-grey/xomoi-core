@@ -9,35 +9,44 @@
 
   let timeframes = ['1H', '3H', '6H', '12H', '24H', '7D', '30D'];
   let activeTimeframe = $state('24H');
+  let historyData: number[] = $state([]);
+  let loading = $state(false);
 
-  let mockHistory = $derived.by(() => {
-    const t = activeTimeframe; 
-    const points = 100;
-    return Array.from({ length: points }, (_, i) => {
-      const base = sensor.val ? parseFloat(sensor.val) : 25;
-      // Unique frequencies for each timeframe to guarantee distinctly different shapes
-      let freq1 = 1.5, freq2 = 3.5, multiplier = 1;
-      switch(t) {
-        case '1H': freq1=2.1; freq2=5.3; break;
-        case '3H': freq1=1.8; freq2=4.2; break;
-        case '6H': freq1=3.4; freq2=2.1; break;
-        case '12H': freq1=1.1; freq2=6.7; break;
-        case '24H': freq1=1.5; freq2=3.5; break;
-        case '7D': freq1=5.5; freq2=1.2; multiplier=2; break;
-        case '30D': freq1=8.3; freq2=3.9; multiplier=3; break;
+  $effect(() => {
+    let active = true;
+    
+    async function fetchHistory() {
+      loading = true;
+      try {
+        // Map UI labels to backend query params
+        const tfQuery = activeTimeframe.toLowerCase();
+        const res = await fetch(`/api/v1/devices/${sensor.id}/history?timeframe=${tfQuery}`);
+        if (!res.ok) throw new Error('Fetch failed');
+        const data = await res.json();
+        
+        if (active) {
+          // Map the JSON array back to a simple array of numbers for charting
+          historyData = data.map((d: any) => {
+            if (sensor.name.toLowerCase().includes('temp')) return d.temp || 0;
+            if (sensor.name.toLowerCase().includes('hum')) return d.hum || 0;
+            return 0;
+          });
+        }
+      } catch (err) {
+        console.error('Failed to load telemetry history:', err);
+        if (active) historyData = [];
+      } finally {
+        if (active) loading = false;
       }
-      
-      // Smooth telemetry curves using slow sine/cosine combinations
-      const wave1 = Math.sin((i / points) * Math.PI * freq1) * 3;
-      const wave2 = Math.cos((i / points) * Math.PI * freq2) * 1.5;
-      const tinyNoise = (Math.random() - 0.5) * 0.4;
-      
-      return base + (wave1 + wave2 + tinyNoise) * multiplier;
-    });
+    }
+    
+    fetchHistory();
+    
+    return () => { active = false; };
   });
 
-  let minVal = $derived(Math.min(...mockHistory));
-  let maxVal = $derived(Math.max(...mockHistory));
+  let minVal = $derived(historyData.length > 0 ? Math.min(...historyData) : 0);
+  let maxVal = $derived(historyData.length > 0 ? Math.max(...historyData) : 0);
 
   let yLabels = $derived([
     (maxVal).toFixed(1) + sensor.unit,
@@ -47,8 +56,11 @@
 
   let xLabels = $derived(
     activeTimeframe === '1H' ? ['60m ago', '30m ago', 'Now'] :
+    activeTimeframe === '3H' ? ['3h ago', '1.5h ago', 'Now'] :
+    activeTimeframe === '6H' ? ['6h ago', '3h ago', 'Now'] :
+    activeTimeframe === '12H' ? ['12h ago', '6h ago', 'Now'] :
     activeTimeframe === '24H' ? ['24h ago', '12h ago', 'Now'] :
-    activeTimeframe === '7D' ? ['7d ago', '3d ago', 'Now'] :
+    activeTimeframe === '7D' ? ['7d ago', '3.5d ago', 'Now'] :
     ['30d ago', '15d ago', 'Now']
   );
 
@@ -61,7 +73,7 @@
     const max = rawMax + (range * 0.1);
 
     return history.map((val, i) => {
-      const x = (i / 99) * 100;
+      const x = (i / Math.max(1, history.length - 1)) * 100;
       const y = 100 - ((val - min) / (max - min)) * 100;
       return `${x},${y}`;
     }).join(' ');
@@ -121,8 +133,10 @@
                       <stop offset="100%" stop-color="var(--chart-color)" stop-opacity="0.0" />
                     </linearGradient>
                   </defs>
-                <polygon points="0,100 {buildPoints(mockHistory)} 100,100" fill="url(#histGrad)" />
-                <polyline points={buildPoints(mockHistory)} fill="none" stroke="var(--chart-color)" stroke-width="2" vector-effect="non-scaling-stroke" />
+                {#if historyData.length > 0}
+                  <polygon points="0,100 {buildPoints(historyData)} 100,100" fill="url(#histGrad)" />
+                  <polyline points={buildPoints(historyData)} fill="none" stroke="var(--chart-color)" stroke-width="2" vector-effect="non-scaling-stroke" />
+                {/if}
               </svg>
             </div>
             <div class="x-axis-labels">

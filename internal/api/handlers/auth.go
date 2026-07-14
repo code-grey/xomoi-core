@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/code-grey/xomoi-core/internal/api/response"
 	"github.com/code-grey/xomoi-core/internal/repository"
 )
 
@@ -28,7 +29,7 @@ type LoginRequest struct {
 func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	var req LoginRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		response.Error(w, http.StatusBadRequest, "Invalid request body")
 		return
 	}
 
@@ -39,9 +40,7 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	// 4. Save Session to SQLite
 	
 	// Simulated response for the skeleton
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{
+	response.JSON(w, http.StatusOK, map[string]string{
 		"token": "simulated_session_token",
 	})
 }

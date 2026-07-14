@@ -8,6 +8,7 @@ import (
 	"encoding/hex"
 	"log"
 
+	"github.com/code-grey/xomoi-core/internal/config"
 	"github.com/code-grey/xomoi-core/internal/core"
 	"github.com/code-grey/xomoi-core/internal/repository"
 	mqtt "github.com/mochi-mqtt/server/v2"
@@ -48,7 +49,7 @@ func (h *HMACAuthHook) OnConnectAuthenticate(cl *mqtt.Client, pk packets.Packet)
 	if err != nil {
 		// Device not found in SQLite! 
 		// Auto-provision as Unclaimed if it authenticates with the Factory Secret
-		factorySecret := "xomoi-factory-secret"
+		factorySecret := config.Load().FactorySecret
 		
 		macHmac := hmac.New(sha256.New, []byte(factorySecret))
 		macHmac.Write([]byte(macAddress))

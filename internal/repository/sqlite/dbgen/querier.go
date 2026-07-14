@@ -14,7 +14,10 @@ type Querier interface {
 	DeleteRawTelemetryBefore(ctx context.Context, timestamp time.Time) error
 	GetDeviceByMAC(ctx context.Context, macAddress string) (Device, error)
 	GetDeviceRoles(ctx context.Context, deviceID string) ([]GetDeviceRolesRow, error)
+	GetTelemetryHistory(ctx context.Context, arg GetTelemetryHistoryParams) ([]TelemetryHistory, error)
+	InsertTelemetry(ctx context.Context, arg InsertTelemetryParams) error
 	InsertTelemetryRollup(ctx context.Context, arg InsertTelemetryRollupParams) error
+	PruneTelemetryHistory(ctx context.Context) error
 	UpsertUserDeviceRole(ctx context.Context, arg UpsertUserDeviceRoleParams) error
 }
 

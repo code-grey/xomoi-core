@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/code-grey/xomoi-core/internal/api/response"
 	"github.com/code-grey/xomoi-core/internal/repository"
 )
 
@@ -24,8 +25,7 @@ func (h *ClaimHandler) Discover(w http.ResponseWriter, r *http.Request) {
 		{"ssid": "Xomoi-Claim-A1B2", "mac": "00:1A:2B:3C:4D:5E"},
 	}
 	
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(devices)
+	response.JSON(w, http.StatusOK, devices)
 }
 
 type ClaimRequest struct {
@@ -37,19 +37,19 @@ type ClaimRequest struct {
 func (h *ClaimHandler) Claim(w http.ResponseWriter, r *http.Request) {
 	var req ClaimRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		response.Error(w, http.StatusBadRequest, "Invalid request body")
 		return
 	}
 
 	// 1. Check if device exists and is Unclaimed
 	device, err := h.deviceRepo.GetByMAC(r.Context(), req.MACAddress)
 	if err != nil {
-		http.Error(w, "Device not found. Please ensure it is powered on and connected to the Dark Grid once.", http.StatusNotFound)
+		response.Error(w, http.StatusNotFound, "Device not found. Please ensure it is powered on and connected to the Dark Grid once.")
 		return
 	}
 
 	if device.SecretKey != "xomoi-factory-secret" {
-		http.Error(w, "Device is already claimed.", http.StatusConflict)
+		response.Error(w, http.StatusConflict, "Device is already claimed.")
 		return
 	}
 
@@ -60,12 +60,11 @@ func (h *ClaimHandler) Claim(w http.ResponseWriter, r *http.Request) {
 
 	// 3. Update Device in SQLite
 	if err := h.deviceRepo.ClaimDevice(r.Context(), req.MACAddress, req.DeviceName, newSecretKey); err != nil {
-		http.Error(w, "Failed to claim device", http.StatusInternalServerError)
+		response.Error(w, http.StatusInternalServerError, "Failed to claim device")
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{
+	response.JSON(w, http.StatusOK, map[string]string{
 		"status": "success",
 		"message": "Device successfully claimed.",
 		"private_key": newSecretKey,
@@ -76,10 +75,9 @@ func (h *ClaimHandler) Claim(w http.ResponseWriter, r *http.Request) {
 func (h *ClaimHandler) List(w http.ResponseWriter, r *http.Request) {
 	devices, err := h.deviceRepo.GetAll(r.Context())
 	if err != nil {
-		http.Error(w, "Failed to fetch devices", http.StatusInternalServerError)
+		response.Error(w, http.StatusInternalServerError, "Failed to fetch devices")
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(devices)
+	response.JSON(w, http.StatusOK, devices)
 }

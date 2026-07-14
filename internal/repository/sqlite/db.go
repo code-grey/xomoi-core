@@ -51,16 +51,6 @@ func applyMigrations(db *sql.DB) error {
 		return fmt.Errorf("migration 001 failed: %w", err)
 	}
 	
-	content2, err := migrationFS.ReadFile("migrations/002_rollups_rbac.sql")
-	if err != nil {
-		return err
-	}
-
-	_, err = db.Exec(string(content2))
-	if err != nil {
-		return fmt.Errorf("migration 002 failed: %w", err)
-	}
-	
 	log.Println("SQLite engine online. Migrations applied successfully.")
 	return nil
 }

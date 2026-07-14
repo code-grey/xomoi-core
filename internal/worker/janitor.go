@@ -46,8 +46,8 @@ func (j *Janitor) Start(ctx context.Context) {
 func (j *Janitor) Prune() {
 	cutoff := time.Now().Add(-j.retention)
 	
-	// Execute deletion
-	res, err := j.db.Exec("DELETE FROM telemetry WHERE timestamp < ?", cutoff)
+	// Execute deletion on the new TSDB table
+	res, err := j.db.Exec("DELETE FROM telemetry_history WHERE timestamp < ?", cutoff)
 	if err != nil {
 		log.Printf("[JANITOR] Failed to prune telemetry: %v", err)
 		return

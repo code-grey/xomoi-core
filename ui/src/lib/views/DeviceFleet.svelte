@@ -1,14 +1,8 @@
+<script lang="ts">
   import { ShieldAlert, CheckCircle, Activity, Cpu, Thermometer, Droplets, Zap, Settings, UploadCloud } from 'lucide-svelte';
   import WebFlasher from '../WebFlasher.svelte';
+  import { globalState } from '../store.svelte';
   
-  // Simulated State for the Fleet Matrix
-  let fleet = $state([
-    { id: 'ESP32-A1', type: 'DHT11 Env', location: 'Greenhouse Core', status: 'healthy', temp: 24.5, hum: 45, uptime: '72h' },
-    { id: 'ESP32-B2', type: 'DHT11 Env', location: 'Server Rack 01', status: 'alert', temp: 34.2, hum: 20, uptime: '12h' }, // Overheating!
-    { id: 'PICO-C3', type: 'PIR Motion', location: 'Garage Door', status: 'healthy', motion: false, uptime: '240h' },
-    { id: 'ESP8266-D4', type: 'Relay Switch', location: 'Exhaust Fan', status: 'healthy', state: 'OFF', uptime: '15h' },
-  ]);
-
   let selectedDevice = $state<any>(null);
   let showFlasher = $state(false);
 
@@ -18,9 +12,45 @@
   let otaMessage = $state('');
 
   function getStatusColor(status: string) {
-    return status === 'alert' ? 'var(--accent-orange)' : 'var(--accent-cyan)';
+    return status === 'alert' ? 'var(--accent-orange)' : status === 'offline' ? 'var(--text-secondary)' : 'var(--accent-cyan)';
   }
 
+  // --- RPC Command Execution ---
+  async function toggleRelay() {
+    if (!selectedDevice || selectedDevice.type !== 'Relay Switch') return;
+    
+    // Optimistic UI update (simulate loading/pending state)
+    const previousState = selectedDevice.state;
+    selectedDevice.state = 'PENDING...';
+
+    // Real Hardware Execution Flow
+    try {
+      const payload = {
+        command: "toggle_relay",
+        params: { pin: 4 },
+        retain: false // Critical: Physical actuations must not be retained if device is offline
+      };
+
+      const res = await fetch(`/api/v1/devices/${selectedDevice.id}/rpc`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) throw new Error("Backend rejected command");
+
+      // In real mode, we DO NOT revert the UI here. We leave it as 'PENDING...'
+      // and wait for the real WebRTC tunnel to deliver the `/xomoi/mac/rpc/ack` 
+      // payload which updates `globalState.fleet` automatically.
+
+    } catch (err) {
+      // Revert if network fails
+      selectedDevice.state = previousState;
+      alert("Failed to send RPC command to Edge Node");
+    }
+  }
+
+  // --- OTA Firmware Execution ---
   async function handleOTAUpload() {
     if (!otaFile || !selectedDevice) return;
     
@@ -68,7 +98,7 @@
     </div>
 
     <div class="matrix-grid">
-      {#each fleet as device}
+      {#each globalState.fleet as device}
         <button 
           class="device-node glass-panel {device.status}" 
           onclick={() => selectedDevice = device}
@@ -76,12 +106,14 @@
           <div class="node-icon">
             {#if device.status === 'alert'}
               <ShieldAlert color="var(--accent-orange)" size={28} />
+            {:else if device.status === 'offline'}
+              <ShieldAlert color="var(--text-secondary)" size={28} />
             {:else}
               <CheckCircle color="var(--accent-cyan)" size={28} />
             {/if}
           </div>
           <div class="node-info">
-            <span class="node-id mono">{device.id}</span>
+            <span class="node-id mono">{device.friendlyName || device.id}</span>
             <span class="node-loc">{device.location}</span>
           </div>
         </button>
@@ -96,7 +128,7 @@
           ← Return to Matrix
         </button>
         <div class="status-badge glass-panel {selectedDevice.status}">
-          {#if selectedDevice.status === 'alert'} <ShieldAlert size={16} /> {:else} <CheckCircle size={16} /> {/if}
+          {#if selectedDevice.status === 'alert' || selectedDevice.status === 'offline'} <ShieldAlert size={16} /> {:else} <CheckCircle size={16} /> {/if}
           {selectedDevice.status.toUpperCase()}
         </div>
       </div>
@@ -107,8 +139,8 @@
             <Cpu size={32} color={getStatusColor(selectedDevice.status)} />
           </div>
           <div class="identity-text">
-            <h2 class="mono">{selectedDevice.id}</h2>
-            <p>{selectedDevice.type} • {selectedDevice.location}</p>
+            <h2 class="mono">{selectedDevice.friendlyName || selectedDevice.id}</h2>
+            <p>MAC: {selectedDevice.id} • {selectedDevice.type} • {selectedDevice.location}</p>
           </div>
         </div>
         <div class="uptime-badge">
@@ -143,7 +175,7 @@
             </div>
           </div>
         {:else if selectedDevice.type === 'Relay Switch'}
-          <button class="sensor-widget glass-panel interactive-relay">
+          <button class="sensor-widget glass-panel interactive-relay" onclick={toggleRelay}>
             <Zap size={24} color={selectedDevice.state === 'ON' ? 'var(--accent-orange)' : 'var(--text-secondary)'} />
             <div class="widget-data">
               <span class="val mono">{selectedDevice.state}</span>
@@ -290,17 +322,34 @@
     gap: 16px;
     text-align: left;
     background: rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
   }
   .device-node:hover {
     transform: translateY(-4px);
     background: rgba(255,255,255,0.05);
   }
+  
+  .device-node.healthy {
+    border-color: rgba(0, 255, 204, 0.2);
+    box-shadow: inset 0 0 20px rgba(0, 255, 204, 0.02), 0 0 15px rgba(0, 255, 204, 0.05);
+  }
+  .device-node.healthy:hover {
+    border-color: rgba(0, 255, 204, 0.5);
+    box-shadow: inset 0 0 20px rgba(0, 255, 204, 0.05), 0 8px 30px rgba(0, 255, 204, 0.2);
+  }
+
   .device-node.alert {
-    border-color: rgba(255, 85, 0, 0.3);
+    border-color: rgba(255, 85, 0, 0.4);
     background: rgba(255, 85, 0, 0.05);
+    box-shadow: inset 0 0 20px rgba(255, 85, 0, 0.05), 0 0 15px rgba(255, 85, 0, 0.1);
   }
   .device-node.alert:hover {
-    box-shadow: 0 8px 24px rgba(255, 85, 0, 0.15);
+    border-color: rgba(255, 85, 0, 0.8);
+    box-shadow: inset 0 0 20px rgba(255, 85, 0, 0.1), 0 8px 30px rgba(255, 85, 0, 0.3);
+  }
+  .device-node.offline {
+    border-color: rgba(255, 255, 255, 0.1);
+    opacity: 0.6;
   }
   
   .node-info {
@@ -341,6 +390,7 @@
   }
   .status-badge.alert { color: var(--accent-orange); border-color: var(--accent-orange); }
   .status-badge.healthy { color: var(--accent-cyan); border-color: var(--accent-cyan); }
+  .status-badge.offline { color: var(--text-secondary); border-color: var(--text-secondary); }
 
   .profile-card {
     display: flex;
@@ -538,4 +588,38 @@
   .ota-status.uploading { background: rgba(255, 255, 255, 0.1); color: var(--text-primary); }
   .ota-status.success { background: rgba(0, 255, 204, 0.1); color: var(--accent-cyan); }
   .ota-status.error { background: rgba(255, 85, 0, 0.1); color: var(--accent-orange); }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .matrix-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .header-actions {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .matrix-grid {
+      grid-template-columns: 1fr; /* Single column on mobile */
+    }
+    .drill-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .profile-card {
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .rule-builder {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .ota-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
 </style>

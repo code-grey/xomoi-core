@@ -10,26 +10,6 @@ import (
 	"strings"
 )
 
-// isValidMAC provides ultra-fast, zero-allocation MAC address validation
-func isValidMAC(mac string) bool {
-	if len(mac) != 17 {
-		return false
-	}
-	for i := 0; i < len(mac); i++ {
-		c := mac[i]
-		if i%3 == 2 {
-			if c != ':' && c != '_' {
-				return false
-			}
-		} else {
-			if !((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
-				return false
-			}
-		}
-	}
-	return true
-}
-
 // MQTTPublisher defines the interface to interact with the embedded Mochi-MQTT broker
 // or any external broker for the OTA RPC command.
 type MQTTPublisher interface {

@@ -15,12 +15,23 @@
     const points = 100;
     return Array.from({ length: points }, (_, i) => {
       const base = sensor.val ? parseFloat(sensor.val) : 25;
+      // Unique frequencies for each timeframe to guarantee distinctly different shapes
+      let freq1 = 1.5, freq2 = 3.5, multiplier = 1;
+      switch(t) {
+        case '1H': freq1=2.1; freq2=5.3; break;
+        case '3H': freq1=1.8; freq2=4.2; break;
+        case '6H': freq1=3.4; freq2=2.1; break;
+        case '12H': freq1=1.1; freq2=6.7; break;
+        case '24H': freq1=1.5; freq2=3.5; break;
+        case '7D': freq1=5.5; freq2=1.2; multiplier=2; break;
+        case '30D': freq1=8.3; freq2=3.9; multiplier=3; break;
+      }
+      
       // Smooth telemetry curves using slow sine/cosine combinations
-      const wave1 = Math.sin((i / points) * Math.PI * 1.5) * 3;
-      const wave2 = Math.cos((i / points) * Math.PI * 3.5) * 1.5;
+      const wave1 = Math.sin((i / points) * Math.PI * freq1) * 3;
+      const wave2 = Math.cos((i / points) * Math.PI * freq2) * 1.5;
       const tinyNoise = (Math.random() - 0.5) * 0.4;
       
-      const multiplier = activeTimeframe.includes('D') ? 2 : 1;
       return base + (wave1 + wave2 + tinyNoise) * multiplier;
     });
   });
@@ -62,7 +73,7 @@
     <div class="header">
       <div class="title">
         <h2>{sensor.name} <span class="unit">({sensor.unit})</span></h2>
-        <p class="subtitle">Historical Telemetry Analysis</p>
+        <p class="subtitle">MAC: {sensor.id} | Historical Telemetry Analysis</p>
       </div>
       <button class="close-btn" onclick={onclose}>
         <X size={24} />

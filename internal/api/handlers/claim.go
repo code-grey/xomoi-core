@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/code-grey/xomoi-core/internal/core"
 	"github.com/code-grey/xomoi-core/internal/repository"
 )
 
@@ -42,28 +41,45 @@ func (h *ClaimHandler) Claim(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 1. Generate an unbreakable 32-byte HMAC Secret for this specific device
+	// 1. Check if device exists and is Unclaimed
+	device, err := h.deviceRepo.GetByMAC(r.Context(), req.MACAddress)
+	if err != nil {
+		http.Error(w, "Device not found. Please ensure it is powered on and connected to the Dark Grid once.", http.StatusNotFound)
+		return
+	}
+
+	if device.SecretKey != "xomoi-factory-secret" {
+		http.Error(w, "Device is already claimed.", http.StatusConflict)
+		return
+	}
+
+	// 2. Generate an unbreakable 32-byte HMAC Secret for this specific device
 	secretBytes := make([]byte, 32)
 	rand.Read(secretBytes)
-	secretKey := hex.EncodeToString(secretBytes)
+	newSecretKey := hex.EncodeToString(secretBytes)
 
-	// 2. Register Device in SQLite
-	device := &core.Device{
-		ID:         "dev_" + hex.EncodeToString(secretBytes[:4]),
-		Name:       req.DeviceName,
-		MACAddress: req.MACAddress,
-		SecretKey:  secretKey,
+	// 3. Update Device in SQLite
+	if err := h.deviceRepo.ClaimDevice(r.Context(), req.MACAddress, req.DeviceName, newSecretKey); err != nil {
+		http.Error(w, "Failed to claim device", http.StatusInternalServerError)
+		return
 	}
-	
-	// h.deviceRepo.Create(r.Context(), device)
-	_ = device
-
-	// 3. (Simulated) Connect to the Device's Captive AP, push the Wi-Fi credentials
-	// and the HMAC-Lite secret token, then command it to reboot into Station mode.
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{
 		"status": "success",
-		"message": "Device successfully claimed and bound via HMAC-Lite.",
+		"message": "Device successfully claimed.",
+		"private_key": newSecretKey,
 	})
+}
+
+// List returns all registered devices.
+func (h *ClaimHandler) List(w http.ResponseWriter, r *http.Request) {
+	devices, err := h.deviceRepo.GetAll(r.Context())
+	if err != nil {
+		http.Error(w, "Failed to fetch devices", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(devices)
 }

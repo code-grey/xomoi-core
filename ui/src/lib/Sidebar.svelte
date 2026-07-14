@@ -1,5 +1,6 @@
 <script lang="ts">
   import { LayoutDashboard, Radio, Cpu } from 'lucide-svelte';
+  import { globalState } from './store.svelte';
 
   let { activeTab = $bindable() } = $props<{
     activeTab: string;
@@ -13,23 +14,29 @@
   </div>
 
   <nav class="nav-links">
-    <a href="#" class:active={activeTab === 'overview'} onclick={() => activeTab = 'overview'}>
+    <a href="#overview" class:active={activeTab === 'overview'}>
       <span class="icon"><LayoutDashboard size={20} /></span>
       Overview
     </a>
-    <a href="#" class:active={activeTab === 'fleet'} onclick={() => activeTab = 'fleet'}>
+    <a href="#fleet" class:active={activeTab === 'fleet'}>
       <span class="icon"><Radio size={20} /></span>
       Device Fleet
     </a>
-    <a href="#" class:active={activeTab === 'health'} onclick={() => activeTab = 'health'}>
+    <a href="#health" class:active={activeTab === 'health'}>
       <span class="icon"><Cpu size={20} /></span>
       Node Health
     </a>
   </nav>
 
-  <div class="system-status">
-    <div class="status-indicator live"></div>
-    <span class="mono">BROKER :1883</span>
+  <div class="system-status-container">
+    <div class="system-status">
+      <div class="status-indicator live"></div>
+      <span class="mono">DARK GRID :1883</span>
+    </div>
+    <div class="system-status">
+      <div class="status-indicator {globalState.webrtcStatus === 'connected' ? 'live' : 'error'}"></div>
+      <span class="mono">WEBRTC :WSS</span>
+    </div>
   </div>
 </aside>
 
@@ -99,13 +106,19 @@
     font-size: 1.2rem;
   }
 
-  .system-status {
+  .system-status-container {
     padding: 16px 24px;
     border-top: 1px solid var(--bg-panel-border);
     display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .system-status {
+    display: flex;
     align-items: center;
     gap: 12px;
-    margin-top: auto;
   }
 
   .status-indicator {
@@ -130,5 +143,54 @@
     0% { opacity: 1; }
     50% { opacity: 0.4; }
     100% { opacity: 1; }
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 100%;
+      height: 60px;
+      padding: 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      border-top: 1px solid var(--bg-panel-border);
+      border-right: none;
+      border-radius: 0;
+      background: rgba(10, 10, 12, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .logo-container, .system-status-container {
+      display: none;
+    }
+
+    .nav-links {
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0;
+      height: 100%;
+    }
+
+    a {
+      padding: 8px;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      font-size: 0; /* Hide text */
+      border: none !important;
+      background: transparent !important;
+    }
+
+    a.active .icon {
+      color: var(--accent-cyan);
+      filter: drop-shadow(0 0 8px var(--accent-cyan));
+    }
+
+    .icon {
+      font-size: 1.5rem;
+    }
   }
 </style>

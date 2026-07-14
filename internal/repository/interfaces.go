@@ -28,8 +28,10 @@ type DeviceRepository interface {
 	Create(ctx context.Context, device *core.Device) error
 	GetByID(ctx context.Context, id string) (*core.Device, error)
 	GetByMAC(ctx context.Context, macAddress string) (*core.Device, error)
+	GetAll(ctx context.Context) ([]*core.Device, error)
 	UpdateLastSeen(ctx context.Context, id string) error
 	Delete(ctx context.Context, id string) error
+	ClaimDevice(ctx context.Context, macAddress, newName, newSecret string) error
 }
 
 // SensorTagRepository manages the mapping between Field IDs and tag names.

@@ -186,7 +186,7 @@
     display: flex;
     flex-direction: column;
     background: #050507;
-    min-height: 250px;
+    height: 400px; /* Fixed height to prevent infinite page expansion */
   }
   .chart-header, .terminal-header {
     padding: 12px 16px;
@@ -205,10 +205,12 @@
     font-size: 0.8rem;
   }
   .terminal-body {
+    flex-grow: 1;
     padding: 16px;
     font-size: 0.85rem;
     color: var(--text-code);
     line-height: 1.6;
+    overflow-y: auto; /* Enable scrolling inside the widget */
   }
   .time { color: #666; }
   :global(.time) { color: #666; }

@@ -15,11 +15,21 @@ import (
 	"github.com/code-grey/xomoi-core/internal/api"
 	"github.com/code-grey/xomoi-core/internal/api/handlers"
 	"github.com/code-grey/xomoi-core/internal/broker"
+	"github.com/code-grey/xomoi-core/internal/network"
 	"github.com/code-grey/xomoi-core/internal/repository/sqlite"
 	"github.com/code-grey/xomoi-core/internal/state"
 	"github.com/code-grey/xomoi-core/internal/worker"
-	"github.com/code-grey/xomoi-core/internal/network"
+	mqtt "github.com/mochi-mqtt/server/v2"
+	"github.com/mochi-mqtt/server/v2/listeners"
 )
+
+type corePublisher struct {
+	broker *mqtt.Server
+}
+
+func (p *corePublisher) Publish(topic string, payload []byte, retain bool, qos byte) error {
+	return p.broker.Publish(topic, payload, retain, qos)
+}
 
 func main() {
 	// Initialize Global JSON Logger and pipe it to both Stdout and the WebSocket LogBuffer
@@ -68,16 +78,40 @@ func main() {
 	workerPool := broker.NewWorkerPool(numWorkers, 1000, processor) // 1000 queue depth
 	workerPool.Start()
 
-	// Note: In a full deployment, we would pass the initialized hooks to broker.NewBroker()
-	// and start the MQTT server here.
+	// 4b. Start Mochi-MQTT Broker
+	mqttServer := mqtt.New(&mqtt.Options{
+		InlineClient: true,
+	})
+	
+	deviceRepo := sqlite.NewDeviceRepository(db)
+	mqttServer.AddHook(broker.NewHMACAuthHook(deviceRepo), nil) // Enforce HMAC-Lite Security
+
+	tcp := listeners.NewTCP(listeners.Config{
+		ID:      "t1",
+		Address: ":1883",
+	})
+	if err := mqttServer.AddListener(tcp); err != nil {
+		slog.Error("Failed to add MQTT listener", "error", err)
+		os.Exit(1)
+	}
+	// Note: You would wire your custom broker Hooks here
+	go func() {
+		if err := mqttServer.Serve(); err != nil {
+			slog.Error("MQTT Server Failed", "error", err)
+		}
+	}()
+	slog.Info("MQTT Broker listening on :1883 (Dark Grid)")
+
+	// 4c. Start the WebRTC Tunnel Host
+	rtcHost := api.NewWebRTCHost("XOMOI-CORE-SERVER", "ws://localhost:8086/ws", mqttServer)
+	rtcHost.Start()
 
 	// 5. Start Background Janitor (Prunes data older than 30 days, checks every 24h)
 	janitor := worker.NewJanitor(db.DB, 30*24*time.Hour, 24*time.Hour)
 	go janitor.Start(ctx)
 
 	// 6. Start the Headless API Server
-	// Provide nil repos and nil publisher for skeleton, to be wired later
-	apiServer := api.NewServer(nil, nil, nil)
+	apiServer := api.NewServer(nil, nil, deviceRepo, mqttServer, &corePublisher{broker: mqttServer})
 	router := apiServer.SetupRouter()
 	
 	httpSrv := &http.Server{

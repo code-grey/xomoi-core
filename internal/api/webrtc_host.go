@@ -166,12 +166,24 @@ func (h *WebRTCHost) handleOffer(offer webrtc.SessionDescription, clientID strin
 		slog.Info("E2E Encrypted DataChannel opened!", "label", d.Label())
 
 		// Subscribe the WebRTC Tunnel directly to the embedded MQTT Broker
-		h.broker.Subscribe("/xomoi/+/telemetry", 1, func(cl *mqtt.Client, sub packets.Subscription, pk packets.Packet) {
+		errSub := h.broker.Subscribe("/xomoi/+/telemetry", rand.Intn(100000), func(cl *mqtt.Client, sub packets.Subscription, pk packets.Packet) {
 			// Real-time: As soon as an ESP32 fires telemetry, stream it P2P to the Web UI
 			if d.ReadyState() == webrtc.DataChannelStateOpen {
-				d.SendText(string(pk.Payload))
+				err := d.SendText(string(pk.Payload))
+				if err != nil {
+					slog.Error("Failed to send telemetry over WebRTC", "error", err)
+				} else {
+					slog.Info("🚀 Pushed Telemetry to UI over WebRTC", "payload", string(pk.Payload))
+				}
+			} else {
+				slog.Warn("WebRTC DataChannel not open", "state", d.ReadyState().String())
 			}
 		})
+		if errSub != nil {
+			slog.Error("Failed to register inline MQTT subscription", "error", errSub)
+		} else {
+			slog.Info("Registered inline MQTT subscription for WebRTC", "topic", "/xomoi/+/telemetry")
+		}
 
 		d.OnMessage(func(msg webrtc.DataChannelMessage) {
 			slog.Info("Received P2P Command from Dashboard", "data", string(msg.Data))

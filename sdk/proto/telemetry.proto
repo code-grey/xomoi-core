@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package xomoi;
+
+// TelemetryPayload represents the ultra-compact binary payload sent by edge devices
+message TelemetryPayload {
+    // The Unix timestamp (seconds since epoch)
+    uint32 timestamp = 1;
+    
+    // Instead of sending large JSON strings like {"temperature": 25.4}, 
+    // we send a tiny integer ID that maps to the `sensor_tags` table in SQLite.
+    uint32 field_id = 2;
+    
+    // The actual sensor reading. Float (4 bytes) is sufficient for IoT.
+    float value = 3;
+}
+
+// BatchTelemetry allows the device to buffer offline readings (Delta Encoding / Batching)
+message BatchTelemetry {
+    repeated TelemetryPayload readings = 1;
+}

@@ -6,6 +6,7 @@ import (
 	"github.com/code-grey/xomoi-core/internal/api/handlers"
 	"github.com/code-grey/xomoi-core/internal/api/middleware"
 	"github.com/code-grey/xomoi-core/internal/repository"
+	mqtt "github.com/mochi-mqtt/server/v2"
 )
 
 // Server holds the dependencies for the HTTP server.
@@ -14,15 +15,21 @@ type Server struct {
 	sessionRepo repository.SessionRepository
 	otaHandler    *handlers.OTAHandler
 	configHandler *handlers.ConfigHandler
+	rpcHandler    *handlers.RPCHandler
+	claimHandler  *handlers.ClaimHandler
+	broker        *mqtt.Server
 }
 
 // NewServer creates a new API Server instance.
-func NewServer(uRepo repository.UserRepository, sRepo repository.SessionRepository, pub handlers.MQTTPublisher) *Server {
+func NewServer(uRepo repository.UserRepository, sRepo repository.SessionRepository, dRepo repository.DeviceRepository, broker *mqtt.Server, pub handlers.MQTTPublisher) *Server {
 	return &Server{
-		userRepo:    uRepo,
+		userRepo:      uRepo,
 		sessionRepo:   sRepo,
 		otaHandler:    handlers.NewOTAHandler(pub, "data/ota"),
 		configHandler: handlers.NewConfigHandler(pub),
+		rpcHandler:    handlers.NewRPCHandler(pub),
+		claimHandler:  handlers.NewClaimHandler(dRepo),
+		broker:        broker,
 	}
 }
 
@@ -38,9 +45,16 @@ func (s *Server) SetupRouter() http.Handler {
 	// Protected Endpoints
 	mux.Handle("POST /api/v1/auth/logout", middleware.SessionCheck(s.sessionRepo, http.HandlerFunc(authHandler.Logout)))
 
+	// Device Management Endpoints
+	mux.HandleFunc("GET /api/v1/devices", s.claimHandler.List)
+	mux.HandleFunc("POST /api/v1/devices/claim", s.claimHandler.Claim)
+
 	// Real-time WebSockets
 	mux.HandleFunc("GET /api/v1/ws/health", handlers.HealthWebSocket)
 	mux.HandleFunc("GET /api/v1/ws/telemetry", handlers.TelemetryWebSocket)
+	
+	// MQTT-over-WSS Multiplexer (for Render / single-port deployments)
+	mux.HandleFunc("GET /mqtt", handlers.MQTTWebSocket(s.broker))
 
 	// OTA (Over-The-Air) Firmware Endpoints
 	mux.Handle("POST /api/v1/devices/{mac}/ota", middleware.SessionCheck(s.sessionRepo, http.HandlerFunc(s.otaHandler.UploadFirmware)))
@@ -50,6 +64,9 @@ func (s *Server) SetupRouter() http.Handler {
 	// Dynamic NVS Config Endpoints
 	mux.Handle("POST /api/v1/devices/{mac}/config", middleware.SessionCheck(s.sessionRepo, http.HandlerFunc(s.configHandler.UpdateDeviceConfig)))
 
-	// Apply global Panic Recovery middleware to ensure the broker never crashes from an API panic.
-	return middleware.PanicRecovery(mux)
+	// Generic RPC Actuation Endpoints
+	mux.Handle("POST /api/v1/devices/{mac}/rpc", middleware.SessionCheck(s.sessionRepo, http.HandlerFunc(s.rpcHandler.ExecuteCommand)))
+
+	// Apply global middlewares: CORS and Panic Recovery
+	return middleware.CORS(middleware.PanicRecovery(mux))
 }

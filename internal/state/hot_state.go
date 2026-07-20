@@ -14,7 +14,7 @@ type DeviceState struct {
 }
 
 // Shard count for HotState (Must be power of 2)
-const shardCount = 16
+const shardCount = 256
 
 type StateShard struct {
 	sync.RWMutex

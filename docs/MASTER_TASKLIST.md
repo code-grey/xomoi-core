@@ -20,6 +20,22 @@
     - [x] `hot_state.go`: Implement `sync.Map` for O(1) real-time sensor status.
     - [x] `snapshot.go`: Implement the 5-minute bulk-flush routine to SQLite.
 
+## PHASE 2.5: ENTERPRISE TELEMETRY UPGRADE
+- [ ] **2.5.1: Database Decoupling & Hypertables**
+    - [ ] Isolate `HotState` strictly for O(1) WebRTC Dashboard reads.
+    - [ ] Update SQLite `telemetry_history` schema to use Auto-Incrementing IDs/ULIDs (Drop Composite PK).
+    - [ ] Implement SQLite Hypertables (Time Partitioning via `ATTACH DATABASE` or month-suffixed tables) for TimescaleDB-like speed on massive datasets.
+- [ ] **2.5.2: Lossless Ingestion Pipeline**
+    - [ ] Implement high-speed in-memory Ring Buffer / Channel Queue for raw packets.
+- [ ] **2.5.3: Event-Driven TSDB Flusher**
+    - [ ] Replace `SnapshotWorker` with a batch flusher that triggers on queue limits.
+- [ ] **2.5.4: Zstd Payload Compression (Storage Layer)**
+    - [ ] Compress JSON payloads to BLOBs in Go before SQLite write to save 80% disk space.
+- [ ] **2.5.5: Embedded Schema Migrations**
+    - [ ] Integrate `golang-migrate` for automatic database schema updates on OTA reboot.
+- [ ] **2.5.6: Store-and-Forward Cloud Sync**
+    - [ ] Implement an incremental replication worker to push offline telemetry to the central cloud upon reconnection.
+
 ## PHASE 3: THE EMBEDDED BROKER (WEEKS 5-6)
 - [x] **3.1: Mochi-MQTT Integration (`internal/broker/`)**
     - [x] `mochi.go`: Initialize embedded server (TCP + WebSockets).
@@ -111,3 +127,11 @@
 - [ ] **12.1: Granular Role-Based Access Control**
     - [ ] Implement Owner, Editor, and Viewer roles for device sharing.
     - [ ] Map Roles dynamically to Mochi-MQTT ACLs (e.g., Viewers can subscribe, but cannot publish RPC configs).
+
+## PHASE 13: SECURE EDGE ORCHESTRATION (SILO INTEGRATION)
+- [ ] **13.1: The Silo Package Refactor**
+    - [ ] Convert `silo-core` into a highly reusable Go library.
+    - [ ] Implement Cgroups v2 support for CPU and Memory limits.
+- [ ] **13.2: Xomoi Plugin Engine**
+    - [ ] Build the OTA receiver to download and unpack `tar.gz` RootFS payloads.
+    - [ ] Orchestrate Silo namespaces from within Xomoi to run untrusted AI/Edge workloads securely.

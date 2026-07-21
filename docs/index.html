@@ -674,28 +674,49 @@
         </div>
 
         <div style="margin-top: 3rem; background: var(--surface-hover); padding: 2rem; border-radius: 8px; border: 1px solid var(--border);">
-            <h3 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.2rem;">Official Edge Ingestion Benchmarks (July 2026)</h3>
+            <h3 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1.2rem;">Official Edge Ingestion Benchmarks (July 2026)</h3>
             <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
-                Xomoi-Core's Zero-Allocation Ring Buffer and single-binary architecture completely eliminates IPC (Inter-Process Communication) and JSON deserialization bloat. On a legacy Intel Pentium edge node (4-core), Xomoi achieved:
+                <strong>Test Conditions:</strong> 500 concurrent publishers blasting 178-byte uncompressed JSON payloads over a Tailscale WireGuard VPN into a legacy Intel Pentium edge node (4-core, 8GB RAM). 
             </p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
                 <div style="background: var(--surface); padding: 1rem; border-left: 3px solid var(--accent); border-radius: 0 4px 4px 0;">
-                    <div style="font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Max Throughput (QoS 1)</div>
-                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--fg); margin-top: 5px;">5,586 msgs/sec</div>
+                    <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Throughput (QoS 1)</div>
+                    <div style="font-size: 1.4rem; font-weight: 700; color: var(--fg); margin-top: 5px;">5,586 msgs/sec</div>
                 </div>
                 <div style="background: var(--surface); padding: 1rem; border-left: 3px solid var(--accent-cyan); border-radius: 0 4px 4px 0;">
-                    <div style="font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">E2E Latency (Over VPN)</div>
-                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--fg); margin-top: 5px;">7.46 ms</div>
+                    <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">E2E Latency (VPN)</div>
+                    <div style="font-size: 1.4rem; font-weight: 700; color: var(--fg); margin-top: 5px;">7.46 ms</div>
                 </div>
                 <div style="background: var(--surface); padding: 1rem; border-left: 3px solid #ff4444; border-radius: 0 4px 4px 0;">
-                    <div style="font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Go GC Triggers (350k Pkts)</div>
-                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--fg); margin-top: 5px;">19 Total</div>
+                    <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Total GC Triggers</div>
+                    <div style="font-size: 1.4rem; font-weight: 700; color: var(--fg); margin-top: 5px;">19</div>
+                </div>
+                <div style="background: var(--surface); padding: 1rem; border-left: 3px solid #ffaa00; border-radius: 0 4px 4px 0;">
+                    <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Max GC Pause</div>
+                    <div style="font-size: 1.4rem; font-weight: 700; color: var(--fg); margin-top: 5px;">7.74 ms</div>
+                </div>
+                <div style="background: var(--surface); padding: 1rem; border-left: 3px solid #aa00ff; border-radius: 0 4px 4px 0;">
+                    <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Max RAM Allocated</div>
+                    <div style="font-size: 1.4rem; font-weight: 700; color: var(--fg); margin-top: 5px;">182.4 MB</div>
+                </div>
+                <div style="background: var(--surface); padding: 1rem; border-left: 3px solid #0055ff; border-radius: 0 4px 4px 0;">
+                    <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Data Rate (Ingest)</div>
+                    <div style="font-size: 1.4rem; font-weight: 700; color: var(--fg); margin-top: 5px;">0.95 MB/sec</div>
+                </div>
+                <div style="background: var(--surface); padding: 1rem; border-left: 3px solid #00ffaa; border-radius: 0 4px 4px 0;">
+                    <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Goroutines Sprawled</div>
+                    <div style="font-size: 1.4rem; font-weight: 700; color: var(--fg); margin-top: 5px;">1,019 Max</div>
+                </div>
+                <div style="background: var(--surface); padding: 1rem; border-left: 3px solid #ff0055; border-radius: 0 4px 4px 0;">
+                    <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">SQLite WAL Size</div>
+                    <div style="font-size: 1.4rem; font-weight: 700; color: var(--fg); margin-top: 5px;">10.68 MB</div>
                 </div>
             </div>
             
-            <h4 style="color: var(--fg); margin-bottom: 0.5rem; font-size: 1rem;">Industry Comparison & References</h4>
+            <h4 style="color: var(--fg); margin-bottom: 0.5rem; font-size: 1rem;">Why This Matters</h4>
             <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
-                Standard edge telemetry pipelines (Broker + Database Engine) struggle on constrained hardware due to memory bloat and socket latency. Xomoi outperforms the standard industry stacks by **1.8x to 11x**:
+                Xomoi-Core parsed over <strong>350,000 padded JSON packets</strong> (178 bytes each) in 60 seconds without triggering a single catastrophic Garbage Collector freeze. By completely eliminating IPC (Inter-Process Communication) Unix sockets and merging Mochi-MQTT with SQLite into a single Go binary, Xomoi outperforms standard industry stacks on identical hardware by <strong>1.8x to 11x</strong>:
             </p>
             <ul style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.6; list-style-type: square; padding-left: 1.5rem;">
                 <li><strong style="color: var(--text-muted);">Node-RED + InfluxDB:</strong> Chokes at ~200-500 msgs/sec due to Node.js event-loop saturation and HTTP batching overhead. (Source: <i>InfluxData & Node-RED IoT Community Benchmarks</i>)</li>

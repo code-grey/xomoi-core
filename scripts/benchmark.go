@@ -228,11 +228,13 @@ func runLatencyBenchmark(brokerURL, secret string, duration int, qos byte) {
 		}
 	}).Wait()
 
-	timer := time.NewTimer(time.Duration(duration) * time.Second)
+	timeout := time.After(time.Duration(duration) * time.Second)
+	done := make(chan bool)
+
 	go func() {
 		for {
 			select {
-			case <-timer.C:
+			case <-done:
 				return
 			default:
 				p := LatencyPayload{Temp: 25.5, Hum: 60.0, State: "PING", Timestamp: time.Now().UnixMilli()}
@@ -243,7 +245,8 @@ func runLatencyBenchmark(brokerURL, secret string, duration int, qos byte) {
 		}
 	}()
 
-	<-timer.C
+	<-timeout
+	close(done)
 	time.Sleep(500 * time.Millisecond) // Flush incoming
 
 	avg := float64(totalLatency) / float64(count)

@@ -36,16 +36,34 @@
 - [ ] **2.5.6: Store-and-Forward Cloud Sync**
     - [ ] Implement an incremental replication worker to push offline telemetry to the central cloud upon reconnection.
 
-## PHASE 3: THE EMBEDDED BROKER (WEEKS 5-6)
+## PHASE 2.6: DYNAMIC AUTO-TUNING ENGINE (NEW)
+- [ ] **2.6.1: Host OS Hardware Detection**
+    - [ ] Dynamically read total physical RAM available and CPU model/cores on the host OS.
+    - [ ] Broadcast CPU Model, Clock Speed, Cores, and Total RAM over WebSocket to `benchmark.go` for holistic hardware context.
+- [ ] **2.6.2: GOMEMLIMIT Injection & Dedicated Mode**
+    - [ ] Introduce `XOMOI_DEDICATED_NODE` flag.
+    - [ ] Safely inject a soft cap on Go's GC using `debug.SetMemoryLimit()` (reserving 80% if Dedicated, else default limit).
+- [ ] **2.6.3: Ring Buffer & SQLite Scaling**
+    - [ ] Dynamically scale the `RingBatchSize` and the RingBuffer packet capacity based on available memory.
+
+## PHASE 3: HARDWARE AUTH & SECURE PROVISIONING (WEEKS 5-6)
 - [x] **3.1: Mochi-MQTT Integration (`internal/broker/`)**
     - [x] `mochi.go`: Initialize embedded server (TCP + WebSockets).
-    - [x] `auth.go`: Implement **HMAC-Lite Hook** (Verify MAC + Timestamp + Signature).
-- [x] **3.2: The Ingestion Pipeline**
+    - [x] `auth.go`: Implement HMAC-Lite zero-allocation authentication.
+- [ ] **3.2: Dynamic Schema Registry (Phase 2 Carryover)**
+    - [ ] Decouple hardcoded Temp/Hum types to allow dynamic Protobuf/JSON schema ingestion (e.g., Voltage Monitors).
+- [x] **3.3: The Ingestion Pipeline**
     - [x] `worker_pool.go`: Fixed-size Worker Pool for message processing.
     - [x] `processor.go`: OnPublish -> Proto Unmarshal -> Worker Channel (Backpressure enabled).
 
-## PHASE 4: SOVEREIGN API & SECURITY (WEEKS 7-8)
-- [x] **4.1: The Headless Web Server (`internal/api/`)**
+## PHASE 4: THE IMMORTAL GOSSIP MESH & EDGE ORCHESTRATION
+- [ ] **4.1: Immortal Gossip Mesh**
+    - [ ] Implement decentralized offline peer-to-peer routing using CRDTs.
+- [ ] **4.2: Secure Edge Orchestration**
+    - [ ] Support Cgroups memory isolation and containerized OTA updates.
+
+## PHASE 5: SOVEREIGN API & SECURITY (WEEKS 7-8)
+- [x] **5.1: The Headless Web Server (`internal/api/`)**
     - [x] `router.go`: Go 1.26 `net/http` ServeMux initialization.
     - [x] `middleware/`: Stateful Session check, Anti-CSRF, and Panic Recovery.
 - [x] **4.2: Auth & Session Endpoints**

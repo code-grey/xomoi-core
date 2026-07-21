@@ -70,6 +70,7 @@ type HealthStats struct {
 	WalSizeMB   float64  `json:"wal_size_mb"`
 	UptimeSec   int64    `json:"uptime_sec"`
 	GcPausesNs  uint64   `json:"gc_pauses_ns"`
+	NumGC       uint32   `json:"num_gc"`
 	HeapSysMb   float64  `json:"heap_sys_mb"`
 	Goroutines  int      `json:"goroutines"`
 	NewLogs     []string `json:"new_logs"`
@@ -105,6 +106,7 @@ func HealthWebSocket(w http.ResponseWriter, r *http.Request) {
 				WalSizeMB:   walSize,
 				UptimeSec:   int64(time.Since(serverStartTime).Seconds()),
 				GcPausesNs:  m.PauseNs[(m.NumGC+255)%256],
+				NumGC:       m.NumGC,
 				HeapSysMb:   float64(m.HeapSys) / 1024 / 1024,
 				Goroutines:  runtime.NumGoroutine(),
 				NewLogs:     GlobalLogBuffer.GetAll(),

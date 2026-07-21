@@ -30,6 +30,7 @@ type HealthStats struct {
 	WalSizeMB  float64 `json:"wal_size_mb"`
 	UptimeSec  int64   `json:"uptime_sec"`
 	GcPausesNs uint64  `json:"gc_pauses_ns"`
+	NumGC      uint32  `json:"num_gc"`
 	HeapSysMb  float64 `json:"heap_sys_mb"`
 	Goroutines int     `json:"goroutines"`
 }
@@ -37,6 +38,7 @@ type HealthStats struct {
 type BenchmarkMetrics struct {
 	MaxRamMB    float64
 	MaxGCPause  uint64
+	TotalGC     uint32
 	MaxGorout   int
 	MaxWalSize  float64
 }
@@ -101,6 +103,9 @@ func monitorNodeHealth(wsURL string, duration int) *BenchmarkMetrics {
 					}
 					if stats.GcPausesNs > metrics.MaxGCPause {
 						metrics.MaxGCPause = stats.GcPausesNs
+					}
+					if stats.NumGC > metrics.TotalGC {
+						metrics.TotalGC = stats.NumGC
 					}
 					if stats.Goroutines > metrics.MaxGorout {
 						metrics.MaxGorout = stats.Goroutines
@@ -291,6 +296,7 @@ func printHardwareMetrics(metrics *BenchmarkMetrics) {
 	if metrics.MaxRamMB > 0 {
 		fmt.Printf("\n--- BROKER HARDWARE LIMITS HIT ---\n")
 		fmt.Printf("Max RAM Allocated: %.2f MB\n", metrics.MaxRamMB)
+		fmt.Printf("Total GC Triggers: %d\n", metrics.TotalGC)
 		fmt.Printf("Max GC Pause Latency: %d ns (%.3f ms)\n", metrics.MaxGCPause, float64(metrics.MaxGCPause)/1e6)
 		fmt.Printf("Max Goroutines Sprawled: %d\n", metrics.MaxGorout)
 		fmt.Printf("Max SQLite WAL Size: %.2f MB\n", metrics.MaxWalSize)

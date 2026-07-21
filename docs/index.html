@@ -25,17 +25,23 @@
             --surface: #ffffff;
             --surface-hover: #f0f0f0;
             --fg: #111111;
-            --text-muted: #666666;
+            --text-muted: #444444;
             --text-dim: #888888;
             --accent: #00b347; 
             --accent-glow: rgba(0, 179, 71, 0.2);
             --accent-cyan: #007bb5;
-            --border: #dddddd;
-            --border-dim: #eeeeee;
+            --border: #151512;
+            --border-dim: #333333;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
+        
+        body::before {
+            content: ""; position: fixed; inset: 0; pointer-events: none;
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 24px 24px; z-index: -2; opacity: 0.4;
+        }
         body {
             background-color: var(--bg);
             color: var(--fg);
@@ -66,8 +72,7 @@
             align-items: center;
             position: sticky;
             top: 0;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(12px);
+            background: var(--bg);
             z-index: 100;
         }
 
@@ -79,7 +84,7 @@
             border: 1px solid var(--accent);
             color: var(--accent);
             padding: 0.3rem 0.8rem;
-            border-radius: 20px;
+            border-radius: 2px;
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 1px;
@@ -123,9 +128,7 @@
             line-height: 1.1;
             margin-bottom: 1.5rem;
             letter-spacing: -2px;
-            background: linear-gradient(to right, #fff, #a0a0a0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--fg);
         }
 
         .hero p {
@@ -144,7 +147,7 @@
             align-items: center;
             justify-content: center;
             padding: 1rem 2rem;
-            border-radius: 4px;
+            border-radius: 2px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
             font-weight: 700;
@@ -163,6 +166,14 @@
         .btn-primary:hover {
             background: #fff;
             border-color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-outline:hover { 
+            background: var(--fg); 
+            color: var(--bg);
+            border-color: var(--fg); 
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
         }
@@ -189,57 +200,56 @@
             padding: 0 2rem;
         }
 
-        .glass-card {
+        .schematic-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 0;
             padding: 2.5rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
+            transition: all 0.2s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .glass-card::before {
+        .schematic-card::before {
             content: "";
             position: absolute;
             top: 0; left: 0; right: 0; height: 2px;
             background: linear-gradient(90deg, transparent, var(--accent), transparent);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.2s ease;
         }
 
-        .glass-card:hover {
-            transform: translateY(-5px);
+        .schematic-card:hover {
+            transform: translateY(-3px);
             background: var(--surface-hover);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0, 0.4);
+            border-color: var(--border);
+            box-shadow: 6px 6px 0 var(--border);
         }
 
-        .glass-card:hover::before { opacity: 1; }
+        .schematic-card:hover::before { opacity: 1; }
 
-        .glass-card h3 {
+        .schematic-card h3 {
             font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 1rem;
-            color: #fff;
+            color: var(--fg);
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .glass-card p {
+        .schematic-card p {
             color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.7;
         }
 
-        .glass-card .tag {
+        .schematic-card .tag {
             display: inline-block;
             padding: 0.2rem 0.6rem;
-            background: rgba(255,255,255,0.05);
+            background: var(--surface-hover);
             border: 1px solid var(--border);
-            border-radius: 4px;
+            border-radius: 2px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.75rem;
             color: var(--accent-cyan);
@@ -257,7 +267,7 @@
         .terminal {
             background: #0d0d0d;
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 2px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
             overflow: hidden;
         }
@@ -289,12 +299,12 @@
 
         /* DATA FLOW DIAGRAM & TABS */
         .data-flow-container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 6rem auto;
             padding: 2rem;
-            background: rgba(10, 10, 10, 0.7);
+            background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 2px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -304,25 +314,25 @@
             content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
         }
 
-        .data-flow-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 1.5rem; color: #fff; }
+        .data-flow-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--fg); }
         .data-flow-title span { color: var(--accent); }
 
         .level-tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
         
         .level-btn {
             background: transparent; color: var(--text-muted); border: 1px solid var(--border);
-            padding: 0.5rem 1.5rem; border-radius: 20px; font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease;
+            padding: 0.5rem 1.5rem; border-radius: 2px; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase;
         }
         
-        .level-btn:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+        .level-btn:hover { color: var(--fg); border-color: var(--border); background: var(--surface-hover); }
         .level-btn.active { background: rgba(0,255,102,0.1); color: var(--accent); border-color: var(--accent); }
 
         .level-content { display: none; animation: fadeIn 0.4s ease forwards; }
         .level-content.active { display: block; }
 
-        .svg-container { width: 100%; overflow-x: auto; padding: 1rem 0; -ms-overflow-style: none; scrollbar-width: none; }
-        .svg-container::-webkit-scrollbar { display: none; }
+        .svg-container { width: 100%; padding: 1rem 0; display: flex; justify-content: center; }
+        .svg-container svg { max-width: 550px; height: auto; }
 
         .flow-line { stroke-dasharray: 10 15; animation: flowAnim 1s linear infinite; }
         @keyframes flowAnim { from { stroke-dashoffset: 25; } to { stroke-dashoffset: 0; } }
@@ -360,7 +370,7 @@
             padding: 2rem;
             background: rgba(255,255,255,0.02);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 2px;
         }
 
         .timeline-item h4 {
@@ -384,7 +394,7 @@
 
         .table-wrapper {
             overflow-x: auto;
-            border-radius: 16px;
+            border-radius: 2px;
             margin-bottom: 3rem;
         }
         .comparison-table {
@@ -453,37 +463,37 @@
     </section>
 
     <section id="architecture" class="architecture-grid">
-        <div class="glass-card animate-up delay-1">
+        <div class="schematic-card animate-up delay-1">
             <h3>Embedded Mochi-MQTT</h3>
             <p>Xomoi embeds a fully compliant MQTT v5 broker directly into the binary. By utilizing a 256-shard FNV-1a Hash Map, it completely eliminates Mutex lock contention, capable of routing hundreds of thousands of messages per second.</p>
             <div class="tag">internal/broker/mochi.go</div>
         </div>
 
-        <div class="glass-card animate-up delay-2">
+        <div class="schematic-card animate-up delay-2">
             <h3>Lossless Zstd TSDB</h3>
             <p>Traditional DBs destroy SD cards. Xomoi streams packets into a Go Ring Buffer, natively compresses JSON payloads using the Zstandard algorithm, and executes asynchronous Bulk Inserts into a WAL-enabled SQLite database.</p>
             <div class="tag">internal/state/ring_buffer.go</div>
         </div>
 
-        <div class="glass-card animate-up delay-3">
+        <div class="schematic-card animate-up delay-3">
             <h3>The Svelte 5 Dashboard</h3>
             <p>A stunning, real-time SPA built in Svelte 5. Using Go's <code>go:embed</code> directive, the entire compiled frontend is bundled directly into the executable. View live SVG telemetry, manage alerts, and administer the edge node over WebSockets.</p>
             <div class="tag">ui/src/App.svelte</div>
         </div>
 
-        <div class="glass-card animate-up delay-1">
+        <div class="schematic-card animate-up delay-1">
             <h3>WebRTC P2P Hole-Punching</h3>
             <p>Access your home edge node from a coffee shop securely. Xomoi features a native Pion WebRTC integration, bypassing TCP constraints and NAT firewalls via a lightweight signaling server. No port forwarding required.</p>
             <div class="tag">internal/api/webrtc_host.go</div>
         </div>
 
-        <div class="glass-card animate-up delay-2">
+        <div class="schematic-card animate-up delay-2">
             <h3>The Blacksmith SDK</h3>
             <p>A C++ hardware client enforcing zero-allocation NanoPB (Protobuf) batching. It slashes cellular bandwidth by 99% and generates completely static structs to prevent heap fragmentation on ESP32 microcontrollers.</p>
             <div class="tag">sdk/XomoiCore.cpp</div>
         </div>
 
-        <div class="glass-card animate-up delay-3">
+        <div class="schematic-card animate-up delay-3">
             <h3>Browser-Native Web Flasher</h3>
             <p>Onboard devices instantly. Utilizing the WebSerial API, users can plug microcontrollers into their USB port and directly flash the firmware from the Xomoi Svelte dashboard inside Google Chrome. Zero CLI tools needed.</p>
             <div class="tag">ui/src/lib/WebFlasher.svelte</div>
@@ -503,24 +513,24 @@
         <div id="level-1" class="level-content active">
             <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">The macroscopic view: Unifying the edge and the user via a single binary.</p>
             <div class="svg-container">
-                <svg viewBox="0 0 900 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="min-width: 600px;">
-                    <path class="flow-line" d="M 220 100 L 400 100" stroke="#00ff66" stroke-width="4" fill="none"/>
-                    <path class="flow-line" d="M 500 100 L 680 100" stroke="#ff00ff" stroke-width="4" fill="none"/>
+                <svg viewBox="0 0 450 160" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <path class="flow-line" d="M 110 80 L 180 80" stroke="#00ff66" stroke-width="4" fill="none"/>
+                    <path class="flow-line" d="M 280 80 L 340 80" stroke="#ff00ff" stroke-width="4" fill="none"/>
                     
-                    <g class="node-group" transform="translate(140, 60)">
-                        <rect width="80" height="80" rx="16" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
+                    <g class="node-group" transform="translate(30, 40)">
+                        <rect width="80" height="80" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
                         <text x="40" y="45" fill="var(--text-muted)" font-size="14" font-weight="600" text-anchor="middle">Sensors</text>
                     </g>
                     
-                    <g class="node-group" transform="translate(400, 60)">
-                        <rect width="100" height="80" rx="16" fill="var(--surface)" stroke="#00e5ff" stroke-width="2"/>
-                        <text x="50" y="45" fill="var(--fg)" font-size="14" font-weight="800" text-anchor="middle">XOMOI-CORE</text>
+                    <g class="node-group" transform="translate(180, 40)">
+                        <rect width="100" height="80" rx="4" fill="var(--surface)" stroke="#00e5ff" stroke-width="2"/>
+                        <text x="50" y="45" fill="var(--fg)" font-size="14" font-weight="800" text-anchor="middle">XOMOI</text>
                         <text x="50" y="65" fill="#00e5ff" font-size="10" font-family="JetBrains Mono, monospace" text-anchor="middle">Single Binary</text>
                     </g>
                     
-                    <g class="node-group" transform="translate(680, 60)">
-                        <rect width="80" height="80" rx="16" fill="var(--surface)" stroke="#ff00ff" stroke-width="2"/>
-                        <text x="40" y="45" fill="var(--text-muted)" font-size="14" font-weight="600" text-anchor="middle">Dashboard</text>
+                    <g class="node-group" transform="translate(340, 40)">
+                        <rect width="80" height="80" rx="4" fill="var(--surface)" stroke="#ff00ff" stroke-width="2"/>
+                        <text x="40" y="45" fill="var(--text-muted)" font-size="12" font-weight="600" text-anchor="middle">Dashboard</text>
                     </g>
                 </svg>
             </div>
@@ -530,28 +540,28 @@
         <div id="level-2" class="level-content">
             <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">Peeking inside the binary: Decoupling I/O with the Ring Buffer.</p>
             <div class="svg-container">
-                <svg viewBox="0 0 900 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="min-width: 800px;">
-                    <path class="flow-line" d="M 120 100 L 260 100" stroke="#00ff66" stroke-width="4" fill="none"/>
-                    <path class="flow-line" d="M 340 100 L 480 100" stroke="#00e5ff" stroke-width="4" fill="none"/>
-                    <path class="flow-line" d="M 560 100 L 700 100" stroke="#0070f3" stroke-width="4" fill="none"/>
+                <svg viewBox="0 0 400 300" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <path class="flow-line" d="M 140 80 L 260 80" stroke="#00ff66" stroke-width="4" fill="none"/>
+                    <path class="flow-line" d="M 300 120 L 300 180" stroke="#00e5ff" stroke-width="4" fill="none"/>
+                    <path class="flow-line" d="M 260 220 L 140 220" stroke="#0070f3" stroke-width="4" fill="none"/>
                     
-                    <g class="node-group" transform="translate(40, 60)">
-                        <rect width="80" height="80" rx="16" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
+                    <g class="node-group" transform="translate(60, 40)">
+                        <rect width="80" height="80" rx="4" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
                         <text x="40" y="45" fill="var(--text-muted)" font-size="12" font-weight="600" text-anchor="middle">ESP32</text>
                     </g>
                     
-                    <g class="node-group" transform="translate(260, 60)">
-                        <rect width="80" height="80" rx="16" fill="var(--surface)" stroke="#00ff66" stroke-width="2"/>
+                    <g class="node-group" transform="translate(260, 40)">
+                        <rect width="80" height="80" rx="4" fill="var(--surface)" stroke="#00ff66" stroke-width="2"/>
                         <text x="40" y="45" fill="#00ff66" font-size="12" font-weight="600" text-anchor="middle">Mochi-MQTT</text>
                     </g>
 
-                    <g class="node-group" transform="translate(480, 60)">
-                        <rect width="80" height="80" rx="16" fill="var(--surface)" stroke="#00e5ff" stroke-width="2"/>
+                    <g class="node-group" transform="translate(260, 180)">
+                        <rect width="80" height="80" rx="4" fill="var(--surface)" stroke="#00e5ff" stroke-width="2"/>
                         <text x="40" y="45" fill="#00e5ff" font-size="12" font-weight="600" text-anchor="middle">Ring Buffer</text>
                     </g>
 
-                    <g class="node-group" transform="translate(700, 60)">
-                        <rect width="80" height="80" rx="16" fill="var(--surface)" stroke="#0070f3" stroke-width="2"/>
+                    <g class="node-group" transform="translate(60, 180)">
+                        <rect width="80" height="80" rx="4" fill="var(--surface)" stroke="#0070f3" stroke-width="2"/>
                         <text x="40" y="45" fill="#0070f3" font-size="12" font-weight="600" text-anchor="middle">Zstd TSDB</text>
                     </g>
                 </svg>
@@ -562,94 +572,100 @@
         <div id="level-3" class="level-content">
             <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">True Low-Level Design (LLD): Bypassing mTLS with HMAC-Lite, lock-free 256-shard maps, and 5m bulk flushes to protect flash wear.</p>
             <div class="svg-container">
-                <svg viewBox="0 0 1100 450" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="min-width: 1000px;">
+                <svg viewBox="0 0 400 720" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                     <!-- Active Paths -->
-                    <path class="flow-line" d="M 140 200 L 210 200" stroke="#00ff66" stroke-width="3" fill="none"/>
-                    <path class="flow-line" d="M 290 200 L 410 200" stroke="#00ff66" stroke-width="3" fill="none"/>
-                    
-                    <path class="flow-line" d="M 450 160 L 450 140" stroke="#ff00ff" stroke-width="3" fill="none"/>
-                    <path class="flow-line" d="M 450 240 L 450 260" stroke="#00e5ff" stroke-width="3" fill="none"/>
-                    
-                    <path class="flow-line" d="M 490 300 L 650 300 L 650 240" stroke="#00e5ff" stroke-width="3" fill="none"/>
-                    <path class="flow-line" d="M 490 200 L 610 200" stroke="#00e5ff" stroke-width="3" fill="none"/>
-                    
-                    <path class="flow-line" d="M 690 200 L 760 200" stroke="#0070f3" stroke-width="3" fill="none"/>
-                    <path class="flow-line" d="M 840 200 L 910 200" stroke="#0070f3" stroke-width="3" fill="none"/>
-                    
-                    <path class="flow-line" d="M 950 160 L 950 140" stroke="#ffbd2e" stroke-width="3" fill="none"/>
-                    <path d="M 950 240 L 950 260" stroke="var(--border)" stroke-width="3" stroke-dasharray="4 4" fill="none"/>
+                    <!-- ESP32 to HMAC -->
+                    <path class="flow-line" d="M 140 80 L 260 80" stroke="#00ff66" stroke-width="3" fill="none"/>
+                    <!-- HMAC to Mochi -->
+                    <path class="flow-line" d="M 300 120 L 300 180" stroke="#00ff66" stroke-width="3" fill="none"/>
+                    <!-- Mochi to Shard Map -->
+                    <path class="flow-line" d="M 260 220 L 140 220" stroke="#ff00ff" stroke-width="3" fill="none"/>
+                    <!-- Mochi to Workers -->
+                    <path class="flow-line" d="M 300 260 L 300 320" stroke="#00e5ff" stroke-width="3" fill="none"/>
+                    <!-- Workers to Shard Map -->
+                    <path d="M 260 340 L 140 240" stroke="#ff00ff" stroke-width="2" stroke-dasharray="4 4" fill="none"/>
+                    <!-- Workers to Ring Buffer -->
+                    <path class="flow-line" d="M 260 360 L 140 360" stroke="#00e5ff" stroke-width="3" fill="none"/>
+                    <!-- Ring Buffer to sync.Map -->
+                    <path class="flow-line" d="M 100 400 L 100 460" stroke="#0070f3" stroke-width="3" fill="none"/>
+                    <!-- sync.Map to Zstd -->
+                    <path class="flow-line" d="M 140 500 L 260 500" stroke="#ffbd2e" stroke-width="3" fill="none"/>
+                    <!-- Zstd to SQLite -->
+                    <path class="flow-line" d="M 300 540 L 300 600" stroke="#0070f3" stroke-width="3" fill="none"/>
+                    <!-- Migrate to SQLite -->
+                    <path d="M 140 640 L 260 640" stroke="var(--border)" stroke-width="3" stroke-dasharray="4 4" fill="none"/>
 
                     <!-- NODES -->
                     <!-- 1. ESP32 -->
-                    <g class="node-group" transform="translate(60, 160)">
-                        <rect width="80" height="80" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
+                    <g class="node-group" transform="translate(60, 40)">
+                        <rect width="80" height="80" rx="2" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
                         <text x="40" y="35" fill="var(--text-muted)" font-size="12" font-weight="600" text-anchor="middle">ESP32</text>
                         <text x="40" y="55" fill="var(--text-dim)" font-size="9" text-anchor="middle">NanoPB C++</text>
                     </g>
 
                     <!-- 2. HMAC-Lite -->
-                    <g class="node-group" transform="translate(210, 160)">
-                        <rect width="80" height="80" rx="10" fill="var(--surface)" stroke="#00ff66" stroke-width="2" transform="rotate(45 40 40) scale(0.7)"/>
-                        <text x="40" y="40" fill="#00ff66" font-size="11" font-weight="600" text-anchor="middle">HMAC-Lite</text>
+                    <g class="node-group" transform="translate(260, 40)">
+                        <rect x="8" y="8" width="64" height="64" rx="2" fill="var(--surface)" stroke="#00ff66" stroke-width="2" transform="rotate(45 40 40)"/>
+                        <text x="40" y="35" fill="#00ff66" font-size="11" font-weight="600" text-anchor="middle">HMAC-Lite</text>
                         <text x="40" y="55" fill="var(--text-dim)" font-size="9" text-anchor="middle">Bypass JWT</text>
                     </g>
 
                     <!-- 3. Mochi-MQTT Core -->
-                    <g class="node-group" transform="translate(410, 160)">
-                        <rect width="80" height="80" rx="16" fill="var(--surface)" stroke="#00ff66" stroke-width="2"/>
+                    <g class="node-group" transform="translate(260, 180)">
+                        <rect width="80" height="80" rx="4" fill="var(--surface)" stroke="#00ff66" stroke-width="2"/>
                         <text x="40" y="35" fill="#00ff66" font-size="12" font-weight="600" text-anchor="middle">Mochi Core</text>
                         <text x="40" y="55" fill="var(--text-dim)" font-size="10" text-anchor="middle">TCP/WSS</text>
                     </g>
 
                     <!-- 4. 256-Shard Map -->
-                    <g class="node-group" transform="translate(410, 60)">
-                        <rect width="80" height="80" rx="8" fill="var(--surface)" stroke="#ff00ff" stroke-width="2" stroke-dasharray="4 2"/>
+                    <g class="node-group" transform="translate(60, 180)">
+                        <rect width="80" height="80" rx="2" fill="var(--surface)" stroke="#ff00ff" stroke-width="2" stroke-dasharray="4 2"/>
                         <text x="40" y="33" fill="#ff00ff" font-size="11" font-weight="600" text-anchor="middle">256-Shard</text>
                         <text x="40" y="48" fill="#ff00ff" font-size="10" font-weight="600" text-anchor="middle">FNV-1a Map</text>
                         <text x="40" y="65" fill="var(--text-dim)" font-size="9" text-anchor="middle">Lock Control</text>
                     </g>
 
                     <!-- 5. Zero-Sprawl Workers -->
-                    <g class="node-group" transform="translate(410, 260)">
-                        <rect width="80" height="80" rx="8" fill="var(--surface)" stroke="#00e5ff" stroke-width="2"/>
+                    <g class="node-group" transform="translate(260, 320)">
+                        <rect width="80" height="80" rx="2" fill="var(--surface)" stroke="#00e5ff" stroke-width="2"/>
                         <text x="40" y="33" fill="#00e5ff" font-size="11" font-weight="600" text-anchor="middle">Zero-Sprawl</text>
                         <text x="40" y="48" fill="#00e5ff" font-size="10" font-weight="600" text-anchor="middle">Worker Pool</text>
                         <text x="40" y="65" fill="var(--text-dim)" font-size="9" text-anchor="middle">Limit Sprawl</text>
                     </g>
 
                     <!-- 6. Ring Buffer + ULID -->
-                    <g class="node-group" transform="translate(610, 160)">
-                        <circle cx="40" cy="40" r="40" fill="var(--surface)" stroke="#00e5ff" stroke-width="2"/>
-                        <circle cx="40" cy="40" r="30" fill="none" stroke="#00e5ff" stroke-width="2" stroke-dasharray="8 4"/>
+                    <g class="node-group" transform="translate(60, 320)">
+                        <circle cx="40" cy="40" r="45" fill="var(--surface)" stroke="#00e5ff" stroke-width="2"/>
+                        <circle cx="40" cy="40" r="35" fill="none" stroke="#00e5ff" stroke-width="2" stroke-dasharray="8 4"/>
                         <text x="40" y="35" fill="#00e5ff" font-size="11" font-weight="600" text-anchor="middle">Ring Buffer</text>
                         <text x="40" y="55" fill="var(--text-dim)" font-size="9" text-anchor="middle">+ ULID Index</text>
                     </g>
+                    
+                    <!-- 7. sync.Map Hot State -->
+                    <g class="node-group" transform="translate(60, 460)">
+                        <rect width="80" height="80" rx="2" fill="var(--surface)" stroke="#ffbd2e" stroke-width="2"/>
+                        <text x="40" y="33" fill="#ffbd2e" font-size="11" font-weight="600" text-anchor="middle">sync.Map</text>
+                        <text x="40" y="48" fill="#ffbd2e" font-size="10" font-weight="600" text-anchor="middle">Hot-State</text>
+                        <text x="40" y="65" fill="var(--text-dim)" font-size="9" text-anchor="middle">In-Memory</text>
+                    </g>
 
-                    <!-- 7. Zstd Compressor -->
-                    <g class="node-group" transform="translate(760, 160)">
+                    <!-- 8. Zstd Compressor -->
+                    <g class="node-group" transform="translate(260, 460)">
                         <polygon points="0,20 80,0 80,80 0,60" fill="var(--surface)" stroke="#0070f3" stroke-width="2"/>
                         <text x="40" y="45" fill="#0070f3" font-size="11" font-weight="600" text-anchor="middle">Zstd Stream</text>
                     </g>
 
-                    <!-- 8. SQLite WAL -->
-                    <g class="node-group" transform="translate(910, 160)">
+                    <!-- 9. SQLite WAL -->
+                    <g class="node-group" transform="translate(260, 600)">
                         <path d="M 0 20 C 0 0, 80 0, 80 20 L 80 60 C 80 80, 0 80, 0 60 Z" fill="var(--surface)" stroke="#0070f3" stroke-width="2"/>
                         <path d="M 0 20 C 0 40, 80 40, 80 20" fill="none" stroke="#0070f3" stroke-width="2"/>
                         <text x="40" y="45" fill="#0070f3" font-size="12" font-weight="600" text-anchor="middle">SQLite WAL</text>
                         <text x="40" y="65" fill="var(--text-dim)" font-size="9" text-anchor="middle">5m Bulk Flush</text>
                     </g>
 
-                    <!-- 9. sync.Map Hot State -->
-                    <g class="node-group" transform="translate(910, 60)">
-                        <rect width="80" height="80" rx="8" fill="var(--surface)" stroke="#ffbd2e" stroke-width="2"/>
-                        <text x="40" y="33" fill="#ffbd2e" font-size="11" font-weight="600" text-anchor="middle">sync.Map</text>
-                        <text x="40" y="48" fill="#ffbd2e" font-size="10" font-weight="600" text-anchor="middle">Hot-State</text>
-                        <text x="40" y="65" fill="var(--text-dim)" font-size="9" text-anchor="middle">In-Memory</text>
-                    </g>
-
                     <!-- 10. golang-migrate -->
-                    <g class="node-group" transform="translate(910, 260)">
-                        <rect width="80" height="80" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="2" stroke-dasharray="4 4"/>
+                    <g class="node-group" transform="translate(60, 600)">
+                        <rect width="80" height="80" rx="2" fill="var(--surface)" stroke="var(--border)" stroke-width="2" stroke-dasharray="4 4"/>
                         <text x="40" y="40" fill="var(--text-muted)" font-size="11" font-weight="600" text-anchor="middle">golang-migrate</text>
                         <text x="40" y="60" fill="var(--text-dim)" font-size="9" text-anchor="middle">Boot Init</text>
                     </g>
@@ -693,7 +709,7 @@
         <h2 class="roadmap-title">The Brutal Truth</h2>
         <p style="text-align: center; color: var(--text-muted); max-width: 800px; margin: -2rem auto 4rem; font-size: 1.1rem;">Xomoi isn't a silver bullet. We built it to solve a very specific problem: <strong style="color: var(--fg);">deploying mission-critical IoT infrastructure on fragile, low-power edge devices without the nightmare of managing 5 different Docker containers.</strong></p>
         
-        <div class="glass-card table-wrapper animate-up delay-1" style="padding: 0;">
+        <div class="schematic-card table-wrapper animate-up delay-1" style="padding: 0;">
             <table class="comparison-table">
                 <thead>
                     <tr>
@@ -752,13 +768,13 @@
         </div>
 
         <div class="architecture-grid" style="margin-top: 3rem;">
-            <div class="glass-card animate-up delay-2" style="border-top: 2px solid var(--accent); background: var(--surface);">
+            <div class="schematic-card animate-up delay-2" style="border-top: 2px solid var(--accent); background: var(--surface);">
                 <h3 style="color: var(--accent); font-size: 1.4rem;">Where Xomoi Dominates</h3>
                 <p style="margin-top: 1.5rem; color: var(--text-muted);"><strong>Vs KubeEdge & Docker:</strong> You don't need a heavy Containerd daemon or a Kubernetes control plane. Xomoi runs as a single executable, radically reducing CPU/RAM overhead and eliminating moving parts that break in remote fields.</p>
                 <p style="margin-top: 1rem; color: var(--text-muted);"><strong>Vs Mosquitto + InfluxDB + Redis:</strong> Instead of piping data over TCP loops between a broker, a cache, and a database, Xomoi does it all in-memory. By natively compressing payloads with Zstd before hitting SQLite, we extend SD card lifespans by years.</p>
             </div>
             
-            <div class="glass-card animate-up delay-3" style="border-top: 2px solid #ff5f56; background: var(--surface);">
+            <div class="schematic-card animate-up delay-3" style="border-top: 2px solid #ff5f56; background: var(--surface);">
                 <h3 style="color: #ff5f56; font-size: 1.4rem;">Where Xomoi Fails</h3>
                 <p style="margin-top: 1.5rem; color: var(--text-muted);"><strong>Massive Cloud Data Centers:</strong> Xomoi is strictly an edge-first, offline-first node. If you are building a central cloud cluster handling millions of concurrent vehicles globally, use EMQX or Kafka.</p>
                 <p style="margin-top: 1rem; color: var(--text-muted);"><strong>Independent Microservice Scaling:</strong> If your architecture relies on independently scaling the database layer from the broker layer across multiple servers, Xomoi's hyper-converged monolith approach will fight you.</p>
@@ -797,7 +813,7 @@
 
 <footer>
     <p>Liberating the extreme edge from surveillance.</p>
-    <p style="margin-top: 1rem;">Architected by <a href="https://github.com/code-grey">@code-grey</a> & <a href="https://github.com/code-zephyrus">@code-zephyrus</a> | GNU AGPLv3</p>
+    <p style="margin-top: 1rem;">Architected by <a href="https://github.com/code-grey">@code-grey</a> & <a href="https://github.com/satoruflx">@satoruflx</a> | GNU AGPLv3</p>
 </footer>
 
 <script>

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
@@ -14,6 +13,7 @@ import (
 	"time"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/gorilla/websocket"
 )
 
 type LatencyPayload struct {
@@ -21,6 +21,24 @@ type LatencyPayload struct {
 	Hum       float64 `json:"hum"`
 	State     string  `json:"state"`
 	Timestamp int64   `json:"timestamp"`
+}
+
+type HealthStats struct {
+	RamUsageMB float64 `json:"ram_usage_mb"`
+	NumWorkers int     `json:"num_workers"`
+	NumCPU     int     `json:"num_cpu"`
+	WalSizeMB  float64 `json:"wal_size_mb"`
+	UptimeSec  int64   `json:"uptime_sec"`
+	GcPausesNs uint64  `json:"gc_pauses_ns"`
+	HeapSysMb  float64 `json:"heap_sys_mb"`
+	Goroutines int     `json:"goroutines"`
+}
+
+type BenchmarkMetrics struct {
+	MaxRamMB    float64
+	MaxGCPause  uint64
+	MaxGorout   int
+	MaxWalSize  float64
 }
 
 func main() {
@@ -33,13 +51,17 @@ func main() {
 
 	factorySecret := "xomoi-factory-secret"
 	brokerURL := fmt.Sprintf("tcp://%s:1883", *targetIP)
+	wsURL := fmt.Sprintf("ws://%s:8085/api/v1/ws/health", *targetIP)
 	
 	log.Printf("Starting Xomoi-Core Benchmark Suite")
 	log.Printf("Target: %s | QoS: %d | Mode: %s | Workers: %d | Time: %ds", brokerURL, *qos, *mode, *workers, *duration)
 
+	// Start Node Health Monitor
+	metrics := monitorNodeHealth(wsURL, *duration)
+
 	switch *mode {
 	case "ingest":
-		runIngestBenchmark(brokerURL, factorySecret, *workers, *duration, byte(*qos))
+		runIngestBenchmark(brokerURL, factorySecret, *workers, *duration, byte(*qos), metrics)
 	case "fanout":
 		runFanoutBenchmark(brokerURL, factorySecret, *workers, *duration, byte(*qos))
 	case "latency":
@@ -49,7 +71,53 @@ func main() {
 	}
 }
 
-func runIngestBenchmark(brokerURL, secret string, workers, duration int, qos byte) {
+func monitorNodeHealth(wsURL string, duration int) *BenchmarkMetrics {
+	metrics := &BenchmarkMetrics{}
+	
+	conn, _, err := websocket.DefaultDialer.Dial(wsURL, nil)
+	if err != nil {
+		log.Printf("[WARNING] Could not connect to Node Health API (%v). Hardware stats will be unavailable.", err)
+		return metrics
+	}
+	log.Printf("[INFO] Intercepted WebSockets Node Health stream...")
+
+	timer := time.NewTimer(time.Duration(duration+2) * time.Second)
+
+	go func() {
+		defer conn.Close()
+		for {
+			select {
+			case <-timer.C:
+				return
+			default:
+				conn.SetReadDeadline(time.Now().Add(3 * time.Second))
+				_, msg, err := conn.ReadMessage()
+				if err != nil {
+					return
+				}
+				var stats HealthStats
+				if err := json.Unmarshal(msg, &stats); err == nil {
+					if stats.RamUsageMB > metrics.MaxRamMB {
+						metrics.MaxRamMB = stats.RamUsageMB
+					}
+					if stats.GcPausesNs > metrics.MaxGCPause {
+						metrics.MaxGCPause = stats.GcPausesNs
+					}
+					if stats.Goroutines > metrics.MaxGorout {
+						metrics.MaxGorout = stats.Goroutines
+					}
+					if stats.WalSizeMB > metrics.MaxWalSize {
+						metrics.MaxWalSize = stats.WalSizeMB
+					}
+				}
+			}
+		}
+	}()
+
+	return metrics
+}
+
+func runIngestBenchmark(brokerURL, secret string, workers, duration int, qos byte, metrics *BenchmarkMetrics) {
 	var totalSent uint64
 	var wg sync.WaitGroup
 
@@ -86,15 +154,15 @@ func runIngestBenchmark(brokerURL, secret string, workers, duration int, qos byt
 	}
 
 	wg.Wait()
-	printResults(totalSent, start, len(payload))
+	time.Sleep(1 * time.Second) // wait for metrics stream
+	printResults(totalSent, start, len(payload), metrics)
 }
 
 func runFanoutBenchmark(brokerURL, secret string, subs, duration int, qos byte) {
 	var totalReceived uint64
 	var wg sync.WaitGroup
 
-	// 1. Connect all subscribers
-	macPublisher := "AA:BB:CC:DD:EE:FF" // Publisher
+	macPublisher := "AA:BB:CC:DD:EE:FF"
 	topic := fmt.Sprintf("/xomoi/%s/telemetry", macPublisher)
 
 	log.Printf("Connecting %d subscribers...", subs)
@@ -104,13 +172,9 @@ func runFanoutBenchmark(brokerURL, secret string, subs, duration int, qos byte) 
 			defer wg.Done()
 			macSub := fmt.Sprintf("SUB:BB:CC:DD:EE:%02X", subID)
 			client := connectClient(brokerURL, macSub, secret)
-			if client == nil {
-				return
-			}
+			if client == nil { return }
 			defer client.Disconnect(250)
 
-			// Xomoi ACL check: Subscribers might need special auth to read another's topic.
-			// Assuming for now they can subscribe.
 			client.Subscribe(topic, qos, func(c mqtt.Client, m mqtt.Message) {
 				atomic.AddUint64(&totalReceived, 1)
 			}).Wait()
@@ -119,9 +183,8 @@ func runFanoutBenchmark(brokerURL, secret string, subs, duration int, qos byte) 
 		}(i)
 	}
 	
-	time.Sleep(1 * time.Second) // Wait for subs to connect
+	time.Sleep(1 * time.Second)
 
-	// 2. Start Publisher
 	payload := []byte(`{"temp":42.5,"hum":88.1,"state":"FANOUT"}`)
 	client := connectClient(brokerURL, macPublisher, secret)
 	timer := time.NewTimer(time.Duration(duration) * time.Second)
@@ -146,7 +209,7 @@ func runFanoutBenchmark(brokerURL, secret string, subs, duration int, qos byte) 
 }
 
 func runLatencyBenchmark(brokerURL, secret string, duration int, qos byte) {
-	macAddress := "LATENCY:CC:DD:EE:FF"
+	macAddress := "AA:BB:CC:DD:EE:FF"
 	topic := fmt.Sprintf("/xomoi/%s/telemetry", macAddress)
 
 	client := connectClient(brokerURL, macAddress, secret)
@@ -175,7 +238,7 @@ func runLatencyBenchmark(brokerURL, secret string, duration int, qos byte) {
 				p := LatencyPayload{Temp: 25.5, Hum: 60.0, State: "PING", Timestamp: time.Now().UnixMilli()}
 				b, _ := json.Marshal(p)
 				client.Publish(topic, qos, false, b).Wait()
-				time.Sleep(10 * time.Millisecond) // Pace it to measure stable latency
+				time.Sleep(20 * time.Millisecond) // Give network time to bounce
 			}
 		}
 	}()
@@ -208,7 +271,7 @@ func connectClient(brokerURL, macAddress, secret string) mqtt.Client {
 	return client
 }
 
-func printResults(totalSent uint64, start time.Time, payloadSize int) {
+func printResults(totalSent uint64, start time.Time, payloadSize int, metrics *BenchmarkMetrics) {
 	durationSec := time.Since(start).Seconds()
 	throughput := float64(totalSent) / durationSec
 	bytesPerSec := float64(uint64(payloadSize)*totalSent) / durationSec
@@ -220,4 +283,12 @@ func printResults(totalSent uint64, start time.Time, payloadSize int) {
 	fmt.Printf("Throughput: %.2f msgs/sec\n", throughput)
 	fmt.Printf("Payload size: %d bytes\n", payloadSize)
 	fmt.Printf("Data Rate: %.2f MB/sec\n", mbPerSec)
+	
+	if metrics.MaxRamMB > 0 {
+		fmt.Printf("\n--- BROKER HARDWARE LIMITS HIT ---\n")
+		fmt.Printf("Max RAM Allocated: %.2f MB\n", metrics.MaxRamMB)
+		fmt.Printf("Max GC Pause Latency: %d ns (%.3f ms)\n", metrics.MaxGCPause, float64(metrics.MaxGCPause)/1e6)
+		fmt.Printf("Max Goroutines Sprawled: %d\n", metrics.MaxGorout)
+		fmt.Printf("Max SQLite WAL Size: %.2f MB\n", metrics.MaxWalSize)
+	}
 }

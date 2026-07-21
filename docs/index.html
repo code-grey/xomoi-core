@@ -3,265 +3,455 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XOMOI-CORE | Sovereign Edge Node</title>
+    <title>XOMOI-CORE | Sovereign Edge Infrastructure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0a0a0a;
-            --fg: #f0f0f0;
-            --accent: #00ff41; /* Terminal Green */
-            --border: #333;
-            --code-bg: #1a1a1a;
-            --text-muted: #b0b0b0;
+            --bg: #050505;
+            --surface: rgba(25, 25, 25, 0.6);
+            --surface-hover: rgba(40, 40, 40, 0.8);
+            --fg: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --accent: #00ff66; /* Neon Green */
+            --accent-glow: rgba(0, 255, 102, 0.2);
+            --accent-cyan: #00e5ff;
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            background: var(--bg);
+            background-color: var(--bg);
             color: var(--fg);
-            font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
         ::selection { background: var(--accent); color: var(--bg); }
 
+        /* ANIMATIONS */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 10px var(--accent-glow); } 50% { box-shadow: 0 0 30px var(--accent-glow); } 100% { box-shadow: 0 0 10px var(--accent-glow); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+
+        .animate-up { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
         /* HEADER */
         header {
             border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem;
+            padding: 1rem 3rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(12px);
             z-index: 100;
         }
 
-        .status { font-size: 0.85rem; color: var(--accent); font-weight: bold; }
-        .status::before { content: "● "; animation: blink 1s infinite; }
+        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; }
+        .logo span { color: var(--text-muted); font-weight: 300; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;}
+
+        .status-badge {
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .status-badge::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* HERO */
+        /* HERO SECTION */
         .hero {
-            padding: 5rem 2rem;
-            max-width: 900px;
+            padding: 8rem 2rem 6rem;
+            max-width: 1100px;
             margin: 0 auto;
-            text-align: left;
-        }
-
-        h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1px; }
-        .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 750px; margin-bottom: 2rem; }
-
-        /* MANIFESTO */
-        .manifesto {
-            max-width: 900px;
-            margin: 0 auto 4rem auto;
-            padding: 2rem;
-            border-left: 4px solid var(--accent);
-            background: rgba(0, 255, 65, 0.05);
-        }
-
-        .manifesto h2 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-        }
-
-        .manifesto p {
-            color: var(--fg);
-            margin-bottom: 1rem;
-            font-size: 1.05rem;
-        }
-
-        .manifesto strong { color: #fff; }
-
-        /* RESPONSIVE ARCHITECTURE DIAGRAM */
-        .monolith-container {
-            margin: 2rem auto;
-            border: 1px solid var(--border);
-            padding: 2rem;
-            background: var(--code-bg);
-            max-width: 800px;
-            width: 90%;
-            position: relative;
-        }
-
-        .monolith-label { position: absolute; top: -10px; left: 20px; background: var(--bg); padding: 0 10px; font-size: 0.75rem; color: #888; }
-
-        .diagram {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            border: 1px dashed #555;
-            padding: 2rem 1rem;
-            position: relative;
-        }
-
-        .diagram::before { content: "XOMOI-CORE 15MB BINARY"; position: absolute; top: -10px; left: 10px; background: var(--code-bg); padding: 0 10px; font-size: 0.75rem; color: #777; }
-
-        .diagram-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-            align-items: stretch;
-        }
-
-        .box {
-            flex: 1 1 200px;
-            border: 2px solid;
-            padding: 1.5rem 1rem;
             text-align: center;
-            font-size: 0.9rem;
-            font-weight: bold;
-            background: var(--bg);
+            position: relative;
         }
 
-        .box.mqtt { border-color: #00ff41; color: #00ff41; }
-        .box.worker { border-color: #f0f0f0; color: #f0f0f0; }
-        .box.sqlite { border-color: #0070f3; color: #0070f3; }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -50%; left: 50%;
+            transform: translateX(-50%);
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
 
-        /* GRID */
-        .grid {
+        h1 {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            background: linear-gradient(to right, #fff, #a0a0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 750px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        /* BUTTONS */
+        .btn-group { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        
+        .btn-primary:hover {
+            background: #fff;
+            border-color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--fg);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--fg);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* GLASSMORPHISM GRID */
+        .architecture-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
-            max-width: 1000px;
-            margin: 4rem auto;
+            max-width: 1200px;
+            margin: 0 auto 6rem;
             padding: 0 2rem;
         }
 
-        .card {
+        .glass-card {
+            background: var(--surface);
             border: 1px solid var(--border);
-            padding: 2rem;
-            transition: border-color 0.3s ease;
-            background: rgba(25, 25, 25, 0.5);
-        }
-
-        .card:hover { border-color: var(--accent); }
-        .card h3 { color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem; text-transform: uppercase; }
-        .card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.5rem; }
-
-        /* CODE SNIPPET */
-        .code-block {
-            background: var(--code-bg);
-            padding: 2rem 1rem;
-            border: 1px solid var(--border);
-            max-width: 800px;
-            width: 90%;
-            margin: 4rem auto;
-            color: var(--accent);
+            border-radius: 12px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
             position: relative;
+            overflow: hidden;
         }
 
-        .code-block::after { content: "System Logs"; position: absolute; top: -10px; right: 20px; background: var(--bg); padding: 0 10px; font-size: 0.7rem; color: #888; }
-        
-        pre { overflow-x: auto; font-size: clamp(0.75rem, 2vw, 0.9rem); white-space: pre-wrap; word-wrap: break-word; }
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: var(--surface-hover);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0, 0.4);
+        }
+
+        .glass-card:hover::before { opacity: 1; }
+
+        .glass-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .glass-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .glass-card .tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            margin-top: 1.5rem;
+        }
+
+        /* TERMINAL WINDOW */
+        .terminal-wrapper {
+            max-width: 900px;
+            margin: 0 auto 8rem;
+            padding: 0 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .terminal {
+            background: #0d0d0d;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: #1a1a1a;
+            padding: 0.75rem 1rem;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        .terminal-body {
+            padding: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #d0d0d0;
+            overflow-x: auto;
+        }
+
+        .terminal-body .cmd { color: var(--accent); }
+        .terminal-body .out { color: var(--text-muted); }
+        .terminal-body .err { color: #ff5f56; }
+
+        /* ROADMAP SECTION */
+        .roadmap {
+            max-width: 900px;
+            margin: 0 auto 6rem;
+            padding: 0 2rem;
+        }
+
+        .roadmap-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            font-weight: 800;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .timeline-item h4 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
 
         /* FOOTER */
         footer {
-            padding: 3rem 2rem;
             border-top: 1px solid var(--border);
+            padding: 4rem 2rem;
             text-align: center;
-            font-size: 0.85rem;
-            color: #777;
+            background: #000;
         }
 
-        a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
-        a:hover { border-bottom: 1px solid var(--accent); }
+        footer p { color: var(--text-muted); font-size: 0.9rem; }
+        footer a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: #fff; }
 
-        /* BUTTON */
-        .btn {
-            display: inline-block;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 0.75rem 1.5rem;
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+        @media (max-width: 768px) {
+            .timeline-item { flex-direction: column; gap: 1rem; }
+            header { padding: 1rem; }
         }
-        .btn:hover { background: var(--accent); color: var(--bg); border-bottom: 1px solid var(--accent); }
-
     </style>
 </head>
 <body>
 
 <header>
-    <div>XOMOI-CORE <span style="color: #666;">/ v1.0-alpha</span></div>
-    <div class="status">SYSTEMS GREEN</div>
+    <div class="logo">XOMOI-CORE <span>// SOVEREIGN EDGE</span></div>
+    <div class="status-badge">AGPLv3 LICENSED</div>
 </header>
 
 <main>
-    <section class="hero">
-        <h1>Sovereign Edge Infrastructure.</h1>
-        <p>A hyper-converged, 15MB statically-linked Go binary designed as a drop-in replacement for heavy cloud-tethered IoT stacks on resource-constrained hardware.</p>
-        <a href="https://github.com/code-grey/xomoi-core" class="btn">[ VIEW SOURCE ]</a>
+    <section class="hero animate-up">
+        <h1>The Entire Cloud.<br>In a Single Binary.</h1>
+        <p>A hyper-converged, ultra-lightweight Go monolith designed for ultimate digital freedom. Embedded MQTT, Zero-Allocation Ingestion, Zstandard TSDB, and a Real-Time Svelte UI—all running natively on constrained hardware without a single external dependency.</p>
+        
+        <div class="btn-group animate-up delay-1">
+            <a href="https://github.com/code-grey/xomoi-core" class="btn btn-primary">VIEW SOURCE CODE</a>
+            <a href="#architecture" class="btn btn-secondary">EXPLORE ARCHITECTURE</a>
+        </div>
     </section>
 
-    <section class="manifesto">
-        <h2>Engineering at the Edge</h2>
-        <p>Xomoi-Core is engineered for industrial environments where memory is scarce, SD card IO is fragile, and network connectivity is highly intermittent. It entirely replaces the need for a complex control plane, external databases, or heavy container daemons.</p>
-        <p>By embedding Mochi-MQTT, a Zstandard-compressed SQLite Time-Series Database, and a Svelte UI directly into a single binary, Xomoi provides Kubernetes-level edge capability with a fraction of the computational footprint.</p>
+    <section id="architecture" class="architecture-grid">
+        <div class="glass-card animate-up delay-1">
+            <h3>Embedded Mochi-MQTT</h3>
+            <p>Xomoi embeds a fully compliant MQTT v5 broker directly into the binary. By utilizing a 256-shard FNV-1a Hash Map, it completely eliminates Mutex lock contention, capable of routing hundreds of thousands of messages per second.</p>
+            <div class="tag">internal/broker/mochi.go</div>
+        </div>
+
+        <div class="glass-card animate-up delay-2">
+            <h3>Lossless Zstd TSDB</h3>
+            <p>Traditional DBs destroy SD cards. Xomoi streams packets into a Go Ring Buffer, natively compresses JSON payloads using the Zstandard algorithm, and executes asynchronous Bulk Inserts into a WAL-enabled SQLite database.</p>
+            <div class="tag">internal/state/ring_buffer.go</div>
+        </div>
+
+        <div class="glass-card animate-up delay-3">
+            <h3>The Svelte 5 Dashboard</h3>
+            <p>A stunning, real-time SPA built in Svelte 5. Using Go's <code>go:embed</code> directive, the entire compiled frontend is bundled directly into the executable. View live SVG telemetry, manage alerts, and administer the edge node over WebSockets.</p>
+            <div class="tag">ui/src/App.svelte</div>
+        </div>
+
+        <div class="glass-card animate-up delay-1">
+            <h3>WebRTC P2P Hole-Punching</h3>
+            <p>Access your home edge node from a coffee shop securely. Xomoi features a native Pion WebRTC integration, bypassing TCP constraints and NAT firewalls via a lightweight signaling server. No port forwarding required.</p>
+            <div class="tag">internal/api/webrtc_host.go</div>
+        </div>
+
+        <div class="glass-card animate-up delay-2">
+            <h3>The Blacksmith SDK</h3>
+            <p>A C++ hardware client enforcing zero-allocation NanoPB (Protobuf) batching. It slashes cellular bandwidth by 99% and generates completely static structs to prevent heap fragmentation on ESP32 microcontrollers.</p>
+            <div class="tag">sdk/XomoiCore.cpp</div>
+        </div>
+
+        <div class="glass-card animate-up delay-3">
+            <h3>Browser-Native Web Flasher</h3>
+            <p>Onboard devices instantly. Utilizing the WebSerial API, users can plug microcontrollers into their USB port and directly flash the firmware from the Xomoi Svelte dashboard inside Google Chrome. Zero CLI tools needed.</p>
+            <div class="tag">ui/src/lib/WebFlasher.svelte</div>
+        </div>
     </section>
 
-    <section class="monolith-container">
-        <div class="monolith-label">INTERNAL ARCHITECTURE</div>
-        <div class="diagram">
-            <div class="diagram-row">
-                <div class="box mqtt">EMBEDDED MQTT<br><span style="font-size: 0.7rem; font-weight: normal;">(256-Shard FNV-1a Map)</span></div>
-                <div class="box worker">LOSSLESS INGESTION<br><span style="font-size: 0.7rem; font-weight: normal;">(In-Memory Ring Buffer)</span></div>
-                <div class="box sqlite">NATIVE TSDB<br><span style="font-size: 0.7rem; font-weight: normal;">(Zstd Compressed SQLite)</span></div>
+    <section class="terminal-wrapper animate-up">
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="terminal-body">
+<pre>
+<span class="cmd">$ ./xomoi-core --mode server</span>
+<span class="out">[INFO] BOOTING XOMOI-CORE SOVEREIGN EDGE NODE v1.0</span>
+<span class="out">[INFO] ----------------------------------------------------</span>
+<span class="out">[INFO] Hardware: Sizing WorkerPool cpu_cores=4 workers=4</span>
+<span class="out">[INFO] Storage:  Initializing SQLite WAL & Zstd Compression</span>
+<span class="out">[INFO] Network:  Starting mDNS broadcast (xomoi.local)</span>
+<span class="out">[INFO] Network:  Pion WebRTC PeerConnection Engine READY</span>
+<span class="out">[INFO] Broker:   Embedded MQTT listening on :1883</span>
+<span class="out">[INFO] UI:       Svelte Dashboard running on http://localhost:8080</span>
+<span class="out">[INFO] ----------------------------------------------------</span>
+<span class="cmd">> Xomoi-CTL generating C++ SDK headers...</span>
+<span class="out">[SUCCESS] Pruned NanoPB headers generated for ESP32.</span>
+</pre>
             </div>
         </div>
     </section>
 
-    <section class="grid">
-        <div class="card">
-            <h3>Lossless Ring Buffer</h3>
-            <p>Xomoi achieves extreme throughput capabilities by decoupling network reads from disk IO. Packets are streamed into an in-memory Ring Buffer and asynchronously flushed to SQLite via bulk transactions.</p>
-        </div>
-        <div class="card">
-            <h3>Zstd TSDB & ULIDs</h3>
-            <p>Traditional databases chew through SD card lifespan. Xomoi intercepts all telemetry, natively compresses JSON payloads using the Zstandard algorithm, and prevents timestamp collisions using mathematically sortable ULIDs.</p>
-        </div>
-        <div class="card">
-            <h3>Enterprise Escape Hatch</h3>
-            <p>Utilizing the <code>telemetry_pro.proto</code> schema, Xomoi seamlessly handles multidimensional arrays (like LiDAR point clouds or AI tensors) via the <code>BYTES_RAW</code> field, acting as a high-speed, lossless data conduit.</p>
-        </div>
-        <div class="card">
-            <h3>Zero Dependency</h3>
-            <p>A strictly sovereign ecosystem. No Node.js, no Docker, no external database, and no cloud tethers required for operation. Fully auditable and deployed in seconds.</p>
+    <section class="roadmap" style="margin-top: 8rem;">
+        <h2 class="roadmap-title">The Brutal Truth</h2>
+        <p style="text-align: center; color: var(--text-muted); max-width: 800px; margin: -2rem auto 4rem; font-size: 1.1rem;">Xomoi isn't a silver bullet. We built it to solve a very specific problem: <strong style="color: #fff;">deploying mission-critical IoT infrastructure on fragile, low-power edge devices without the nightmare of managing 5 different Docker containers.</strong></p>
+        
+        <div class="architecture-grid">
+            <div class="glass-card animate-up delay-1" style="border-top: 2px solid var(--accent);">
+                <h3 style="color: var(--accent); font-size: 1.4rem;">Where Xomoi Dominates</h3>
+                <p style="margin-top: 1.5rem;"><strong>Vs KubeEdge & Docker:</strong> You don't need a heavy Containerd daemon or a Kubernetes control plane. Xomoi runs as a single executable, radically reducing CPU/RAM overhead and eliminating moving parts that break in remote fields.</p>
+                <p style="margin-top: 1rem;"><strong>Vs Mosquitto + InfluxDB + Redis:</strong> Instead of piping data over TCP loops between a broker, a cache, and a database, Xomoi does it all in-memory. By natively compressing payloads with Zstd before hitting SQLite, we extend SD card lifespans by years.</p>
+            </div>
+            
+            <div class="glass-card animate-up delay-2" style="border-top: 2px solid #ff5f56; background: rgba(30, 10, 10, 0.4);">
+                <h3 style="color: #ff5f56; font-size: 1.4rem;">Where Xomoi Fails</h3>
+                <p style="margin-top: 1.5rem;"><strong>Massive Cloud Data Centers:</strong> Xomoi is strictly an edge-first, offline-first node. If you are building a central cloud cluster handling millions of concurrent vehicles globally, use EMQX or Kafka.</p>
+                <p style="margin-top: 1rem;"><strong>Independent Microservice Scaling:</strong> If your architecture relies on independently scaling the database layer from the broker layer across multiple servers, Xomoi's hyper-converged monolith approach will fight you.</p>
+            </div>
         </div>
     </section>
 
-    <section class="code-block">
-<pre>
-[INFO] BOOTING XOMOI-CORE SOVEREIGN EDGE NODE
-[INFO] Hardware Check: Sizing Ingestion Pool cpu_cores=4 workers=4
-[INFO] Starting GC-Optimized Ingestion Pool
-[INFO] Configured Ring Buffer Batch Flush interval=5s
-[INFO] MQTT Broker listening port=1883
-[INFO] API Server listening port=8080
-[WARN] Ring buffer full! Applying backpressure to ingestion pipeline. deviceID=sensor-01
-</pre>
-    </section>
+    <section class="roadmap">
+        <h2 class="roadmap-title">The Sovereign Roadmap</h2>
+        
+        <div class="timeline-item">
+            <div>
+                <h4>PHASE 10.1</h4>
+                <h3>Hardware RTC Deep Sleep</h3>
+                <p>Command edge endpoints (like ESP32s) to enter deep sleep via Retained MQTT RPCs. Xomoi will act as a buffer, waking devices on a precise schedule to transmit data, preserving lithium batteries for years.</p>
+            </div>
+        </div>
 
-    <section class="manifesto" style="margin-top: 4rem;">
-        <h2>Future Vision</h2>
-        <p><strong>Phase 10.1 (Hardware RTC Deep Sleep):</strong> Integration with ESP32 Deep Sleep cycles, allowing the edge node to act as a buffer while low-power satellite endpoints go offline.</p>
-        <p><strong>Phase 11.1 (Immortal Gossip Mesh):</strong> Distributed High-Availability across multiple Xomoi nodes on a local LAN using UDP-based gossip protocols.</p>
-        <p><strong>Phase 13 (Silo Container Orchestration):</strong> Utilizing pure Linux cgroups and namespaces to run untrusted 3rd-party AI plugins inside strict rootfs environments without installing Docker.</p>
+        <div class="timeline-item">
+            <div>
+                <h4>PHASE 11.1</h4>
+                <h3>The Immortal Gossip Mesh</h3>
+                <p>Distributed High-Availability across multiple Xomoi nodes on a local LAN. Using UDP-based epidemic routing (Hashicorp Memberlist) and CRDTs to achieve Split-Brain immunity during network partitions.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div>
+                <h4>PHASE 13.0</h4>
+                <h3>Silo Edge Orchestration</h3>
+                <p>Transforming Xomoi into a KubeEdge competitor. By refactoring our custom <code>silo-core</code> engine, Xomoi will leverage pure Linux cgroups and namespaces to run untrusted 3rd-party AI plugins inside secure, memory-limited rootfs environments—without ever installing Docker.</p>
+            </div>
+        </div>
     </section>
 </main>
 
 <footer>
-    <p>Liberating the edge from surveillance. GNU AGPLv3 Licensed.</p>
-    <p style="margin-top: 1rem;">Architected by <a href="https://github.com/code-grey">@code-grey</a> & <a href="https://github.com/code-zephyrus">@code-zephyrus</a></p>
+    <p>Liberating the extreme edge from surveillance.</p>
+    <p style="margin-top: 1rem;">Architected by <a href="https://github.com/code-grey">@code-grey</a> & <a href="https://github.com/code-zephyrus">@code-zephyrus</a> | GNU AGPLv3</p>
 </footer>
 
 </body>

@@ -21,16 +21,16 @@
     - [x] `snapshot.go`: Implement the 5-minute bulk-flush routine to SQLite.
 
 ## PHASE 2.5: ENTERPRISE TELEMETRY UPGRADE
-- [ ] **2.5.1: Database Decoupling & Hypertables**
-    - [ ] Isolate `HotState` strictly for O(1) WebRTC Dashboard reads.
-    - [ ] Update SQLite `telemetry_history` schema to use Auto-Incrementing IDs/ULIDs (Drop Composite PK).
+- [x] **2.5.1: Database Decoupling & Hypertables**
+    - [x] Isolate `HotState` strictly for O(1) WebRTC Dashboard reads.
+    - [x] Update SQLite `telemetry_history` schema to use Auto-Incrementing IDs/ULIDs (Drop Composite PK).
     - [ ] Implement SQLite Hypertables (Time Partitioning via `ATTACH DATABASE` or month-suffixed tables) for TimescaleDB-like speed on massive datasets.
-- [ ] **2.5.2: Lossless Ingestion Pipeline**
-    - [ ] Implement high-speed in-memory Ring Buffer / Channel Queue for raw packets.
-- [ ] **2.5.3: Event-Driven TSDB Flusher**
-    - [ ] Replace `SnapshotWorker` with a batch flusher that triggers on queue limits.
-- [ ] **2.5.4: Zstd Payload Compression (Storage Layer)**
-    - [ ] Compress JSON payloads to BLOBs in Go before SQLite write to save 80% disk space.
+- [x] **2.5.2: Lossless Ingestion Pipeline**
+    - [x] Implement high-speed in-memory Ring Buffer / Channel Queue for raw packets.
+- [x] **2.5.3: Event-Driven TSDB Flusher**
+    - [x] Replace `SnapshotWorker` with a batch flusher that triggers on queue limits.
+- [x] **2.5.4: Zstd Payload Compression (Storage Layer)**
+    - [x] Compress JSON payloads to BLOBs in Go before SQLite write to save 80% disk space.
 - [ ] **2.5.5: Embedded Schema Migrations**
     - [ ] Integrate `golang-migrate` for automatic database schema updates on OTA reboot.
 - [ ] **2.5.6: Store-and-Forward Cloud Sync**

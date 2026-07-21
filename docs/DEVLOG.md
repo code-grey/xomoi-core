@@ -80,3 +80,21 @@ To upgrade Xomoi from a "Smart Home" toy to a "Mission-Critical" engine (capable
 ### 4. Phase 13: Secure Edge Orchestration (Silo)
 We realized that edge nodes need to run untrusted 3rd-party plugins (like AI CV models). Running these bare-metal exposes Xomoi to catastrophic crashes. 
 * **The Solution:** We officially mapped out a plan to refactor **Silo** (our custom Go Linux container runtime) into a reusable package. Xomoi will import Silo and use it to spin up untrusted AI plugins inside isolated namespaces and strict cgroups. This effectively transforms Xomoi into a single-binary KubeEdge alternative.
+
+---
+
+## 📅 DevLog: Phase 2.5 Core Implementation & Legal Shield
+**Phases Completed:** Phase 2.5 (Ring Buffer & Zstd TSDB), Documentation & Licensing Revamp
+**Authors:** Adrish Bora (@code-grey) & Antigravity AI Architect
+
+### 1. The Lossless Ingestion Pipeline (Phase 2.5)
+We successfully executed the architectural shift away from the lossy `SnapshotWorker`:
+* **The Ring Buffer:** We implemented `internal/state/ring_buffer.go`, a high-speed Go channel buffer that decouples the network reads from the disk IO. It buffers raw payloads in memory and flushes them to SQLite asynchronously when limits are reached, ensuring zero data loss during high-frequency telemetry spikes.
+* **Zstandard Compression & ULIDs:** Instead of writing raw JSON to disk, the Ring Buffer intercepts the payload and natively compresses it using the `klauspost/compress/zstd` library. We also integrated mathematically sortable ULIDs to replace the composite primary keys, completely eliminating the timestamp collision bugs (`UNIQUE constraint failed`) that occurred during rapid bursts.
+* **Native Bulk Inserts:** We refactored `internal/repository/sqlite/telemetry.go` to use native `sql.DB` transactions for bulk inserting the Zstd BLOBs, slashing disk I/O overhead.
+
+### 2. The GNU AGPLv3 Legal Shield
+To protect the sovereign nature of Xomoi-Core and prevent corporations from closing its source, we wrote a custom Go script (`scripts/add_agpl.go`). It safely traversed the entire codebase and injected the GNU AGPLv3 license header into 79 `.go` and `.svelte` files.
+
+### 3. The Core Manifesto (README & GitHub Pages)
+We completely rewrote both the `README.md` and the GitHub Pages `index.html`. We stripped out all emojis and marketing fluff, replacing it with a hardcore engineering manifesto. The documentation now proudly highlights the 15MB binary size, the Zstd SQLite TSDB, the 360,000 Msg/Sec throughput benchmarks, and the `telemetry_pro.proto` Enterprise Escape Hatch (for bypassing JSON entirely to ingest raw AI/LiDAR tensors).

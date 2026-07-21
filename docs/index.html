@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XOMOI-CORE | Sovereign Edge Infrastructure</title>
+    <title>XOMOI-CORE | Sovereign Edge Node</title>
     <style>
         :root {
             --bg: #0a0a0a;
@@ -11,7 +11,7 @@
             --accent: #00ff41; /* Terminal Green */
             --border: #333;
             --code-bg: #1a1a1a;
-            --text-muted: #b0b0b0; /* Improved contrast */
+            --text-muted: #b0b0b0;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -53,7 +53,7 @@
         }
 
         h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1px; }
-        .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 650px; margin-bottom: 2rem; }
+        .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 750px; margin-bottom: 2rem; }
 
         /* MANIFESTO */
         .manifesto {
@@ -101,7 +101,7 @@
             position: relative;
         }
 
-        .diagram::before { content: "XOMOI-CORE BINARY (STATICALLY LINKED)"; position: absolute; top: -10px; left: 10px; background: var(--code-bg); padding: 0 10px; font-size: 0.75rem; color: #777; }
+        .diagram::before { content: "XOMOI-CORE 15MB BINARY"; position: absolute; top: -10px; left: 10px; background: var(--code-bg); padding: 0 10px; font-size: 0.75rem; color: #777; }
 
         .diagram-row {
             display: flex;
@@ -128,7 +128,7 @@
         /* GRID */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             max-width: 1000px;
             margin: 4rem auto;
@@ -144,7 +144,7 @@
 
         .card:hover { border-color: var(--accent); }
         .card h3 { color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem; text-transform: uppercase; }
-        .card p { font-size: 0.95rem; color: var(--text-muted); }
+        .card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.5rem; }
 
         /* CODE SNIPPET */
         .code-block {
@@ -158,7 +158,7 @@
             position: relative;
         }
 
-        .code-block::after { content: "Terminal Output"; position: absolute; top: -10px; right: 20px; background: var(--bg); padding: 0 10px; font-size: 0.7rem; color: #888; }
+        .code-block::after { content: "System Logs"; position: absolute; top: -10px; right: 20px; background: var(--bg); padding: 0 10px; font-size: 0.7rem; color: #888; }
         
         pre { overflow-x: auto; font-size: clamp(0.75rem, 2vw, 0.9rem); white-space: pre-wrap; word-wrap: break-word; }
 
@@ -199,66 +199,63 @@
 <main>
     <section class="hero">
         <h1>Sovereign Edge Infrastructure.</h1>
-        <p>A single-binary Go monolith designed for digital freedom. Private MQTT, encrypted SQLite, and real-time visualization at the edge.</p>
-        <a href="https://github.com/code-grey/xomoi-core" class="btn">[ EXPLORE REPOSITORY ]</a>
+        <p>A hyper-converged, 15MB statically-linked Go binary designed as a drop-in replacement for heavy cloud-tethered IoT stacks on resource-constrained hardware.</p>
+        <a href="https://github.com/code-grey/xomoi-core" class="btn">[ VIEW SOURCE ]</a>
     </section>
 
     <section class="manifesto">
-        <h2>The Open-Source, Single-Binary Assassin to Blynk.</h2>
-        <p>Xomoi is an industrial-grade, sovereign IoT telemetry engine. It bridges the massive gap between the "3-lines of code" simplicity of commercial platforms and the grueling 15-hour DevOps nightmare of setting up your own open-source stack.</p>
-        <p>If you are a maker or an indie hardware startup trying to build a custom fleet of sensors, you usually face bad choices: heavy Python monoliths, enterprise Java stacks that demand 4GB of RAM, or closed-source cloud platforms where you pay monthly subscriptions and do not own your data.</p>
-        <p><strong>Xomoi is the "SQLite of IoT Platforms".</strong></p>
-        <p>It is a single 15MB Go executable. You drop it onto a $5 Raspberry Pi Zero, double-click it, and it instantly spins up an embedded Mochi-MQTT Broker, a SQLite (WAL) time-series database, and a stunning Svelte 5 Web Dashboard. Zero dependencies. Zero configuration.</p>
+        <h2>Engineering at the Edge</h2>
+        <p>Xomoi-Core is engineered for industrial environments where memory is scarce, SD card IO is fragile, and network connectivity is highly intermittent. It entirely replaces the need for a complex control plane, external databases, or heavy container daemons.</p>
+        <p>By embedding Mochi-MQTT, a Zstandard-compressed SQLite Time-Series Database, and a Svelte UI directly into a single binary, Xomoi provides Kubernetes-level edge capability with a fraction of the computational footprint.</p>
     </section>
 
     <section class="monolith-container">
-        <div class="monolith-label">ARCHITECTURE</div>
+        <div class="monolith-label">INTERNAL ARCHITECTURE</div>
         <div class="diagram">
             <div class="diagram-row">
-                <div class="box mqtt">MOCHI-MQTT<br><span style="font-size: 0.7rem; font-weight: normal;">(Embedded Broker)</span></div>
-                <div class="box worker">GO INGESTION<br><span style="font-size: 0.7rem; font-weight: normal;">(Buffered Pool)</span></div>
-                <div class="box sqlite">SQLITE WAL<br><span style="font-size: 0.7rem; font-weight: normal;">(Flash-Wear Protected)</span></div>
+                <div class="box mqtt">EMBEDDED MQTT<br><span style="font-size: 0.7rem; font-weight: normal;">(256-Shard FNV-1a Map)</span></div>
+                <div class="box worker">LOSSLESS INGESTION<br><span style="font-size: 0.7rem; font-weight: normal;">(In-Memory Ring Buffer)</span></div>
+                <div class="box sqlite">NATIVE TSDB<br><span style="font-size: 0.7rem; font-weight: normal;">(Zstd Compressed SQLite)</span></div>
             </div>
         </div>
     </section>
 
     <section class="grid">
         <div class="card">
+            <h3>Lossless Ring Buffer</h3>
+            <p>Xomoi achieves extreme throughput capabilities by decoupling network reads from disk IO. Packets are streamed into an in-memory Ring Buffer and asynchronously flushed to SQLite via bulk transactions.</p>
+        </div>
+        <div class="card">
+            <h3>Zstd TSDB & ULIDs</h3>
+            <p>Traditional databases chew through SD card lifespan. Xomoi intercepts all telemetry, natively compresses JSON payloads using the Zstandard algorithm, and prevents timestamp collisions using mathematically sortable ULIDs.</p>
+        </div>
+        <div class="card">
+            <h3>Enterprise Escape Hatch</h3>
+            <p>Utilizing the <code>telemetry_pro.proto</code> schema, Xomoi seamlessly handles multidimensional arrays (like LiDAR point clouds or AI tensors) via the <code>BYTES_RAW</code> field, acting as a high-speed, lossless data conduit.</p>
+        </div>
+        <div class="card">
             <h3>Zero Dependency</h3>
-            <p>A single, statically-linked binary. No Node.js, no external database, no microservice sprawl. Auditable by a single human.</p>
-        </div>
-        <div class="card">
-            <h3>HMAC-Lite Security</h3>
-            <p>Bypasses heavy SSL/JWT buffers on 8-bit/32-bit hardware. Cryptographic integrity for the most constrained sensors.</p>
-        </div>
-        <div class="card">
-            <h3>Flash-Wear Protection</h3>
-            <p>Optimized for SD-card longevity. High-frequency telemetry lives in RAM, with bulk snapshots to SQLite every 5 minutes.</p>
-        </div>
-        <div class="card">
-            <h3>Sovereign UI</h3>
-            <p>Real-time Svelte 5 dashboard embedded via `go:embed`. Visualization and control that stays inside your local network.</p>
-        </div>
-        <div class="card">
-            <h3>The Blacksmith SDK</h3>
-            <p>A C++ hardware client enforcing zero-allocation NanoPB batching and two-way RPC, slashing SD-card writes by up to 80%.</p>
+            <p>A strictly sovereign ecosystem. No Node.js, no Docker, no external database, and no cloud tethers required for operation. Fully auditable and deployed in seconds.</p>
         </div>
     </section>
 
     <section class="code-block">
 <pre>
-$ xomoi-ctl generate --mcu esp32 --sensor dht22
-> Parsing master proto/v1/telemetry.proto...
-> Pruning 'pro' fields for ESP32 RAM safety...
-> Generating Lite C++ SDK Header [Holey-Header mode]...
-> SUCCESS: Project ready in ./build/esp32_dht22
-
-// C++ Implementation
-xomoi.beginBatch();
-xomoi.addTemperature(25.4);
-xomoi.addHumidity(60.2);
-xomoi.publishBatch(); // 1 JSON row in SQLite!
+[INFO] BOOTING XOMOI-CORE SOVEREIGN EDGE NODE
+[INFO] Hardware Check: Sizing Ingestion Pool cpu_cores=4 workers=4
+[INFO] Starting GC-Optimized Ingestion Pool
+[INFO] Configured Ring Buffer Batch Flush interval=5s
+[INFO] MQTT Broker listening port=1883
+[INFO] API Server listening port=8080
+[WARN] Ring buffer full! Applying backpressure to ingestion pipeline. deviceID=sensor-01
 </pre>
+    </section>
+
+    <section class="manifesto" style="margin-top: 4rem;">
+        <h2>Future Vision</h2>
+        <p><strong>Phase 10.1 (Hardware RTC Deep Sleep):</strong> Integration with ESP32 Deep Sleep cycles, allowing the edge node to act as a buffer while low-power satellite endpoints go offline.</p>
+        <p><strong>Phase 11.1 (Immortal Gossip Mesh):</strong> Distributed High-Availability across multiple Xomoi nodes on a local LAN using UDP-based gossip protocols.</p>
+        <p><strong>Phase 13 (Silo Container Orchestration):</strong> Utilizing pure Linux cgroups and namespaces to run untrusted 3rd-party AI plugins inside strict rootfs environments without installing Docker.</p>
     </section>
 </main>
 

@@ -49,31 +49,27 @@ func (p *Processor) Process(job *Job) (err error) {
 	// 2. The HotState update is O(1) and copies the bytes into the sync.Map safely.
 	p.hotState.Update(job.DeviceID, job.Payload)
 
-	// 3. Zero-Allocation JSON Parsing using buger/jsonparser
-	// This entirely bypasses the Go heap and avoids struct reflection overhead
-	temp, err := jsonparser.GetFloat(job.Payload, "temp")
-	if err != nil {
-		slog.Warn("Dropped malformed telemetry payload: missing temp", "error", err, "device", job.DeviceID)
-		return nil
-	}
-
-	hum, err := jsonparser.GetFloat(job.Payload, "hum")
-	if err != nil {
-		slog.Warn("Dropped malformed telemetry payload: missing hum", "error", err, "device", job.DeviceID)
-		return nil
-	}
-
-	stateVal, err := jsonparser.GetString(job.Payload, "state")
-	if err != nil && err != jsonparser.KeyPathNotFoundError {
-		slog.Warn("Error parsing state", "error", err, "device", job.DeviceID)
-	}
-
-	// 4. Extract pointers for the optional fields
+	// 3. Opportunistic Zero-Allocation JSON Parsing
+	// If the payload is JSON, we extract specific fields for the Rules Engine.
+	// If it's NOT JSON (e.g. Protobuf or raw bytes), we silently ignore the error
+	// and pass the raw byte stream directly to the Ring Buffer (Phase 1.1 Support).
 	var pTemp, pHum *float64
 	var pState *string
-	if temp != 0 || err == nil { pTemp = &temp }
-	if hum != 0 || err == nil { pHum = &hum }
-	if stateVal != "" { pState = &stateVal }
+
+	temp, errTemp := jsonparser.GetFloat(job.Payload, "temp")
+	if errTemp == nil {
+		pTemp = &temp
+	}
+
+	hum, errHum := jsonparser.GetFloat(job.Payload, "hum")
+	if errHum == nil {
+		pHum = &hum
+	}
+
+	stateVal, errState := jsonparser.GetString(job.Payload, "state")
+	if errState == nil {
+		pState = &stateVal
+	}
 
 	// 5. Lossless Ring Buffer TSDB Insertion
 	// We push the raw payload and extracted fields to the ring buffer.

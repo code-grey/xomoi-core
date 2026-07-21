@@ -90,7 +90,7 @@ func main() {
 	// 5. Start Lossless Ring Buffer (Phase 2.5)
 	flushInterval := time.Duration(cfg.FlushIntervalSec) * time.Second
 	slog.Info("Configured Ring Buffer Batch Flush", "interval", flushInterval)
-	ringBuffer := state.NewRingBuffer(tsdb, 100000, 1000, flushInterval)
+	ringBuffer := state.NewRingBuffer(tsdb, 100000, cfg.RingBatchSize, flushInterval)
 	ringBuffer.Start()
 
 	rulesEngine := worker.NewRulesEngine(ruleRepo)

@@ -38,6 +38,7 @@ type Config struct {
 	FlushIntervalSec int
 	MemoryLimitMB    int
 	LogFormat        string // "json" or "text"
+	RingBatchSize    int
 }
 
 // Load parses environment variables and applies sensible defaults.
@@ -58,6 +59,7 @@ func Load() *Config {
 		FlushIntervalSec: getEnvInt("XOMOI_FLUSH_INTERVAL_SEC", 30),
 		MemoryLimitMB:    getEnvInt("XOMOI_MEMORY_LIMIT_MB", 250),
 		LogFormat:        getEnv("XOMOI_LOG_FORMAT", "json"),
+		RingBatchSize:    getEnvInt("XOMOI_RING_BATCH_SIZE", 1000),
 	}
 }
 

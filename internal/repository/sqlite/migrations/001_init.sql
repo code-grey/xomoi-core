@@ -46,10 +46,13 @@ CREATE TABLE IF NOT EXISTS alert_rules (
 );
 
 CREATE TABLE IF NOT EXISTS telemetry (
+    id TEXT PRIMARY KEY,
     device_id TEXT NOT NULL,
     timestamp DATETIME NOT NULL,
-    payload JSON NOT NULL,
-    PRIMARY KEY(device_id, timestamp),
+    temperature REAL,
+    humidity REAL,
+    state TEXT,
+    payload BLOB NOT NULL,
     FOREIGN KEY(device_id) REFERENCES devices(id) ON DELETE CASCADE
 );
 
@@ -74,16 +77,5 @@ CREATE TABLE IF NOT EXISTS user_device_roles (
     FOREIGN KEY(device_id) REFERENCES devices(id) ON DELETE CASCADE
 );
 
--- 3. Time-Series Database (TSDB) for high-frequency data
-CREATE TABLE IF NOT EXISTS telemetry_history (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    device_id TEXT NOT NULL,
-    temperature REAL,
-    humidity REAL,
-    state TEXT,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (device_id) REFERENCES devices(mac_address) ON DELETE CASCADE
-);
-
 -- Crucial composite index for fast 30-day time-series querying
-CREATE INDEX IF NOT EXISTS idx_telemetry_device_time ON telemetry_history(device_id, timestamp);
+CREATE INDEX IF NOT EXISTS idx_telemetry_device_time ON telemetry(device_id, timestamp);

@@ -6,15 +6,18 @@ import (
 	"time"
 
 	"github.com/code-grey/xomoi-core/internal/core"
+	"github.com/code-grey/xomoi-core/internal/repository"
 	"github.com/code-grey/xomoi-core/internal/repository/sqlite/dbgen"
 )
 
 type sqliteTelemetryRepository struct {
+	db      *sql.DB
 	queries *dbgen.Queries
 }
 
 func NewTelemetryRepository(db *DB) *sqliteTelemetryRepository {
 	return &sqliteTelemetryRepository{
+		db:      db.DB,
 		queries: dbgen.New(db.DB),
 	}
 }
@@ -39,6 +42,45 @@ func (r *sqliteTelemetryRepository) InsertTelemetry(ctx context.Context, deviceI
 		Humidity:    nHum,
 		State:       nState,
 	})
+}
+
+func (r *sqliteTelemetryRepository) BulkInsert(ctx context.Context, records []repository.TelemetryRecord) error {
+	tx, err := r.db.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+
+	stmt, err := tx.PrepareContext(ctx, `
+		INSERT INTO telemetry (id, device_id, timestamp, temperature, humidity, state, payload)
+		VALUES (?, ?, ?, ?, ?, ?, ?)
+	`)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	for _, rec := range records {
+		var nTemp, nHum sql.NullFloat64
+		var nState sql.NullString
+
+		if rec.Temperature != nil {
+			nTemp = sql.NullFloat64{Float64: *rec.Temperature, Valid: true}
+		}
+		if rec.Humidity != nil {
+			nHum = sql.NullFloat64{Float64: *rec.Humidity, Valid: true}
+		}
+		if rec.State != nil {
+			nState = sql.NullString{String: *rec.State, Valid: true}
+		}
+
+		_, err = stmt.ExecContext(ctx, rec.ID, rec.DeviceID, rec.Timestamp, nTemp, nHum, nState, rec.PayloadBlob)
+		if err != nil {
+			return err
+		}
+	}
+
+	return tx.Commit()
 }
 
 func (r *sqliteTelemetryRepository) GetDeviceHistory(ctx context.Context, deviceID string, since time.Time) ([]core.TelemetryPoint, error) {

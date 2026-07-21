@@ -14,12 +14,12 @@ import (
 
 type Processor struct {
 	hotState *state.HotState
-	tsdb     repository.TelemetryRepository
+	ringBuf  *state.RingBuffer
 	rules    *worker.RulesEngine
 }
 
-func NewProcessor(hs *state.HotState, tsdb repository.TelemetryRepository, rules *worker.RulesEngine) *Processor {
-	return &Processor{hotState: hs, tsdb: tsdb, rules: rules}
+func NewProcessor(hs *state.HotState, rb *state.RingBuffer, rules *worker.RulesEngine) *Processor {
+	return &Processor{hotState: hs, ringBuf: rb, rules: rules}
 }
 
 // Process receives a pointer to the recycled Job struct.
@@ -53,15 +53,22 @@ func (p *Processor) Process(job *Job) (err error) {
 		slog.Warn("Error parsing state", "error", err, "device", job.DeviceID)
 	}
 
-	// 4. TSDB Insertion is DEFERRED to the HotState SnapshotWorker to protect the SD Card.
-	// The HotState update above is all we need for immediate persistence.
+	// 4. Extract pointers for the optional fields
+	var pTemp, pHum *float64
+	var pState *string
+	if temp != 0 || err == nil { pTemp = &temp }
+	if hum != 0 || err == nil { pHum = &hum }
+	if stateVal != "" { pState = &stateVal }
 
-	// 5. Zero-Allocation Rules Engine Evaluation
+	// 5. Lossless Ring Buffer TSDB Insertion
+	// We push the raw payload and extracted fields to the ring buffer.
+	// It will natively compress it with Zstd and bulk insert it into SQLite asynchronously.
+	if p.ringBuf != nil {
+		p.ringBuf.Enqueue(job.DeviceID, pTemp, pHum, pState, job.Payload)
+	}
+
+	// 6. Zero-Allocation Rules Engine Evaluation
 	if p.rules != nil {
-		var pTemp, pHum *float64
-		if temp != 0 || err == nil { pTemp = &temp }
-		if hum != 0 || err == nil { pHum = &hum }
-		
 		p.rules.Evaluate(job.DeviceID, pTemp, pHum, stateVal)
 	}
 

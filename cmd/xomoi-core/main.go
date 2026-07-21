@@ -63,25 +63,26 @@ func main() {
 	// 2. Initialize Memory Barrier (sync.Map HotState)
 	hotState := state.NewHotState()
 
-	// 3. Start Snapshot Worker (bulk flush)
+	// 3. Global Context for Background Workers
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	
-	flushInterval := time.Duration(cfg.FlushIntervalSec) * time.Second
-	slog.Info("Configured HotState Flush Interval", "interval", flushInterval)
-	snapshotWorker := state.NewSnapshotWorker(hotState, db.DB, flushInterval)
-	go snapshotWorker.Start(ctx)
-
-	// 4. Initialize Mochi-MQTT Broker & Ingestion Pipeline
+	// 4. Initialize Repositories
 	tsdb := sqlite.NewTelemetryRepository(db)
 	ruleRepo := sqlite.NewRuleRepository(db)
+
+	// 5. Start Lossless Ring Buffer (Phase 2.5)
+	flushInterval := time.Duration(cfg.FlushIntervalSec) * time.Second
+	slog.Info("Configured Ring Buffer Batch Flush", "interval", flushInterval)
+	ringBuffer := state.NewRingBuffer(tsdb, 100000, 1000, flushInterval)
+	ringBuffer.Start()
 
 	rulesEngine := worker.NewRulesEngine(ruleRepo)
 	if err := rulesEngine.Start(ctx); err != nil {
 		slog.Error("Failed to start Rules Engine", "error", err)
 	}
 
-	processor := broker.NewProcessor(hotState, tsdb, rulesEngine)
+	processor := broker.NewProcessor(hotState, ringBuffer, rulesEngine)
 	
 	// Dynamic Worker Sizing: Prevent context-switching hell on low-end edge nodes.
 	// We bind the number of ingestion workers strictly to the available hardware threads.
@@ -144,12 +145,12 @@ func main() {
 	
 	slog.Info("SHUTDOWN SIGNAL RECEIVED. EXECUTING TEARDOWN")
 
-	// A. Stop background cron jobs (Janitor, Snapshot triggers)
+	// A. Stop background cron jobs (Janitor, Rules triggers)
 	cancel()
 
-	// B. Force a final flush of HotState to disk to prevent data loss
-	slog.Info("Flushing volatile state to SQLite...")
-	snapshotWorker.ForceFlush()
+	// B. Gracefully flush and stop the Ring Buffer to prevent data loss
+	slog.Info("Flushing Ring Buffer to SQLite...")
+	ringBuffer.Stop()
 
 	// C. Shutdown API cleanly
 	apiCtx, apiCancel := context.WithTimeout(context.Background(), 5*time.Second)

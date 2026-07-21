@@ -42,9 +42,21 @@ type SensorTagRepository interface {
 	GetByFieldID(ctx context.Context, deviceID string, fieldID uint8) (*core.SensorTag, error)
 }
 
+// TelemetryRecord represents a single lossless telemetry row ready for insertion.
+type TelemetryRecord struct {
+	ID          string
+	DeviceID    string
+	Timestamp   time.Time
+	Temperature *float64
+	Humidity    *float64
+	State       *string
+	PayloadBlob []byte
+}
+
 // TelemetryRepository is responsible for TSDB telemetry data access.
 type TelemetryRepository interface {
 	InsertTelemetry(ctx context.Context, deviceID string, temp, hum *float64, state string) error
+	BulkInsert(ctx context.Context, records []TelemetryRecord) error
 	GetDeviceHistory(ctx context.Context, deviceID string, since time.Time) ([]core.TelemetryPoint, error)
 }
 

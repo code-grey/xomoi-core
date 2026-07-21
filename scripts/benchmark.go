@@ -12,8 +12,10 @@ import (
 	"sync/atomic"
 	"time"
 
+	pb "github.com/code-grey/xomoi-core/internal/core/proto"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/gorilla/websocket"
+	"google.golang.org/protobuf/proto"
 )
 
 type LatencyPayload struct {
@@ -36,19 +38,23 @@ type HealthStats struct {
 }
 
 type BenchmarkMetrics struct {
-	MaxRamMB    float64
-	MaxGCPause  uint64
-	TotalGC     uint32
-	MaxGorout   int
-	MaxWalSize  float64
+	MaxRamMB      float64
+	MaxGCPause    uint64
+	TotalGCPause  uint64
+	LastNumGC     uint32
+	TotalGC       uint32
+	MaxGorout     int
+	MaxWalSize    float64
 }
 
 func main() {
 	targetIP := flag.String("ip", "localhost", "The Tailscale IP or localhost")
-	workers := flag.Int("workers", 50, "Number of concurrent connections")
+	workers := flag.Int("workers", 50, "Number of concurrent connections/subscribers")
+	pubs := flag.Int("pubs", 1, "Number of publishers (for fanout mode)")
 	duration := flag.Int("time", 15, "Duration in seconds")
 	qos := flag.Int("qos", 1, "MQTT QoS level (0 or 1)")
 	mode := flag.String("mode", "ingest", "Benchmark mode: 'ingest', 'fanout', or 'latency'")
+	payloadType := flag.String("payload", "json", "Payload format: 'json' or 'proto'")
 	flag.Parse()
 
 	factorySecret := "xomoi-factory-secret"
@@ -62,9 +68,9 @@ func main() {
 
 	switch *mode {
 	case "ingest":
-		runIngestBenchmark(brokerURL, factorySecret, *workers, *duration, byte(*qos), metrics)
+		runIngestBenchmark(brokerURL, factorySecret, *payloadType, *workers, *duration, byte(*qos), metrics)
 	case "fanout":
-		runFanoutBenchmark(brokerURL, factorySecret, *workers, *duration, byte(*qos), metrics)
+		runFanoutBenchmark(brokerURL, factorySecret, *payloadType, *workers, *pubs, *duration, byte(*qos), metrics)
 	case "latency":
 		runLatencyBenchmark(brokerURL, factorySecret, *duration, byte(*qos), metrics)
 	default:
@@ -104,6 +110,10 @@ func monitorNodeHealth(wsURL string, duration int) *BenchmarkMetrics {
 					if stats.GcPausesNs > metrics.MaxGCPause {
 						metrics.MaxGCPause = stats.GcPausesNs
 					}
+					if stats.NumGC > metrics.LastNumGC {
+						metrics.TotalGCPause += stats.GcPausesNs
+						metrics.LastNumGC = stats.NumGC
+					}
 					if stats.NumGC > metrics.TotalGC {
 						metrics.TotalGC = stats.NumGC
 					}
@@ -121,11 +131,26 @@ func monitorNodeHealth(wsURL string, duration int) *BenchmarkMetrics {
 	return metrics
 }
 
-func runIngestBenchmark(brokerURL, secret string, workers, duration int, qos byte, metrics *BenchmarkMetrics) {
+func runIngestBenchmark(brokerURL, secret, payloadType string, workers, duration int, qos byte, metrics *BenchmarkMetrics) {
 	var totalSent uint64
 	var wg sync.WaitGroup
 
-	payload := []byte(`{"temp":42.5,"hum":88.1,"state":"ACTIVE","tensor":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"padding":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}`)
+	var payload []byte
+	if payloadType == "proto" {
+		packet := &pb.TelemetryBatch{
+			DeviceMac: "AA:BB:CC:DD:EE:FF",
+			Timestamp: time.Now().UnixMilli(),
+			Readings: []*pb.TelemetryPacket{
+				{TagId: 1, Data: &pb.TelemetryPacket_FVal{FVal: 42.5}},
+				{TagId: 2, Data: &pb.TelemetryPacket_FVal{FVal: 88.1}},
+				{TagId: 3, Data: &pb.TelemetryPacket_SVal{SVal: "ACTIVE"}},
+			},
+		}
+		payload, _ = proto.Marshal(packet)
+	} else {
+		payload = []byte(`{"temp":42.5,"hum":88.1,"state":"ACTIVE","tensor":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"padding":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}`)
+	}
+	
 	start := time.Now()
 
 	for i := 0; i < workers; i++ {
@@ -133,7 +158,7 @@ func runIngestBenchmark(brokerURL, secret string, workers, duration int, qos byt
 		go func(workerID int) {
 			defer wg.Done()
 			macAddress := fmt.Sprintf("AA:BB:CC:DD:EE:%02X", workerID)
-			client := connectClient(brokerURL, macAddress, secret)
+			client := connectClient(brokerURL, macAddress, macAddress, secret)
 			if client == nil {
 				return
 			}
@@ -174,24 +199,24 @@ func runIngestBenchmark(brokerURL, secret string, workers, duration int, qos byt
 	printHardwareMetrics(metrics)
 }
 
-func runFanoutBenchmark(brokerURL, secret string, subs, duration int, qos byte, metrics *BenchmarkMetrics) {
+func runFanoutBenchmark(brokerURL, secret, payloadType string, subs, pubs, duration int, qos byte, metrics *BenchmarkMetrics) {
 	var totalReceived uint64
 	var wg sync.WaitGroup
 
-	macPublisher := "AA:BB:CC:DD:EE:FF"
-	topic := fmt.Sprintf("/xomoi/%s/telemetry", macPublisher)
+	sharedMac := "FANOUT:BENCHMARK"
+	sharedTopic := fmt.Sprintf("/xomoi/%s/telemetry", sharedMac)
 
-	log.Printf("Connecting %d subscribers...", subs)
+	log.Printf("Connecting %d subscribers to shared topic %s...", subs, sharedTopic)
 	for i := 0; i < subs; i++ {
 		wg.Add(1)
 		go func(subID int) {
 			defer wg.Done()
-			macSub := fmt.Sprintf("SUB:BB:CC:DD:EE:%02X", subID)
-			client := connectClient(brokerURL, macSub, secret)
+			uniqueClientID := fmt.Sprintf("SUB_%d", subID)
+			client := connectClient(brokerURL, sharedMac, uniqueClientID, secret)
 			if client == nil { return }
 			defer client.Disconnect(250)
 
-			client.Subscribe(topic, qos, func(c mqtt.Client, m mqtt.Message) {
+			client.Subscribe(sharedTopic, qos, func(c mqtt.Client, m mqtt.Message) {
 				atomic.AddUint64(&totalReceived, 1)
 			}).Wait()
 			
@@ -201,25 +226,45 @@ func runFanoutBenchmark(brokerURL, secret string, subs, duration int, qos byte, 
 	
 	time.Sleep(1 * time.Second)
 
-	payload := []byte(`{"temp":42.5,"hum":88.1,"state":"FANOUT"}`)
-	client := connectClient(brokerURL, macPublisher, secret)
+	var payload []byte
+	if payloadType == "proto" {
+		packet := &pb.TelemetryBatch{
+			DeviceMac: sharedMac,
+			Timestamp: time.Now().UnixMilli(),
+			Readings: []*pb.TelemetryPacket{
+				{TagId: 1, Data: &pb.TelemetryPacket_SVal{SVal: "FANOUT"}},
+			},
+		}
+		payload, _ = proto.Marshal(packet)
+	} else {
+		payload = []byte(`{"temp":42.5,"hum":88.1,"state":"FANOUT"}`)
+	}
+
+	log.Printf("Connecting %d publishers...", pubs)
 	timer := time.NewTimer(time.Duration(duration) * time.Second)
 	start := time.Now()
-
-	go func() {
-		for {
-			select {
-			case <-timer.C:
-				return
-			default:
-				client.Publish(topic, qos, false, payload).Wait()
+	
+	for p := 0; p < pubs; p++ {
+		go func(pubID int) {
+			uniqueClientID := fmt.Sprintf("PUB_%d", pubID)
+			client := connectClient(brokerURL, sharedMac, uniqueClientID, secret)
+			if client == nil { return }
+			defer client.Disconnect(250)
+			
+			for {
+				select {
+				case <-timer.C:
+					return
+				default:
+					client.Publish(sharedTopic, qos, false, payload).Wait()
+				}
 			}
-		}
-	}()
+		}(p)
+	}
 
 	wg.Wait()
 	log.Printf("\n--- FANOUT RESULTS ---")
-	log.Printf("Subscribers: %d", subs)
+	log.Printf("Publishers: %d | Subscribers: %d", pubs, subs)
 	log.Printf("Total Packets Received by Subs: %d", totalReceived)
 	log.Printf("Fan-out Throughput: %.2f msgs/sec", float64(totalReceived)/time.Since(start).Seconds())
 	printHardwareMetrics(metrics)
@@ -229,7 +274,7 @@ func runLatencyBenchmark(brokerURL, secret string, duration int, qos byte, metri
 	macAddress := "AA:BB:CC:DD:EE:FF"
 	topic := fmt.Sprintf("/xomoi/%s/telemetry", macAddress)
 
-	client := connectClient(brokerURL, macAddress, secret)
+	client := connectClient(brokerURL, macAddress, macAddress, secret)
 	if client == nil { return }
 	defer client.Disconnect(250)
 
@@ -273,14 +318,14 @@ func runLatencyBenchmark(brokerURL, secret string, duration int, qos byte, metri
 	printHardwareMetrics(metrics)
 }
 
-func connectClient(brokerURL, macAddress, secret string) mqtt.Client {
+func connectClient(brokerURL, macAddress, clientID, secret string) mqtt.Client {
 	macHmac := hmac.New(sha256.New, []byte(secret))
 	macHmac.Write([]byte(macAddress))
 	password := hex.EncodeToString(macHmac.Sum(nil))
 
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(brokerURL)
-	opts.SetClientID(macAddress)
+	opts.SetClientID(clientID)
 	opts.SetUsername(macAddress)
 	opts.SetPassword(password)
 	
@@ -294,10 +339,16 @@ func connectClient(brokerURL, macAddress, secret string) mqtt.Client {
 
 func printHardwareMetrics(metrics *BenchmarkMetrics) {
 	if metrics.MaxRamMB > 0 {
+		var avgGC float64
+		if metrics.TotalGC > 0 {
+			avgGC = float64(metrics.TotalGCPause) / float64(metrics.TotalGC)
+		}
+		
 		fmt.Printf("\n--- BROKER HARDWARE LIMITS HIT ---\n")
 		fmt.Printf("Max RAM Allocated: %.2f MB\n", metrics.MaxRamMB)
 		fmt.Printf("Total GC Triggers: %d\n", metrics.TotalGC)
 		fmt.Printf("Max GC Pause Latency: %d ns (%.3f ms)\n", metrics.MaxGCPause, float64(metrics.MaxGCPause)/1e6)
+		fmt.Printf("Avg GC Pause Latency: %.0f ns (%.3f ms)\n", avgGC, avgGC/1e6)
 		fmt.Printf("Max Goroutines Sprawled: %d\n", metrics.MaxGorout)
 		fmt.Printf("Max SQLite WAL Size: %.2f MB\n", metrics.MaxWalSize)
 	}

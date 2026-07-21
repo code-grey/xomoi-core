@@ -61,6 +61,10 @@
     - [ ] Implement decentralized offline peer-to-peer routing using CRDTs.
 - [ ] **4.2: Secure Edge Orchestration**
     - [ ] Support Cgroups memory isolation and containerized OTA updates.
+- [ ] **4.3: Zero-Allocation Fanout Pooling (100k msgs/sec Cloud Target)**
+    - [ ] Fork `mochi-mqtt/server` and rewrite their internal subscriber routing queues to use a massive `sync.Pool`.
+    - [ ] Eliminate GC overdrive by borrowing and returning outbound network buffers for 100k msgs/sec scaling on modern CPUs.
+    - [ ] Submit the zero-allocation optimization PR upstream to the official Mochi-MQTT repository.
 
 ## PHASE 5: SOVEREIGN API & SECURITY (WEEKS 7-8)
 - [x] **5.1: The Headless Web Server (`internal/api/`)**

@@ -90,7 +90,23 @@ func (wp *WorkerPool) Submit(deviceID string, payload []byte) {
 	job.DeviceID = deviceID
 	job.Payload = payload 
 
-	wp.jobs <- job
+	// NON-BLOCKING HANDOFF:
+	// If 5,000 devices hit at once, the jobs channel will fill up. 
+	// If we block here, Mochi-MQTT's read loops freeze, choking the OS TCP window.
+	select {
+	case wp.jobs <- job:
+		// Queue accepted, worker will handle RingBuffer and HotState.
+	default:
+		// QUEUE FULL: Thundering Herd Detected!
+		// We bypass the worker pool completely to protect the broker.
+		// We update the HotState synchronously (O(1) fast sync.Map write) so the 
+		// dashboard doesn't lose data, but we drop the RingBuffer insertion.
+		if wp.processor != nil && wp.processor.hotState != nil {
+			wp.processor.hotState.Update(deviceID, payload)
+		}
+		// Return the struct to the pool to prevent memory leaks
+		wp.jobPool.Put(job)
+	}
 }
 
 // Stop gracefully shuts down the pool.

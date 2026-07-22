@@ -39,6 +39,7 @@ type Config struct {
 	MemoryLimitMB    int
 	LogFormat        string // "json" or "text"
 	RingBatchSize    int
+	OverflowStrategy string // "block" or "drop"
 }
 
 // Load parses environment variables and applies sensible defaults.
@@ -60,6 +61,7 @@ func Load() *Config {
 		MemoryLimitMB:    getEnvInt("XOMOI_MEMORY_LIMIT_MB", 250),
 		LogFormat:        getEnv("XOMOI_LOG_FORMAT", "json"),
 		RingBatchSize:    getEnvInt("XOMOI_RING_BATCH_SIZE", 1000),
+		OverflowStrategy: strings.ToLower(getEnv("XOMOI_OVERFLOW_STRATEGY", "block")),
 	}
 }
 

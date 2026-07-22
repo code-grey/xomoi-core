@@ -34,14 +34,16 @@ type WorkerPool struct {
 	numWorkers int
 	processor  *Processor
 	jobPool    sync.Pool // The zero-allocation object pool
+	strategy   string    // "block" or "drop"
 }
 
 // NewWorkerPool creates a new constrained worker pool with a Zero-Allocation sync.Pool.
-func NewWorkerPool(numWorkers int, bufferSize int, proc *Processor) *WorkerPool {
+func NewWorkerPool(numWorkers int, bufferSize int, strategy string, proc *Processor) *WorkerPool {
 	return &WorkerPool{
 		jobs:       make(chan *Job, bufferSize), // Buffered to handle backpressure
 		numWorkers: numWorkers,
 		processor:  proc,
+		strategy:   strategy,
 		jobPool: sync.Pool{
 			New: func() any {
 				// Pre-allocate the struct. It will be reused infinitely.
@@ -90,22 +92,24 @@ func (wp *WorkerPool) Submit(deviceID string, payload []byte) {
 	job.DeviceID = deviceID
 	job.Payload = payload 
 
-	// NON-BLOCKING HANDOFF:
-	// If 5,000 devices hit at once, the jobs channel will fill up. 
-	// If we block here, Mochi-MQTT's read loops freeze, choking the OS TCP window.
-	select {
-	case wp.jobs <- job:
-		// Queue accepted, worker will handle RingBuffer and HotState.
-	default:
-		// QUEUE FULL: Thundering Herd Detected!
-		// We bypass the worker pool completely to protect the broker.
-		// We update the HotState synchronously (O(1) fast sync.Map write) so the 
-		// dashboard doesn't lose data, but we drop the RingBuffer insertion.
-		if wp.processor != nil && wp.processor.hotState != nil {
-			wp.processor.hotState.Update(deviceID, payload)
+	if wp.strategy == "drop" {
+		// NON-BLOCKING HANDOFF:
+		// If the channel is full, we bypass the RingBuffer insertion.
+		// We synchronously update the HotState so live dashboards survive the Thundering Herd.
+		select {
+		case wp.jobs <- job:
+			// Queue accepted
+		default:
+			if wp.processor != nil && wp.processor.hotState != nil {
+				wp.processor.hotState.Update(deviceID, payload)
+			}
+			wp.jobPool.Put(job)
 		}
-		// Return the struct to the pool to prevent memory leaks
-		wp.jobPool.Put(job)
+	} else {
+		// BLOCKING HANDOFF (Default):
+		// Guarantees zero data loss (QoS 1 compliance). 
+		// Will cause OS TCP window to fill and connections to pause during massive spikes.
+		wp.jobs <- job
 	}
 }
 

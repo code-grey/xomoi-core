@@ -1,0 +1,795 @@
+﻿==========================================
+  PHASE A: INGESTION CEILING (PROTOBUF)   
+==========================================
+
+---> Running Ingest with 100 Workers
+go : 2026/07/22 16:57:14 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/22 16:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/22 16:57:14 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 100 | Time: 60s
+2026/07/22 16:57:14 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 402528
+Duration: 61.21 seconds
+Average Throughput: 6576.68 msgs/sec
+Max Throughput: 9807.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.35 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 79.62 MB
+Total GC Triggers: 37
+Max GC Pause Latency: 5344411 ns (5.344 ms)
+Avg GC Pause Latency: 1120424 ns (1.120 ms)
+Max Goroutines Sprawled: 219
+Max SQLite WAL Size: 15.88 MB
+
+---> Running Ingest with 250 Workers
+go : 2026/07/22 16:58:46 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/22 16:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/22 16:58:46 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 250 | Time: 60s
+2026/07/22 16:58:46 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 671078
+Duration: 61.71 seconds
+Average Throughput: 10875.38 msgs/sec
+Max Throughput: 12309.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.58 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 144.36 MB
+Total GC Triggers: 60
+Max GC Pause Latency: 4522458 ns (4.522 ms)
+Avg GC Pause Latency: 407132 ns (0.407 ms)
+Max Goroutines Sprawled: 519
+Max SQLite WAL Size: 18.60 MB
+
+---> Running Ingest with 500 Workers
+go : 2026/07/22 17:00:18 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/22 17:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/22 17:00:18 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 500 | Time: 60s
+2026/07/22 17:00:18 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 731655
+Duration: 62.07 seconds
+Average Throughput: 11787.25 msgs/sec
+Max Throughput: 13363.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.63 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 177.31 MB
+Total GC Triggers: 80
+Max GC Pause Latency: 4907546 ns (4.908 ms)
+Avg GC Pause Latency: 306771 ns (0.307 ms)
+Max Goroutines Sprawled: 1019
+Max SQLite WAL Size: 22.46 MB
+
+---> Running Ingest with 750 Workers
+go : 2026/07/22 17:01:51 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/22 17:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/22 17:01:51 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 750 | Time: 60s
+2026/07/22 17:01:51 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 626513
+Duration: 62.97 seconds
+Average Throughput: 9949.12 msgs/sec
+Max Throughput: 13991.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.53 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 185.68 MB
+Total GC Triggers: 99
+Max GC Pause Latency: 3589565 ns (3.590 ms)
+Avg GC Pause Latency: 231357 ns (0.231 ms)
+Max Goroutines Sprawled: 1519
+Max SQLite WAL Size: 25.72 MB
+
+---> Running Ingest with 1000 Workers
+go : 2026/07/22 17:03:24 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/22 17:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/22 17:03:24 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 1000 | Time: 60s
+2026/07/22 17:03:25 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 721179
+Duration: 63.08 seconds
+Average Throughput: 11433.11 msgs/sec
+Max Throughput: 14159.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.61 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 176.04 MB
+Total GC Triggers: 126
+Max GC Pause Latency: 5552831 ns (5.553 ms)
+Avg GC Pause Latency: 342758 ns (0.343 ms)
+Max Goroutines Sprawled: 2019
+Max SQLite WAL Size: 29.07 MB
+
+==========================================
+  PHASE B: FANOUT QUEUE LIMITS (PROTOBUF) 
+==========================================
+
+---> Running Fanout with 50 Pubs and 100 Subs
+go : 2026/07/22 17:04:58 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/22 17:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/22 17:04:58 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 100 | Time: 60s
+2026/07/22 17:04:58 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/22 17:04:58 Connecting 100 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/22 17:04:59 Connecting 50 publishers...
+2026/07/22 17:06:00 
+--- FANOUT RESULTS ---
+2026/07/22 17:06:00 Publishers: 50 | Subscribers: 100
+2026/07/22 17:06:00 Total Packets Received by Subs: 1038127
+2026/07/22 17:06:00 Average Fan-out Throughput: 16988.19 msgs/sec
+2026/07/22 17:06:00 Max Fan-out Throughput: 20500.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 91.05 MB
+Total GC Triggers: 224
+Max GC Pause Latency: 7228892 ns (7.229 ms)
+Avg GC Pause Latency: 494787 ns (0.495 ms)
+Max Goroutines Sprawled: 319
+Max SQLite WAL Size: 29.07 MB
+
+---> Running Fanout with 50 Pubs and 500 Subs
+go : 2026/07/22 17:06:31 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/22 17:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/22 17:06:31 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 500 | Time: 60s
+2026/07/22 17:06:31 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/22 17:06:31 Connecting 500 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/22 17:06:32 Connecting 50 publishers...
+2026/07/22 17:07:34 
+--- FANOUT RESULTS ---
+2026/07/22 17:07:34 Publishers: 50 | Subscribers: 500
+2026/07/22 17:07:34 Total Packets Received by Subs: 804890
+2026/07/22 17:07:34 Average Fan-out Throughput: 13037.75 msgs/sec
+2026/07/22 17:07:34 Max Fan-out Throughput: 34424.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 186.44 MB
+Total GC Triggers: 304
+Max GC Pause Latency: 9554158 ns (9.554 ms)
+Avg GC Pause Latency: 255920 ns (0.256 ms)
+Max Goroutines Sprawled: 1117
+Max SQLite WAL Size: 29.07 MB
+
+---> Running Fanout with 50 Pubs and 1000 Subs
+go : 2026/07/22 17:08:04 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/22 17:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/22 17:08:04 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 1000 | Time: 60s
+2026/07/22 17:08:05 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/22 17:08:05 Connecting 1000 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/22 17:08:06 Connecting 50 publishers...
+2026/07/22 17:09:12 
+--- FANOUT RESULTS ---
+2026/07/22 17:09:12 Publishers: 50 | Subscribers: 1000
+2026/07/22 17:09:12 Total Packets Received by Subs: 785047
+2026/07/22 17:09:12 Average Fan-out Throughput: 11846.37 msgs/sec
+2026/07/22 17:09:12 Max Fan-out Throughput: 36495.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 224.11 MB
+Total GC Triggers: 472
+Max GC Pause Latency: 17594594 ns (17.595 ms)
+Avg GC Pause Latency: 282242 ns (0.282 ms)
+Max Goroutines Sprawled: 2117
+Max SQLite WAL Size: 29.07 MB
+
+---> Running Fanout with 50 Pubs and 1500 Subs
+go : 2026/07/22 17:09:43 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/22 17:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/22 17:09:43 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 1500 | Time: 60s
+2026/07/22 17:09:43 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/22 17:09:43 Connecting 1500 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/22 17:09:44 Connecting 50 publishers...
+2026/07/22 17:11:17 
+--- FANOUT RESULTS ---
+
+--- BROKER HARDWARE LIMITS HIT ---
+2026/07/22 17:11:17 Publishers: 50 | Subscribers: 1500
+2026/07/22 17:11:17 Total Packets Received by Subs: 1174862
+2026/07/22 17:11:17 Average Fan-out Throughput: 12589.29 msgs/sec
+2026/07/22 17:11:17 Max Fan-out Throughput: 23837.00 msgs/sec
+Max RAM Allocated: 236.78 MB
+Total GC Triggers: 579
+Max GC Pause Latency: 8860898 ns (8.861 ms)
+Avg GC Pause Latency: 93956 ns (0.094 ms)
+Max Goroutines Sprawled: 3308
+Max SQLite WAL Size: 29.07 MB
+
+---> Running Fanout with 50 Pubs and 2000 Subs
+go : 2026/07/22 17:11:48 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/22 17:1...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/22 17:11:48 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 2000 | Time: 60s
+2026/07/22 17:11:48 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/22 17:11:48 Connecting 2000 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/22 17:11:49 Connecting 50 publishers...
+2026/07/22 17:13:54 
+--- FANOUT RESULTS ---
+
+--- BROKER HARDWARE LIMITS HIT ---
+2026/07/22 17:13:54 Publishers: 50 | Subscribers: 2000
+2026/07/22 17:13:54 Total Packets Received by Subs: 690540
+2026/07/22 17:13:54 Average Fan-out Throughput: 5523.81 msgs/sec
+2026/07/22 17:13:54 Max Fan-out Throughput: 23400.00 msgs/sec
+Max RAM Allocated: 343.87 MB
+Total GC Triggers: 739
+Max GC Pause Latency: 11782791 ns (11.783 ms)
+Avg GC Pause Latency: 144392 ns (0.144 ms)
+Max Goroutines Sprawled: 4535
+Max SQLite WAL Size: 29.07 MB
+
+==========================================
+  PHASE C: THUNDERING HERD (CONNECTION SPIKE) 
+==========================================
+
+---> Hitting broker with 5,000 simultaneous connections...
+go : 2026/07/22 17:14:26 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:34 char:1
++ go run scripts/benchmark.go -ip $IP -mode ingest -payload proto -time ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/22 17:1...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/22 17:14:26 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 5000 | Time: 15s
+2026/07/22 17:14:26 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:DC9: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:117E: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:B81: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:ED4: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:C6F: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:1008: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:1172: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:1228: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:12E8: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:12DB: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:126C: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:127E: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:1243: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:12E1: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:1375: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:12BF: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:10C3: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:1284: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:11A4: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:D23: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:1217: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:D21: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:1382: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:131B: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:1313: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:12B9: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:11A0: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:10DA: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:BEA: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:1373: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:CE9: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:F57: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:F5C: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:12C6: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:10DF: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:F59: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:109D: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:1316: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:12C5: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:103A: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:10D8: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:137F: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:EA3: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:CED: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:E9E: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:12BC: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:DAE: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:EF9: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:11C1: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:1215: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:11A8: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:667: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:EB5: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:EF6: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:11A5: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:F0E: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:F64: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:DB2: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:17 Failed to connect AA:BB:CC:DD:EE:F31: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B7: network Error : read tcp 100.127.250.27:23233->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:463: network Error : read tcp 100.127.250.27:23231->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C0: network Error : read tcp 100.127.250.27:23234->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BA: network Error : read tcp 100.127.250.27:23235->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:474: network Error : read tcp 100.127.250.27:23252->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D1: network Error : read tcp 100.127.250.27:23262->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:4E0: network Error : read tcp 100.127.250.27:23277->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:62B: network Error : read tcp 100.127.250.27:23331->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:A86: network Error : read tcp 100.127.250.27:23477->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AE5: network Error : read tcp 100.127.250.27:23478->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AB2: network Error : read tcp 100.127.250.27:23479->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:A9F: network Error : read tcp 100.127.250.27:23480->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AA8: network Error : read tcp 100.127.250.27:23482->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:A93: network Error : read tcp 100.127.250.27:23481->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:A8E: network Error : read tcp 100.127.250.27:23487->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AD4: network Error : read tcp 100.127.250.27:23488->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AE7: network Error : read tcp 100.127.250.27:23486->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:ABE: network Error : read tcp 100.127.250.27:23484->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AFC: network Error : read tcp 100.127.250.27:23483->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B35: network Error : read tcp 100.127.250.27:23485->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AC9: network Error : read tcp 100.127.250.27:23493->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B60: network Error : read tcp 100.127.250.27:23492->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:A87: network Error : read tcp 100.127.250.27:23491->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AF3: network Error : read tcp 100.127.250.27:23489->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B17: network Error : read tcp 100.127.250.27:23490->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B62: network Error : read tcp 100.127.250.27:23498->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:984: network Error : read tcp 100.127.250.27:23495->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:ACC: network Error : read tcp 100.127.250.27:23496->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B37: network Error : read tcp 100.127.250.27:23494->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AD2: network Error : read tcp 100.127.250.27:23497->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B61: network Error : read tcp 100.127.250.27:23499->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:7A0: network Error : read tcp 100.127.250.27:23502->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AD7: network Error : read tcp 100.127.250.27:23501->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:A7E: network Error : read tcp 100.127.250.27:23504->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:ADC: network Error : read tcp 100.127.250.27:23500->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:ACB: network Error : read tcp 100.127.250.27:23503->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:ACA: network Error : read tcp 100.127.250.27:23510->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:A7F: network Error : read tcp 100.127.250.27:23508->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AD5: network Error : read tcp 100.127.250.27:23505->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AF6: network Error : read tcp 100.127.250.27:23513->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AA9: network Error : read tcp 100.127.250.27:23514->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AAA: network Error : read tcp 100.127.250.27:23511->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AD6: network Error : read tcp 100.127.250.27:23512->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AA2: network Error : read tcp 100.127.250.27:23517->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BBD: network Error : read tcp 100.127.250.27:23518->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AF4: network Error : read tcp 100.127.250.27:23516->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AE6: network Error : read tcp 100.127.250.27:23519->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B18: network Error : read tcp 100.127.250.27:23515->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AA4: network Error : read tcp 100.127.250.27:23521->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AB8: network Error : read tcp 100.127.250.27:23523->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:ADD: network Error : read tcp 100.127.250.27:23524->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AD8: network Error : read tcp 100.127.250.27:23525->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BBB: network Error : read tcp 100.127.250.27:23520->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B8F: network Error : read tcp 100.127.250.27:23522->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AE9: network Error : read tcp 100.127.250.27:23527->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B3A: network Error : read tcp 100.127.250.27:23530->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C20: network Error : read tcp 100.127.250.27:23528->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B38: network Error : read tcp 100.127.250.27:23529->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:784: network Error : read tcp 100.127.250.27:23526->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BBE: network Error : read tcp 100.127.250.27:23532->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B36: network Error : read tcp 100.127.250.27:23533->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AFF: network Error : read tcp 100.127.250.27:23534->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AC0: network Error : read tcp 100.127.250.27:23531->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C55: network Error : read tcp 100.127.250.27:23538->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AEB: network Error : read tcp 100.127.250.27:23535->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AB9: network Error : read tcp 100.127.250.27:23539->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AB6: network Error : read tcp 100.127.250.27:23536->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B90: network Error : read tcp 100.127.250.27:23537->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C53: network Error : read tcp 100.127.250.27:23545->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AE0: network Error : read tcp 100.127.250.27:23544->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B39: network Error : read tcp 100.127.250.27:23541->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C54: network Error : read tcp 100.127.250.27:23542->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C89: network Error : read tcp 100.127.250.27:23543->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:ACE: network Error : read tcp 100.127.250.27:23540->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AFE: network Error : read tcp 100.127.250.27:23548->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:ABF: network Error : read tcp 100.127.250.27:23549->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:ADF: network Error : read tcp 100.127.250.27:23546->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:ABA: network Error : read tcp 100.127.250.27:23551->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AF7: network Error : read tcp 100.127.250.27:23547->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AEA: network Error : read tcp 100.127.250.27:23550->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B92: network Error : read tcp 100.127.250.27:23555->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BC0: network Error : read tcp 100.127.250.27:23553->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:A81: network Error : read tcp 100.127.250.27:23554->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CC5: network Error : read tcp 100.127.250.27:23552->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:ACD: network Error : read tcp 100.127.250.27:23560->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AAB: network Error : read tcp 100.127.250.27:23559->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B93: network Error : read tcp 100.127.250.27:23557->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AEC: network Error : read tcp 100.127.250.27:23556->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B94: network Error : read tcp 100.127.250.27:23558->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BED: network Error : read tcp 100.127.250.27:23562->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BEE: network Error : read tcp 100.127.250.27:23565->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B95: network Error : read tcp 100.127.250.27:23563->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C56: network Error : read tcp 100.127.250.27:23564->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BC1: network Error : read tcp 100.127.250.27:23561->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B01: network Error : read tcp 100.127.250.27:23567->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:AE1: network Error : read tcp 100.127.250.27:23566->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B3B: network Error : read tcp 100.127.250.27:23588->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CC9: network Error : read tcp 100.127.250.27:23590->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:A80: network Error : read tcp 100.127.250.27:23587->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CCA: network Error : read tcp 100.127.250.27:23589->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B42: network Error : read tcp 100.127.250.27:23594->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B41: network Error : read tcp 100.127.250.27:23592->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D01: network Error : read tcp 100.127.250.27:23591->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BE7: network Error : read tcp 100.127.250.27:23595->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B1A: network Error : read tcp 100.127.250.27:23593->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CEC: network Error : read tcp 100.127.250.27:23604->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F9A: network Error : read tcp 100.127.250.27:23601->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C29: network Error : read tcp 100.127.250.27:23600->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CCE: network Error : read tcp 100.127.250.27:23603->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D8C: network Error : read tcp 100.127.250.27:23596->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CA2: network Error : read tcp 100.127.250.27:23597->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E34: network Error : read tcp 100.127.250.27:23598->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D5B: network Error : read tcp 100.127.250.27:23610->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B56: network Error : read tcp 100.127.250.27:23599->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:100A: network Error : read tcp 100.127.250.27:23608->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CE3: network Error : read tcp 100.127.250.27:23607->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F28: network Error : read tcp 100.127.250.27:23606->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:99C: network Error : read tcp 100.127.250.27:23605->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B74: network Error : read tcp 100.127.250.27:23609->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C84: network Error : read tcp 100.127.250.27:23602->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:EBE: network Error : read tcp 100.127.250.27:23612->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CA5: network Error : read tcp 100.127.250.27:23611->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F2A: network Error : read tcp 100.127.250.27:23616->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D33: network Error : read tcp 100.127.250.27:23613->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D3A: network Error : read tcp 100.127.250.27:23615->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E1B: network Error : read tcp 100.127.250.27:23617->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F84: network Error : read tcp 100.127.250.27:23614->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:100D: network Error : read tcp 100.127.250.27:23620->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DD4: network Error : read tcp 100.127.250.27:23621->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:10E6: network Error : read tcp 100.127.250.27:23619->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CF3: network Error : read tcp 100.127.250.27:23618->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CF0: network Error : read tcp 100.127.250.27:23622->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:ED8: network Error : read tcp 100.127.250.27:23628->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E7A: network Error : read tcp 100.127.250.27:23636->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E71: network Error : read tcp 100.127.250.27:23634->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:10AD: network Error : read tcp 100.127.250.27:23635->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:EA1: network Error : read tcp 100.127.250.27:23646->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E99: network Error : read tcp 100.127.250.27:23637->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1078: network Error : read tcp 100.127.250.27:23639->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:107D: network Error : read tcp 100.127.250.27:23640->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DC2: network Error : read tcp 100.127.250.27:23645->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C26: network Error : read tcp 100.127.250.27:23647->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1218: network Error : read tcp 100.127.250.27:23644->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C68: network Error : read tcp 100.127.250.27:23643->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:10EC: network Error : read tcp 100.127.250.27:23638->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:10A8: network Error : read tcp 100.127.250.27:23642->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:EF1: network Error : read tcp 100.127.250.27:23648->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1165: network Error : read tcp 100.127.250.27:23650->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D4E: network Error : read tcp 100.127.250.27:23649->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DEE: network Error : read tcp 100.127.250.27:23652->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1013: network Error : read tcp 100.127.250.27:23654->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DF7: network Error : read tcp 100.127.250.27:23653->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D9A: network Error : read tcp 100.127.250.27:23651->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C7A: network Error : read tcp 100.127.250.27:23657->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D5F: network Error : read tcp 100.127.250.27:23658->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E03: network Error : read tcp 100.127.250.27:23656->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F7C: network Error : read tcp 100.127.250.27:23655->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E36: network Error : read tcp 100.127.250.27:23659->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C2B: network Error : read tcp 100.127.250.27:23660->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D4C: network Error : read tcp 100.127.250.27:23661->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C9C: network Error : read tcp 100.127.250.27:23662->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:10A4: network Error : read tcp 100.127.250.27:23663->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DE4: network Error : read tcp 100.127.250.27:23667->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B4D: network Error : read tcp 100.127.250.27:23668->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E7C: network Error : read tcp 100.127.250.27:23665->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1166: network Error : read tcp 100.127.250.27:23666->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E62: network Error : read tcp 100.127.250.27:23674->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FB1: network Error : read tcp 100.127.250.27:23676->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DC8: network Error : read tcp 100.127.250.27:23673->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CF2: network Error : read tcp 100.127.250.27:23671->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B1E: network Error : read tcp 100.127.250.27:23669->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FBE: network Error : read tcp 100.127.250.27:23675->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F92: network Error : read tcp 100.127.250.27:23670->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DFE: network Error : read tcp 100.127.250.27:23672->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CD4: network Error : read tcp 100.127.250.27:23680->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F70: network Error : read tcp 100.127.250.27:23679->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C9A: network Error : read tcp 100.127.250.27:23678->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:11F2: network Error : read tcp 100.127.250.27:23677->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FDC: network Error : read tcp 100.127.250.27:23681->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FB2: network Error : read tcp 100.127.250.27:23685->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:74C: network Error : read tcp 100.127.250.27:23683->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E2C: network Error : read tcp 100.127.250.27:23684->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C7B: network Error : read tcp 100.127.250.27:23690->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E7B: network Error : read tcp 100.127.250.27:23687->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1198: network Error : read tcp 100.127.250.27:23689->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D44: network Error : read tcp 100.127.250.27:23688->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CE4: network Error : read tcp 100.127.250.27:23686->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F80: network Error : read tcp 100.127.250.27:23691->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E05: network Error : read tcp 100.127.250.27:23694->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C10: network Error : read tcp 100.127.250.27:23692->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1167: network Error : read tcp 100.127.250.27:23696->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C44: network Error : read tcp 100.127.250.27:23693->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1182: network Error : read tcp 100.127.250.27:23695->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E31: network Error : read tcp 100.127.250.27:23701->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E13: network Error : read tcp 100.127.250.27:23697->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E51: network Error : read tcp 100.127.250.27:23699->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F3C: network Error : read tcp 100.127.250.27:23698->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D73: network Error : read tcp 100.127.250.27:23700->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B6B: network Error : read tcp 100.127.250.27:23704->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:10CB: network Error : read tcp 100.127.250.27:23707->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E81: network Error : read tcp 100.127.250.27:23706->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:11FE: network Error : read tcp 100.127.250.27:23705->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BA0: network Error : read tcp 100.127.250.27:23703->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C17: network Error : read tcp 100.127.250.27:23702->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E5B: network Error : read tcp 100.127.250.27:23717->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:EC0: network Error : read tcp 100.127.250.27:23711->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:9B2: network Error : read tcp 100.127.250.27:23708->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DED: network Error : read tcp 100.127.250.27:23709->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:113F: network Error : read tcp 100.127.250.27:23712->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1014: network Error : read tcp 100.127.250.27:23713->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BF9: network Error : read tcp 100.127.250.27:23715->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FC5: network Error : read tcp 100.127.250.27:23714->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:756: network Error : read tcp 100.127.250.27:23710->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F81: network Error : read tcp 100.127.250.27:23716->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:109C: network Error : read tcp 100.127.250.27:24016->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:10DB: network Error : read tcp 100.127.250.27:24015->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E3C: network Error : read tcp 100.127.250.27:24050->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F8C: network Error : read tcp 100.127.250.27:24162->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:84D: network Error : read tcp 100.127.250.27:24161->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:B48: network Error : read tcp 100.127.250.27:24168->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D18: network Error : read tcp 100.127.250.27:24169->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:112B: network Error : read tcp 100.127.250.27:24165->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C4E: network Error : read tcp 100.127.250.27:24166->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BFE: network Error : read tcp 100.127.250.27:24164->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:25A: network Error : read tcp 100.127.250.27:24167->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:9D0: network Error : read tcp 100.127.250.27:24170->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C01: network Error : read tcp 100.127.250.27:24171->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FFA: network Error : read tcp 100.127.250.27:24172->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:85E: network Error : read tcp 100.127.250.27:24179->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:861: network Error : read tcp 100.127.250.27:24190->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F74: network Error : read tcp 100.127.250.27:24187->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:106B: network Error : read tcp 100.127.250.27:24188->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1179: network Error : read tcp 100.127.250.27:24189->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D9F: network Error : read tcp 100.127.250.27:24186->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F73: network Error : read tcp 100.127.250.27:24193->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:9D4: network Error : read tcp 100.127.250.27:24191->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D1D: network Error : read tcp 100.127.250.27:24195->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BD6: network Error : read tcp 100.127.250.27:24192->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DDE: network Error : read tcp 100.127.250.27:24194->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1071: network Error : read tcp 100.127.250.27:24201->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:863: network Error : read tcp 100.127.250.27:24197->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:865: network Error : read tcp 100.127.250.27:24204->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1061: network Error : read tcp 100.127.250.27:24196->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F4C: network Error : read tcp 100.127.250.27:24203->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D6B: network Error : read tcp 100.127.250.27:24199->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1047: network Error : read tcp 100.127.250.27:24202->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:852: network Error : read tcp 100.127.250.27:24198->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F56: network Error : read tcp 100.127.250.27:24200->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:35C: network Error : read tcp 100.127.250.27:24212->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E7: network Error : read tcp 100.127.250.27:24206->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:EB: network Error : read tcp 100.127.250.27:24211->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:112C: network Error : read tcp 100.127.250.27:24208->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1036: network Error : read tcp 100.127.250.27:24207->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1034: network Error : read tcp 100.127.250.27:24210->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:885: network Error : read tcp 100.127.250.27:24209->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:11EE: network Error : read tcp 100.127.250.27:24205->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:9D5: network Error : read tcp 100.127.250.27:24214->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1044: network Error : read tcp 100.127.250.27:24213->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:104A: network Error : read tcp 100.127.250.27:24216->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1064: network Error : read tcp 100.127.250.27:24215->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FE3: network Error : read tcp 100.127.250.27:24219->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1065: network Error : read tcp 100.127.250.27:24218->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D05: network Error : read tcp 100.127.250.27:24220->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F06: network Error : read tcp 100.127.250.27:24221->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:109F: network Error : read tcp 100.127.250.27:24222->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F8B: network Error : read tcp 100.127.250.27:24223->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:D06: network Error : read tcp 100.127.250.27:24226->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F4B: network Error : read tcp 100.127.250.27:24225->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E8: network Error : read tcp 100.127.250.27:24224->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BD4: network Error : read tcp 100.127.250.27:24227->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:EC: network Error : read tcp 100.127.250.27:24231->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DA1: network Error : read tcp 100.127.250.27:24234->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BD5: network Error : read tcp 100.127.250.27:24232->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FEC: network Error : read tcp 100.127.250.27:24230->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:886: network Error : read tcp 100.127.250.27:24236->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FFB: network Error : read tcp 100.127.250.27:24235->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F8A: network Error : read tcp 100.127.250.27:24229->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:9D8: network Error : read tcp 100.127.250.27:24233->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BD8: network Error : read tcp 100.127.250.27:24228->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1032: network Error : read tcp 100.127.250.27:24240->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FF2: network Error : read tcp 100.127.250.27:24239->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1037: network Error : read tcp 100.127.250.27:24238->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FE0: network Error : read tcp 100.127.250.27:24237->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:EA: network Error : read tcp 100.127.250.27:24241->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DA0: network Error : read tcp 100.127.250.27:24243->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F4D: network Error : read tcp 100.127.250.27:24242->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1045: network Error : read tcp 100.127.250.27:24245->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:F05: network Error : read tcp 100.127.250.27:24244->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:879: network Error : read tcp 100.127.250.27:24248->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BD7: network Error : read tcp 100.127.250.27:24252->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CDF: network Error : read tcp 100.127.250.27:24251->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FBA: network Error : read tcp 100.127.250.27:24247->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:854: network Error : read tcp 100.127.250.27:24249->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1048: network Error : read tcp 100.127.250.27:24246->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:CDE: network Error : read tcp 100.127.250.27:24250->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:FE1: network Error : read tcp 100.127.250.27:24253->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:899: network Error : read tcp 100.127.250.27:24256->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8DC: network Error : read tcp 100.127.250.27:24258->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C95: network Error : read tcp 100.127.250.27:24255->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8E1: network Error : read tcp 100.127.250.27:24259->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8B3: network Error : read tcp 100.127.250.27:24262->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8D3: network Error : read tcp 100.127.250.27:24260->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C4F: network Error : read tcp 100.127.250.27:24254->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8B4: network Error : read tcp 100.127.250.27:24261->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8B2: network Error : read tcp 100.127.250.27:24257->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:10F: network Error : read tcp 100.127.250.27:24267->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8C8: network Error : read tcp 100.127.250.27:24266->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8EA: network Error : read tcp 100.127.250.27:24270->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8EC: network Error : read tcp 100.127.250.27:24269->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8ED: network Error : read tcp 100.127.250.27:24268->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8D1: network Error : read tcp 100.127.250.27:24265->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:10E: network Error : read tcp 100.127.250.27:24263->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8DA: network Error : read tcp 100.127.250.27:24264->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:11B: network Error : read tcp 100.127.250.27:24275->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:909: network Error : read tcp 100.127.250.27:24297->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:918: network Error : read tcp 100.127.250.27:24300->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:931: network Error : read tcp 100.127.250.27:24301->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:92C: network Error : read tcp 100.127.250.27:24299->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:929: network Error : read tcp 100.127.250.27:24298->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:91F: network Error : read tcp 100.127.250.27:24302->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:132: network Error : read tcp 100.127.250.27:24304->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:138: network Error : read tcp 100.127.250.27:24305->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:916: network Error : read tcp 100.127.250.27:24303->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:92D: network Error : read tcp 100.127.250.27:24309->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:90A: network Error : read tcp 100.127.250.27:24308->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:92F: network Error : read tcp 100.127.250.27:24312->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:920: network Error : read tcp 100.127.250.27:24310->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8F3: network Error : read tcp 100.127.250.27:24317->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:291: network Error : read tcp 100.127.250.27:24344->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:2A0: network Error : read tcp 100.127.250.27:24346->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:9D2: network Error : read tcp 100.127.250.27:24377->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:637: network Error : read tcp 100.127.250.27:24407->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:201: network Error : read tcp 100.127.250.27:24408->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8DD: network Error : read tcp 100.127.250.27:24410->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8E3: network Error : read tcp 100.127.250.27:24411->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:5E7: network Error : read tcp 100.127.250.27:24409->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:612: network Error : read tcp 100.127.250.27:24406->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:3D6: network Error : read tcp 100.127.250.27:24414->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:63C: network Error : read tcp 100.127.250.27:24413->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:5E8: network Error : read tcp 100.127.250.27:24412->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BF: network Error : read tcp 100.127.250.27:24432->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:7DD: network Error : read tcp 100.127.250.27:24433->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:332: network Error : read tcp 100.127.250.27:24434->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:23B: network Error : read tcp 100.127.250.27:24438->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:2C7: network Error : read tcp 100.127.250.27:24437->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:434: network Error : read tcp 100.127.250.27:24442->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:6F: network Error : read tcp 100.127.250.27:24441->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:8E2: network Error : read tcp 100.127.250.27:24445->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:44E: network Error : read tcp 100.127.250.27:24439->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:23F: network Error : read tcp 100.127.250.27:24447->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:BB0: network Error : read tcp 100.127.250.27:24484->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C60: network Error : read tcp 100.127.250.27:24576->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:C04: network Error : read tcp 100.127.250.27:24575->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1162: network Error : read tcp 100.127.250.27:24578->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DDF: network Error : read tcp 100.127.250.27:24577->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:DE3: network Error : read tcp 100.127.250.27:24579->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1231: network Error : read tcp 100.127.250.27:24638->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1296: network Error : read tcp 100.127.250.27:24636->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1258: network Error : read tcp 100.127.250.27:24635->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:123C: network Error : read tcp 100.127.250.27:24637->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1307: network Error : read tcp 100.127.250.27:24639->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1252: network Error : read tcp 100.127.250.27:24641->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1224: network Error : read tcp 100.127.250.27:24640->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1223: network Error : read tcp 100.127.250.27:24642->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:1269: network Error : read tcp 100.127.250.27:24645->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:123A: network Error : read tcp 100.127.250.27:24646->100.102.191.66:1883: i/o timeout
+2026/07/22 17:15:26 Failed to connect AA:BB:CC:DD:EE:E92: network Error : read tcp 100.127.250.27:24647->100.102.191.66:1883: i/o timeout
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 293937
+Duration: 71.54 seconds
+Average Throughput: 4108.78 msgs/sec
+Max Throughput: 8463.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.22 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 356.76 MB
+Total GC Triggers: 924
+Max GC Pause Latency: 19770237 ns (19.770 ms)
+Avg GC Pause Latency: 83814 ns (0.084 ms)
+Max Goroutines Sprawled: 8423
+Max SQLite WAL Size: 29.07 MB
+
+[MATRIX COMPLETE] Results have been saved to matrix_results.txt. Please copy the contents of that file and paste them here!

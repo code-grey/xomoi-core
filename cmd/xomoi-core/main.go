@@ -102,9 +102,9 @@ func main() {
 	
 	// Dynamic Worker Sizing: Prevent context-switching hell on low-end edge nodes.
 	// We bind the number of ingestion workers strictly to the available hardware threads.
-	slog.Info("Hardware Check: Sizing Ingestion Pool", "cpu_cores", runtime.NumCPU(), "workers", cfg.IngestionWorkers)
+	slog.Info("Hardware Check: Sizing Ingestion Pool", "cpu_cores", runtime.NumCPU(), "workers", cfg.IngestionWorkers, "strategy", cfg.OverflowStrategy)
 	
-	pool := broker.NewWorkerPool(cfg.IngestionWorkers, 10000, processor)
+	pool := broker.NewWorkerPool(cfg.IngestionWorkers, 10000, cfg.OverflowStrategy, processor)
 	go pool.Start()
 	slog.Info(fmt.Sprintf("Starting GC-Optimized Ingestion Pool with %d workers", cfg.IngestionWorkers))
 

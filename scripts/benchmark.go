@@ -152,6 +152,27 @@ func runIngestBenchmark(brokerURL, secret, payloadType string, workers, duration
 	}
 	
 	start := time.Now()
+	
+	var maxThroughput float64
+	done := make(chan struct{})
+	go func() {
+		ticker := time.NewTicker(1 * time.Second)
+		defer ticker.Stop()
+		var lastSent uint64
+		for {
+			select {
+			case <-done:
+				return
+			case <-ticker.C:
+				current := atomic.LoadUint64(&totalSent)
+				delta := current - lastSent
+				lastSent = current
+				if float64(delta) > maxThroughput {
+					maxThroughput = float64(delta)
+				}
+			}
+		}
+	}()
 
 	for i := 0; i < workers; i++ {
 		wg.Add(1)
@@ -183,6 +204,7 @@ func runIngestBenchmark(brokerURL, secret, payloadType string, workers, duration
 	}
 
 	wg.Wait()
+	close(done)
 	time.Sleep(1 * time.Second)
 	
 	durationSec := time.Since(start).Seconds()
@@ -193,7 +215,8 @@ func runIngestBenchmark(brokerURL, secret, payloadType string, workers, duration
 	fmt.Printf("\n--- INGESTION RESULTS ---\n")
 	fmt.Printf("Total Packets Sent: %d\n", totalSent)
 	fmt.Printf("Duration: %.2f seconds\n", durationSec)
-	fmt.Printf("Throughput: %.2f msgs/sec\n", throughput)
+	fmt.Printf("Average Throughput: %.2f msgs/sec\n", throughput)
+	fmt.Printf("Max Throughput: %.2f msgs/sec\n", maxThroughput)
 	fmt.Printf("Payload size: %d bytes\n", len(payload))
 	fmt.Printf("Data Rate: %.2f MB/sec\n", mbPerSec)
 	printHardwareMetrics(metrics)
@@ -244,6 +267,27 @@ func runFanoutBenchmark(brokerURL, secret, payloadType string, subs, pubs, durat
 	timer := time.NewTimer(time.Duration(duration) * time.Second)
 	start := time.Now()
 	
+	var maxThroughput float64
+	done := make(chan struct{})
+	go func() {
+		ticker := time.NewTicker(1 * time.Second)
+		defer ticker.Stop()
+		var lastReceived uint64
+		for {
+			select {
+			case <-done:
+				return
+			case <-ticker.C:
+				current := atomic.LoadUint64(&totalReceived)
+				delta := current - lastReceived
+				lastReceived = current
+				if float64(delta) > maxThroughput {
+					maxThroughput = float64(delta)
+				}
+			}
+		}
+	}()
+	
 	for p := 0; p < pubs; p++ {
 		go func(pubID int) {
 			uniqueClientID := fmt.Sprintf("PUB_%d", pubID)
@@ -263,10 +307,12 @@ func runFanoutBenchmark(brokerURL, secret, payloadType string, subs, pubs, durat
 	}
 
 	wg.Wait()
+	close(done)
 	log.Printf("\n--- FANOUT RESULTS ---")
 	log.Printf("Publishers: %d | Subscribers: %d", pubs, subs)
 	log.Printf("Total Packets Received by Subs: %d", totalReceived)
-	log.Printf("Fan-out Throughput: %.2f msgs/sec", float64(totalReceived)/time.Since(start).Seconds())
+	log.Printf("Average Fan-out Throughput: %.2f msgs/sec", float64(totalReceived)/time.Since(start).Seconds())
+	log.Printf("Max Fan-out Throughput: %.2f msgs/sec", maxThroughput)
 	printHardwareMetrics(metrics)
 }
 

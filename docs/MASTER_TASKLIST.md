@@ -65,6 +65,9 @@
     - [ ] Fork `mochi-mqtt/server` and rewrite their internal subscriber routing queues to use a massive `sync.Pool`.
     - [ ] Eliminate GC overdrive by borrowing and returning outbound network buffers for 100k msgs/sec scaling on modern CPUs.
     - [ ] Submit the zero-allocation optimization PR upstream to the official Mochi-MQTT repository.
+- [ ] **4.4: Anti-Thundering Herd Protection**
+    - [ ] **Backend (Go):** Implement a Token Bucket TCP Connection Rate Limiter to drop massive simultaneous connection spikes at the OS level. *(Note: Must be strictly fine-tuned to avoid dropping legitimate surge traffic or drastically delaying fleet re-entry).*
+    - [ ] **Firmware (C++):** Implement Exponential Backoff with Jitter in the `xomoi-sdk` to naturally smear device reconnections over a wider time window.
 
 ## PHASE 5: SOVEREIGN API & SECURITY (WEEKS 7-8)
 - [x] **5.1: The Headless Web Server (`internal/api/`)**

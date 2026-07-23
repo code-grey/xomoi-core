@@ -1,6 +1,6 @@
 $IP = "100.102.191.66"
 $TIME = 60
-$LOG_FILE = "matrix_results.txt"
+$LOG_FILE = "tests/benchmark_results/matrix_mochi_opt.txt"
 
 
 function Run-Matrix {

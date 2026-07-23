@@ -1,0 +1,909 @@
+﻿==========================================
+  PHASE A: INGESTION CEILING (PROTOBUF)   
+==========================================
+
+---> Running Ingest with 100 Workers
+go : 2026/07/23 14:50:47 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/23 14:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/23 14:50:47 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 100 | Time: 60s
+2026/07/23 14:50:47 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 524243
+Duration: 61.39 seconds
+Average Throughput: 8538.97 msgs/sec
+Max Throughput: 9679.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.46 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 94.71 MB
+Total GC Triggers: 38
+Max GC Pause Latency: 8429878 ns (8.430 ms)
+Avg GC Pause Latency: 1021619 ns (1.022 ms)
+Max Goroutines Sprawled: 219
+Max SQLite WAL Size: 34.92 MB
+
+---> Running Ingest with 250 Workers
+go : 2026/07/23 14:52:19 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/23 14:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/23 14:52:19 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 250 | Time: 60s
+2026/07/23 14:52:19 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 431779
+Duration: 64.42 seconds
+Average Throughput: 6702.99 msgs/sec
+Max Throughput: 11952.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.36 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 136.79 MB
+Total GC Triggers: 57
+Max GC Pause Latency: 4893391 ns (4.893 ms)
+Avg GC Pause Latency: 392247 ns (0.392 ms)
+Max Goroutines Sprawled: 520
+Max SQLite WAL Size: 34.92 MB
+
+---> Running Ingest with 500 Workers
+go : 2026/07/23 14:53:54 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/23 14:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/23 14:53:54 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 500 | Time: 60s
+2026/07/23 14:53:54 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 410506
+Duration: 64.98 seconds
+Average Throughput: 6317.51 msgs/sec
+Max Throughput: 13637.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.34 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 180.21 MB
+Total GC Triggers: 72
+Max GC Pause Latency: 3492622 ns (3.493 ms)
+Avg GC Pause Latency: 254896 ns (0.255 ms)
+Max Goroutines Sprawled: 1019
+Max SQLite WAL Size: 34.92 MB
+
+---> Running Ingest with 750 Workers
+go : 2026/07/23 14:55:30 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/23 14:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/23 14:55:30 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 750 | Time: 60s
+2026/07/23 14:55:30 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 386407
+Duration: 63.01 seconds
+Average Throughput: 6132.00 msgs/sec
+Max Throughput: 13266.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.33 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 187.67 MB
+Total GC Triggers: 87
+Max GC Pause Latency: 4191433 ns (4.191 ms)
+Avg GC Pause Latency: 211905 ns (0.212 ms)
+Max Goroutines Sprawled: 1519
+Max SQLite WAL Size: 34.92 MB
+
+---> Running Ingest with 1000 Workers
+go : 2026/07/23 14:57:03 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/23 14:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/23 14:57:03 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 1000 | Time: 60s
+2026/07/23 14:57:03 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 355479
+Duration: 63.98 seconds
+Average Throughput: 5555.87 msgs/sec
+Max Throughput: 13029.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.30 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 174.94 MB
+Total GC Triggers: 104
+Max GC Pause Latency: 4771747 ns (4.772 ms)
+Avg GC Pause Latency: 240038 ns (0.240 ms)
+Max Goroutines Sprawled: 2019
+Max SQLite WAL Size: 34.92 MB
+
+==========================================
+  PHASE B: FANOUT QUEUE LIMITS (PROTOBUF) 
+==========================================
+
+---> Running Fanout with 50 Pubs and 100 Subs
+go : 2026/07/23 14:58:38 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/23 14:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/23 14:58:38 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 100 | Time: 60s
+2026/07/23 14:58:38 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/23 14:58:38 Connecting 100 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/23 14:58:39 Connecting 50 publishers...
+2026/07/23 14:59:40 
+--- FANOUT RESULTS ---
+2026/07/23 14:59:40 Publishers: 50 | Subscribers: 100
+2026/07/23 14:59:40 Total Packets Received by Subs: 920265
+2026/07/23 14:59:40 Average Fan-out Throughput: 15051.01 msgs/sec
+2026/07/23 14:59:40 Max Fan-out Throughput: 21701.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 70.36 MB
+Total GC Triggers: 110
+Max GC Pause Latency: 3890374 ns (3.890 ms)
+Avg GC Pause Latency: 64575 ns (0.065 ms)
+Max Goroutines Sprawled: 319
+Max SQLite WAL Size: 34.92 MB
+
+---> Running Fanout with 50 Pubs and 500 Subs
+go : 2026/07/23 15:00:11 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/23 15:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/23 15:00:11 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 500 | Time: 60s
+2026/07/23 15:00:11 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/23 15:00:11 Connecting 500 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/23 15:00:12 Connecting 50 publishers...
+2026/07/23 15:01:13 
+--- FANOUT RESULTS ---
+2026/07/23 15:01:13 Publishers: 50 | Subscribers: 500
+2026/07/23 15:01:13 Total Packets Received by Subs: 787342
+2026/07/23 15:01:13 Average Fan-out Throughput: 12762.88 msgs/sec
+2026/07/23 15:01:13 Max Fan-out Throughput: 36784.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 191.46 MB
+Total GC Triggers: 306
+Max GC Pause Latency: 13273505 ns (13.274 ms)
+Avg GC Pause Latency: 350046 ns (0.350 ms)
+Max Goroutines Sprawled: 1118
+Max SQLite WAL Size: 34.92 MB
+
+---> Running Fanout with 50 Pubs and 1000 Subs
+go : 2026/07/23 15:01:44 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/23 15:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/23 15:01:44 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 1000 | Time: 60s
+2026/07/23 15:01:44 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/23 15:01:44 Connecting 1000 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/23 15:01:45 Connecting 50 publishers...
+2026/07/23 15:02:52 
+--- FANOUT RESULTS ---
+2026/07/23 15:02:52 Publishers: 50 | Subscribers: 1000
+2026/07/23 15:02:52 Total Packets Received by Subs: 799699
+2026/07/23 15:02:52 Average Fan-out Throughput: 12036.37 msgs/sec
+2026/07/23 15:02:52 Max Fan-out Throughput: 31056.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 123.21 MB
+Total GC Triggers: 312
+Max GC Pause Latency: 1176942 ns (1.177 ms)
+Avg GC Pause Latency: 3772 ns (0.004 ms)
+Max Goroutines Sprawled: 1671
+Max SQLite WAL Size: 34.92 MB
+
+---> Running Fanout with 50 Pubs and 1500 Subs
+go : 2026/07/23 15:03:22 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/23 15:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/23 15:03:22 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 1500 | Time: 60s
+2026/07/23 15:03:22 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/23 15:03:22 Connecting 1500 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/23 15:03:23 Connecting 50 publishers...
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19249->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19290->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19291->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19293->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19292->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19295->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19296->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19297->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19298->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19331->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19357->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19358->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19361->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19359->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19360->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19362->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19363->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19365->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19364->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19366->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19369->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19370->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19367->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19368->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19372->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19371->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19373->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19374->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19379->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19375->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19378->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19376->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19377->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19380->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19385->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19383->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19386->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19381->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19384->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19382->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19387->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19390->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19389->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19388->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19391->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19392->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19393->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19394->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19396->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19395->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19398->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19399->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19400->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19401->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19397->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19402->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19405->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19407->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19408->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19404->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19406->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19403->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19411->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19410->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19409->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19413->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19412->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19414->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19416->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19415->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19417->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19419->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19418->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19421->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19420->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19422->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19424->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19423->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19439->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19478->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19479->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19483->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19480->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19481->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19482->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19485->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19484->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19487->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19486->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19488->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19489->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19490->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19491->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19492->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19494->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19493->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19495->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19528->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19531->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19532->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19527->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19530->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19529->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19535->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19534->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19536->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19537->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19533->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19538->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19541->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19540->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19539->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19542->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19549->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19548->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19550->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19551->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19552->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19554->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19555->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19553->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19556->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19586->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19588->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19590->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19587->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19589->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19591->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19595->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19592->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19593->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19594->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19596->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19601->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19612->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19636->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19684->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19693->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19700->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19704->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19706->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19705->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19707->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19702->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19703->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19708->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19712->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19710->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19713->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19711->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19709->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19714->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19716->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19715->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19722->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19723->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19724->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19726->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19725->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19727->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19729->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19728->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19731->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19730->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19732->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19736->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19735->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19733->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19734->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19747->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19748->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19745->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19746->100.102.191.66:1883: i/o timeout
+2026/07/23 15:04:22 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:19815->100.102.191.66:1883: i/o timeout
+2026/07/23 15:05:30 
+--- FANOUT RESULTS ---
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 275.14 MB
+Total GC Triggers: 599
+Max GC Pause Latency: 12642711 ns (12.643 ms)
+Avg GC Pause Latency: 152515 ns (0.153 ms)
+Max Goroutines Sprawled: 4354
+Max SQLite WAL Size: 34.92 MB
+2026/07/23 15:05:30 Publishers: 50 | Subscribers: 1500
+2026/07/23 15:05:30 Total Packets Received by Subs: 1247477
+2026/07/23 15:05:30 Average Fan-out Throughput: 9815.56 msgs/sec
+2026/07/23 15:05:30 Max Fan-out Throughput: 19900.00 msgs/sec
+
+---> Running Fanout with 50 Pubs and 2000 Subs
+go : 2026/07/23 15:06:01 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/23 15:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/23 15:06:01 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 2000 | Time: 60s
+2026/07/23 15:06:01 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/23 15:06:01 Connecting 2000 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/23 15:06:02 Connecting 50 publishers...
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25399->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25398->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25400->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25403->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25402->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25401->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25406->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25404->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25405->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25407->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25413->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25411->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25408->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25409->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25410->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25412->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25417->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25419->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25416->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25418->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25420->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25414->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25422->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25415->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25421->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25437->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25438->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25435->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25432->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25439->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25436->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25433->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25434->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25442->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25445->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25440->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25443->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25444->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25447->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25441->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25446->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25453->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25454->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25449->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25452->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25450->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25448->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25451->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25464->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25461->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25458->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25459->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25463->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25455->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25457->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25456->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25460->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25462->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25469->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25471->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25467->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25468->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25473->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25465->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25472->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25470->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25482->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25478->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25480->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25474->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25486->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25485->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25479->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25483->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25481->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25475->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25484->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25476->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25477->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25543->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25701->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25703->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25702->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25700->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25699->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25698->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25705->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25704->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25706->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25707->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25708->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25709->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25711->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25713->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25712->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25710->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25718->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25719->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25714->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25716->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25715->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25720->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25717->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25721->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25722->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25723->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25737->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25733->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25736->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25734->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25739->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25744->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25748->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25749->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25757->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25758->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25760->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25759->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25755->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25768->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25764->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25761->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25763->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25766->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25762->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25767->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25765->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25771->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25772->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25769->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25773->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25770->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25779->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25776->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25774->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25775->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25778->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25777->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25780->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25781->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25784->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25782->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25783->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25788->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25791->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25787->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25792->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25785->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25789->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25790->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25786->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25796->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25795->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25797->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25794->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25793->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25799->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25798->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25809->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25803->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25804->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25801->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25807->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25802->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25808->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25806->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25800->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25805->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25812->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25810->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25815->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25813->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25817->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25814->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25816->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25819->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25822->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25821->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25818->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25820->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25826->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25828->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25824->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25825->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25827->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25823->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25835->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25830->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25833->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25836->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25838->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25829->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25831->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25834->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25837->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25840->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25839->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25843->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25844->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25850->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25855->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25859->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25861->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25857->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25856->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25863->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25858->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25862->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25864->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25866->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25865->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25873->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25875->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25877->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25870->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25871->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25872->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25874->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25876->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25868->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25867->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25869->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25879->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25887->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25886->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25884->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25883->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25878->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25888->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25880->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25882->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25881->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25885->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25889->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25891->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25890->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25892->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25893->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25902->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25907->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25921->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25926->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25922->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25927->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25938->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25940->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25939->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25934->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25943->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25944->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25941->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25942->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25946->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25945->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25948->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25951->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25950->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25949->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25947->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25952->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25953->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25954->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25957->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25956->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25955->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25958->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25960->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25964->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25959->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25963->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25962->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25961->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25966->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25965->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25967->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25970->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25968->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25969->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25974->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25975->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25972->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25971->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25973->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25979->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25980->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25978->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25982->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25976->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25981->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25977->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25989->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25985->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25983->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25990->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25994->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25991->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:25992->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26002->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26008->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26003->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26004->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26000->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26001->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26019->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26024->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26043->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26039->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26042->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26037->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26032->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26045->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26050->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26044->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26049->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26048->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26054->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26055->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26046->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26051->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26047->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26053->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26052->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26056->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26058->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26062->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26060->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26057->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26059->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26061->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26063->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26065->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26087->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26089->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26086->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26090->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26093->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26091->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26094->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26092->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26098->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26096->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26095->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26097->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26099->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26101->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26117->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26114->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26113->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26118->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26116->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26115->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26120->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26121->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26119->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26122->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26123->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26124->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26125->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26128->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26127->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26126->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26165->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26164->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26166->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26167->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26168->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26170->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26172->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26171->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26173->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26175->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26176->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26174->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26177->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26179->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26180->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26178->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26182->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26184->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26185->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26186->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26183->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26189->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26187->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26188->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26191->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26193->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26196->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26195->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26192->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26194->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26203->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26202->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26200->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26197->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26201->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26199->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26198->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26204->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26205->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26207->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26206->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26212->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26211->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26210->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26213->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26218->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26219->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26220->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26221->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26224->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26226->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26228->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26227->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26225->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26237->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26234->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26235->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26236->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26230->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26233->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26231->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26229->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26232->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:01 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:26244->100.102.191.66:1883: i/o timeout
+2026/07/23 15:07:47 
+--- FANOUT RESULTS ---
+2026/07/23 15:07:47 Publishers: 50 | Subscribers: 2000
+2026/07/23 15:07:47 Total Packets Received by Subs: 799359
+2026/07/23 15:07:47 Average Fan-out Throughput: 7604.03 msgs/sec
+2026/07/23 15:07:47 Max Fan-out Throughput: 21376.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 255.75 MB
+Total GC Triggers: 724
+Max GC Pause Latency: 6318445 ns (6.318 ms)
+Avg GC Pause Latency: 31683 ns (0.032 ms)
+Max Goroutines Sprawled: 4118
+Max SQLite WAL Size: 34.92 MB
+
+==========================================
+  PHASE C: THUNDERING HERD (CONNECTION SPIKE) 
+==========================================
+
+---> Hitting broker with 5,000 simultaneous connections...
+go : 2026/07/23 15:08:18 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:34 char:1
++ go run scripts/benchmark.go -ip $IP -mode ingest -payload proto -time ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/23 15:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/23 15:08:18 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 5000 | Time: 15s
+2026/07/23 15:08:18 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 160190
+Duration: 37.65 seconds
+Average Throughput: 4254.23 msgs/sec
+Max Throughput: 7174.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.23 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 480.08 MB
+Total GC Triggers: 887
+Max GC Pause Latency: 21785205 ns (21.785 ms)
+Avg GC Pause Latency: 38701 ns (0.039 ms)
+Max Goroutines Sprawled: 10020
+Max SQLite WAL Size: 34.92 MB
+
+[MATRIX COMPLETE] Results have been saved to tests/benchmark_results/matrix_mochi_opt.txt. Please copy the contents of that file and paste them here!

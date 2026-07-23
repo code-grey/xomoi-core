@@ -9,6 +9,7 @@ import (
 	"net"
 	"sync"
 	"sync/atomic"
+	"time"
 
 	"log/slog"
 )
@@ -70,25 +71,58 @@ func (l *TCP) Init(log *slog.Logger) error {
 // Serve starts waiting for new TCP connections, and calls the establish
 // connection callback for any received.
 func (l *TCP) Serve(establish EstablishFn) {
+	// Create a buffered channel to act as the User-Space TCP Backlog (bypassing OS SOMAXCONN limits)
+	// We use 8192 as a massive buffer to absorb thundering herds.
+	connChan := make(chan net.Conn, 8192)
+
+	// Start a fixed pool of 100 "Authenticator" workers to process connections.
+	// This prevents Goroutine Sprawl when 5,000 devices connect simultaneously.
+	workerCount := 100
+	var wg sync.WaitGroup
+	for i := 0; i < workerCount; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for conn := range connChan {
+				// We enforce an 8-second deadline for the *initial* CONNECT packet to protect against Slowloris.
+				// After the handshake succeeds, Mochi-MQTT automatically resets this to the Keepalive timer.
+				conn.SetReadDeadline(time.Now().Add(8 * time.Second))
+
+				err := establish(l.id, conn)
+				if err != nil {
+					l.log.Warn("connection establish failed", "error", err)
+				}
+			}
+		}()
+	}
+
 	for {
 		if atomic.LoadUint32(&l.end) == 1 {
-			return
+			break
 		}
 
 		conn, err := l.listen.Accept()
 		if err != nil {
-			return
+			break
 		}
 
 		if atomic.LoadUint32(&l.end) == 0 {
-			go func() {
-				err = establish(l.id, conn)
-				if err != nil {
-					l.log.Warn("", "error", err)
-				}
-			}()
+			// Fast-path: push to the buffer instead of spawning a goroutine.
+			select {
+			case connChan <- conn:
+				// Successfully buffered in user-space!
+			default:
+				// If the 8192 buffer is FULL, we are under a severe DoS attack.
+				// Drop the connection to protect the broker.
+				l.log.Warn("user-space backlog full, dropping connection to prevent DoS")
+				conn.Close()
+			}
 		}
 	}
+
+	// Graceful shutdown
+	close(connChan)
+	wg.Wait()
 }
 
 // Close closes the listener and any client connections.

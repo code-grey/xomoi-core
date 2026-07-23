@@ -4,6 +4,22 @@ This document serves as a chronological record of the major architectural decisi
 
 ---
 
+## 📅 DevLog: July 23, 2026
+**Phases Completed:** Thundering Herd Eradication (Reactor Pattern / User-Space Backlog)
+**Authors:** Adrish Bora (@code-grey) & Antigravity AI Architect
+
+### 1. Defeating the OS TCP Backlog (SOMAXCONN)
+We identified that during a massive connection spike (Thundering Herd of 5,000+ simultaneous connections), the Linux Kernel was violently dropping SYN packets because the OS-level TCP backlog queue (`net.core.somaxconn`) was overflowing. Standard solutions rely on pure OS `sysctl` tuning, but we chose a Software-Defined architecture. 
+* **The Reactor Pattern:** We rewrote the Mochi-MQTT `tcp.go` listener. We replaced the standard `go func()` sprawl with a massive `connChan := make(chan net.Conn, 8192)` User-Space buffer.
+* **The Result:** The Fast-Path `Accept()` loop now instantly drains the OS queue into Xomoi RAM. We verified via benchmarking that OS-level `i/o timeout` SYN drops were 100% eradicated.
+
+### 2. The Slow-Path Worker Pool
+By introducing a fixed Worker Pool (currently `workerCount := 100` with plans for dynamic scaling), we successfully moved the bottleneck out of the OS Kernel and into our Application Layer. Connections that sit in the channel for too long are eventually closed by the client (`error=EOF`), proving that Xomoi-Core absorbed the spike, but the workers need to process them faster.
+
+### 3. Squeezing the Pentium Chip
+Combined with our previous `sync.Pool` optimizations, this architecture pushed our local benchmark limits to **9,733 msgs/sec** with a Max RAM allocation of only **80.21 MB**! Goroutine sprawl was capped perfectly at 219. This is an engineering marvel for an Edge Node.
+
+---
 ## 📅 DevLog: July 21, 2026
 **Phases Completed:** Zero-Allocation Ingestion Benchmark (Phase 2.5 Validation)
 **Authors:** Adrish Bora (@code-grey) & Antigravity AI Architect

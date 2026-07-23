@@ -22,6 +22,7 @@ import (
 	"io"
 	"log/slog"
 	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"os/signal"
 	"runtime"
@@ -55,6 +56,14 @@ func main() {
 	slog.SetDefault(logger)
 
 	cfg := config.Load()
+
+	// 0. Start pprof server for live CPU/Memory profiling (Only if enabled via Env Var)
+	if pprofPort := os.Getenv("XOMOI_PPROF_PORT"); pprofPort != "" {
+		slog.Warn("PPROF PROFILING SERVER ACTIVATED", "port", pprofPort)
+		go func() {
+			slog.Error("pprof server crashed", "error", http.ListenAndServe("0.0.0.0:"+pprofPort, nil))
+		}()
+	}
 
 	// 0. GC and Memory Tuning for Edge Hardware
 	// Set a soft memory limit to prevent the OS OOM Killer from terminating 

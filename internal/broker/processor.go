@@ -19,12 +19,15 @@ package broker
 import (
 	"bytes"
 	"log/slog"
+	"strings"
+	"sync"
 
 	"github.com/buger/jsonparser"
 	"github.com/code-grey/xomoi-core/internal/state"
 	"github.com/code-grey/xomoi-core/internal/worker"
 	mqtt "github.com/mochi-mqtt/server/v2"
 	"github.com/mochi-mqtt/server/v2/packets"
+	"golang.org/x/time/rate"
 )
 
 type Processor struct {
@@ -88,7 +91,8 @@ func (p *Processor) Process(job *Job) (err error) {
 
 type PublishHook struct {
 	mqtt.HookBase
-	pool *WorkerPool
+	pool   *WorkerPool
+	limits sync.Map // map[string]*rate.Limiter
 }
 
 func NewPublishHook(pool *WorkerPool) *PublishHook {
@@ -111,9 +115,27 @@ func (h *PublishHook) OnPublish(cl *mqtt.Client, pk packets.Packet) (packets.Pac
 		deviceID = cl.ID
 	}
 
+	isCritical := strings.HasPrefix(pk.TopicName, "/xomoi/critical")
+
+	// FAIRNESS: Token Bucket Rate Limiting (100 msgs/sec limit per device)
+	// We bypass the limiter for critical topics.
+	if !isCritical {
+		var limiter *rate.Limiter
+		if val, ok := h.limits.Load(deviceID); ok {
+			limiter = val.(*rate.Limiter)
+		} else {
+			limiter = rate.NewLimiter(rate.Limit(100), 50)
+			h.limits.Store(deviceID, limiter)
+		}
+
+		if !limiter.Allow() {
+			// Noisy Neighbor detected! Silently drop the packet to protect the broker.
+			return pk, nil
+		}
+	}
+
 	// Hand off to the WorkerPool which uses sync.Pool under the hood.
-	// This delegates all allocations and copies entirely away from the MQTT thread.
-	h.pool.Submit(deviceID, pk.Payload)
+	h.pool.Submit(deviceID, pk.TopicName, pk.Payload)
 
 	return pk, nil
 }

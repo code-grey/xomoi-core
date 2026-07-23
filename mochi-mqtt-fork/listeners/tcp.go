@@ -7,6 +7,8 @@ package listeners
 import (
 	"crypto/tls"
 	"net"
+	"os"
+	"strconv"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -75,10 +77,15 @@ func (l *TCP) Serve(establish EstablishFn) {
 	// We use 8192 as a massive buffer to absorb thundering herds.
 	connChan := make(chan net.Conn, 8192)
 
-	// Start a fixed pool of 1000 "Authenticator" workers to process connections.
-	// This prevents Goroutine Sprawl when 5,000 devices connect simultaneously, while 
-	// being fast enough to clear the channel before the clients timeout.
+	// Start a fixed pool of "Authenticator" workers to process connections.
+	// We read this from the environment to allow users to dynamically scale 
+	// the reactor pattern based on their hardware (Raspberry Pi vs Cloud Server).
 	workerCount := 1000
+	if envVal := os.Getenv("XOMOI_TCP_WORKER_POOL"); envVal != "" {
+		if parsed, err := strconv.Atoi(envVal); err == nil && parsed > 0 {
+			workerCount = parsed
+		}
+	}
 	var wg sync.WaitGroup
 	for i := 0; i < workerCount; i++ {
 		wg.Add(1)

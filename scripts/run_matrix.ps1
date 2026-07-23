@@ -1,7 +1,7 @@
 $IP = "100.102.191.66"
 $TIME = 60
-$LOG_FILE = "tests/benchmark_results/matrix_mochi_opt.txt"
-
+$Timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
+$LOG_FILE = "tests/benchmark_results/matrix_mochi_opt_$Timestamp.txt"
 
 function Run-Matrix {
     Write-Output "=========================================="

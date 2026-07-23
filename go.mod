@@ -64,4 +64,4 @@ require (
 	golang.org/x/text v0.38.0 // indirect
 )
 
-replace github.com/mochi-mqtt/server/v2 => ../mochi-mqtt
+replace github.com/mochi-mqtt/server/v2 => ./mochi-mqtt-fork

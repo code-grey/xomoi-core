@@ -374,6 +374,7 @@ func connectClient(brokerURL, macAddress, clientID, secret string) mqtt.Client {
 	opts.SetClientID(clientID)
 	opts.SetUsername(macAddress)
 	opts.SetPassword(password)
+	opts.SetConnectTimeout(60 * time.Second)
 	
 	client := mqtt.NewClient(opts)
 	if token := client.Connect(); token.Wait() && token.Error() != nil {

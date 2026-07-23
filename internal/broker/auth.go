@@ -23,6 +23,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"log"
+	"sync"
 
 	"github.com/code-grey/xomoi-core/internal/config"
 	"github.com/code-grey/xomoi-core/internal/core"
@@ -55,9 +56,20 @@ func (h *HMACAuthHook) Provides(b byte) bool {
 	}, []byte{b})
 }
 
+// sessionCache stores the validated HMAC string for each MAC address in RAM.
+// This completely bypasses SQLite Disk I/O and SHA256 computations on reconnects.
+var sessionCache sync.Map
+
 func (h *HMACAuthHook) OnConnectAuthenticate(cl *mqtt.Client, pk packets.Packet) bool {
 	macAddress := string(pk.Connect.Username)
 	providedToken := string(pk.Connect.Password)
+
+	// 1. Lightning-Fast Session Cache Check (0 Allocations, RAM only)
+	if cachedToken, ok := sessionCache.Load(macAddress); ok {
+		if cachedToken.(string) == providedToken {
+			return true
+		}
+	}
 
 	var secretKey string
 
@@ -88,24 +100,24 @@ func (h *HMACAuthHook) OnConnectAuthenticate(cl *mqtt.Client, pk packets.Packet)
 			log.Printf("Failed to auto-provision device: %v", createErr)
 			return false
 		}
-
-		secretKey = factorySecret
-		log.Printf("AUTH SUCCESS: Auto-provisioned new device with Factory Secret: %s", macAddress)
-	} else {
-		secretKey = device.SecretKey
+		
+		log.Printf("AUTH SUCCESS: Auto-provisioned new device %s", macAddress)
+		sessionCache.Store(macAddress, providedToken)
+		return true
 	}
 
-	// Authenticate the device using its (Factory or Claimed) SecretKey
+	secretKey = device.SecretKey
+
 	macHmac := hmac.New(sha256.New, []byte(secretKey))
 	macHmac.Write([]byte(macAddress))
 	expectedHash := hex.EncodeToString(macHmac.Sum(nil))
 
 	if providedToken != expectedHash {
-		log.Printf("AUTH REJECTED: HMAC Verification Failed for MAC: %s", macAddress)
+		log.Printf("AUTH REJECTED: Invalid signature for claimed device. MAC: %s", macAddress)
 		return false
 	}
 
-	log.Printf("AUTH SUCCESS: Device Authenticated via HMAC. MAC: %s", macAddress)
+	sessionCache.Store(macAddress, providedToken)
 	return true
 }
 

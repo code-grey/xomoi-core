@@ -186,6 +186,28 @@ func (s *SharedSubscriptions) GetAll() map[string]map[string]packets.Subscriptio
 	return m
 }
 
+// SelectInto securely extracts one subscriber per shared group directly into the pooled Subscribers map in O(1) time.
+// This completely bypasses the catastrophic O(N) allocations in GetAll().
+func (s *SharedSubscriptions) SelectInto(shared map[string]bool, selected map[string]packets.Subscription) {
+	s.RLock()
+	defer s.RUnlock()
+	for _, subs := range s.internal {
+		for client, sub := range subs {
+			if shared[sub.Filter] {
+				break
+			}
+			shared[sub.Filter] = true
+
+			cls, ok := selected[client]
+			if !ok {
+				cls = sub
+			}
+			selected[client] = cls.Merge(sub)
+			break // O(1) pick
+		}
+	}
+}
+
 // InlineSubFn is the signature for a callback function which will be called
 // when an inline client receives a message on a topic it is subscribed to.
 // The sub argument contains information about the subscription that was matched for any filters.
@@ -659,23 +681,7 @@ func (x *TopicsIndex) gatherSharedSubscriptions(particle *particle, subs *Subscr
 		subs.Shared = map[string]bool{}
 	}
 
-	for _, shares := range particle.shared.GetAll() {
-		for client, sub := range shares {
-			if subs.Shared[sub.Filter] {
-				break // Already picked a client for this group
-			}
-
-			subs.Shared[sub.Filter] = true
-
-			cls, ok := subs.SharedSelected[client]
-			if !ok {
-				cls = sub
-			}
-
-			subs.SharedSelected[client] = cls.Merge(sub)
-			break // O(1) optimization: only pick the first client and move to the next group
-		}
-	}
+	particle.shared.SelectInto(subs.Shared, subs.SharedSelected)
 }
 
 // gatherSharedSubscriptions gathers all inline subscriptions for a particle.

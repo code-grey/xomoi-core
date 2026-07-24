@@ -244,6 +244,15 @@ func (s *InlineSubscriptions) GetAll() map[int]InlineSubscription {
 	return m
 }
 
+// SelectInto securely extracts all inline subscriptions directly into the pooled map without allocating.
+func (s *InlineSubscriptions) SelectInto(selected map[int]InlineSubscription) {
+	s.RLock()
+	defer s.RUnlock()
+	for id, inline := range s.internal {
+		selected[id] = inline
+	}
+}
+
 // Get returns an internal subscription for a client id.
 func (s *InlineSubscriptions) Get(id int) (val InlineSubscription, ok bool) {
 	s.RLock()
@@ -297,6 +306,23 @@ func (s *Subscriptions) GetAll() map[string]packets.Subscription {
 		m[k] = v
 	}
 	return m
+}
+
+// SelectInto securely extracts all subscriptions directly into the pooled map without allocating.
+// This completely bypasses the catastrophic O(N) allocations in GetAll().
+func (s *Subscriptions) SelectInto(topic string, selected map[string]packets.Subscription) {
+	s.RLock()
+	defer s.RUnlock()
+	for client, sub := range s.internal {
+		if len(sub.Filter) > 0 && topic[0] == '$' && (sub.Filter[0] == '+' || sub.Filter[0] == '#') {
+			continue // don't match $ topics with top level wildcards [MQTT-4.7.1-1] [MQTT-4.7.1-2]
+		}
+		cls, ok := selected[client]
+		if !ok {
+			cls = sub
+		}
+		selected[client] = cls.Merge(sub)
+	}
 }
 
 // Get returns a subscriptions for a specific client or filter id.
@@ -661,18 +687,7 @@ func (x *TopicsIndex) gatherSubscriptions(topic string, particle *particle, subs
 		subs.Subscriptions = map[string]packets.Subscription{}
 	}
 
-	for client, sub := range particle.subscriptions.GetAll() {
-		if len(sub.Filter) > 0 && topic[0] == '$' && (sub.Filter[0] == '+' || sub.Filter[0] == '#') { // don't match $ topics with top level wildcards [MQTT-4.7.1-1] [MQTT-4.7.1-2]
-			continue
-		}
-
-		cls, ok := subs.Subscriptions[client]
-		if !ok {
-			cls = sub
-		}
-
-		subs.Subscriptions[client] = cls.Merge(sub)
-	}
+	particle.subscriptions.SelectInto(topic, subs.Subscriptions)
 }
 
 // gatherSharedSubscriptions gathers all shared subscriptions for a particle.
@@ -690,9 +705,7 @@ func (x *TopicsIndex) gatherInlineSubscriptions(particle *particle, subs *Subscr
 		subs.InlineSubscriptions = map[int]InlineSubscription{}
 	}
 
-	for id, inline := range particle.inlineSubscriptions.GetAll() {
-		subs.InlineSubscriptions[id] = inline
-	}
+	particle.inlineSubscriptions.SelectInto(subs.InlineSubscriptions)
 }
 
 // isolateParticle extracts a particle between d / and d+1 / without allocations.

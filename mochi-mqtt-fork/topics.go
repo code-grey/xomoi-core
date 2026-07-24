@@ -339,7 +339,7 @@ func (s *Subscribers) Release() {
 
 // SelectShared returns one subscriber for each shared subscription group.
 func (s *Subscribers) SelectShared() {
-	s.SharedSelected = map[string]packets.Subscription{}
+	clear(s.SharedSelected)
 	for _, subs := range s.Shared {
 		for client, sub := range subs {
 			cls, ok := s.SharedSelected[client]

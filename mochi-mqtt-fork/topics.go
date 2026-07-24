@@ -310,7 +310,7 @@ type InlineSubscription struct {
 
 // Subscribers contains the shared and non-shared subscribers matching a topic.
 type Subscribers struct {
-	Shared              map[string]map[string]packets.Subscription
+	Shared              map[string]bool
 	SharedSelected      map[string]packets.Subscription
 	Subscriptions       map[string]packets.Subscription
 	InlineSubscriptions map[int]InlineSubscription
@@ -319,7 +319,7 @@ type Subscribers struct {
 var subscribersPool = sync.Pool{
 	New: func() any {
 		return &Subscribers{
-			Shared:              make(map[string]map[string]packets.Subscription),
+			Shared:              make(map[string]bool),
 			SharedSelected:      make(map[string]packets.Subscription),
 			Subscriptions:       make(map[string]packets.Subscription),
 			InlineSubscriptions: make(map[int]InlineSubscription),
@@ -339,18 +339,7 @@ func (s *Subscribers) Release() {
 
 // SelectShared returns one subscriber for each shared subscription group.
 func (s *Subscribers) SelectShared() {
-	clear(s.SharedSelected)
-	for _, subs := range s.Shared {
-		for client, sub := range subs {
-			cls, ok := s.SharedSelected[client]
-			if !ok {
-				cls = sub
-			}
-
-			s.SharedSelected[client] = cls.Merge(sub)
-			break
-		}
-	}
+	// No-op: SharedSelected is now populated directly in O(1) during gatherSharedSubscriptions
 }
 
 // MergeSharedSelected merges the selected subscribers for a shared subscription group
@@ -667,16 +656,24 @@ func (x *TopicsIndex) gatherSubscriptions(topic string, particle *particle, subs
 // gatherSharedSubscriptions gathers all shared subscriptions for a particle.
 func (x *TopicsIndex) gatherSharedSubscriptions(particle *particle, subs *Subscribers) {
 	if subs.Shared == nil {
-		subs.Shared = map[string]map[string]packets.Subscription{}
+		subs.Shared = map[string]bool{}
 	}
 
 	for _, shares := range particle.shared.GetAll() {
 		for client, sub := range shares {
-			if _, ok := subs.Shared[sub.Filter]; !ok {
-				subs.Shared[sub.Filter] = map[string]packets.Subscription{}
+			if subs.Shared[sub.Filter] {
+				break // Already picked a client for this group
 			}
 
-			subs.Shared[sub.Filter][client] = sub
+			subs.Shared[sub.Filter] = true
+
+			cls, ok := subs.SharedSelected[client]
+			if !ok {
+				cls = sub
+			}
+
+			subs.SharedSelected[client] = cls.Merge(sub)
+			break // O(1) optimization: only pick the first client and move to the next group
 		}
 	}
 }

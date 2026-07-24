@@ -45,6 +45,8 @@
     - [ ] Safely inject a soft cap on Go's GC using `debug.SetMemoryLimit()` (reserving 80% if Dedicated, else default limit).
 - [ ] **2.6.3: Ring Buffer & SQLite Scaling**
     - [ ] Dynamically scale the `RingBatchSize` and the RingBuffer packet capacity based on available memory.
+- [ ] **2.6.4: Benchmarking Profiler**
+    - [ ] Integrate `pprof` into the Xomoi benchmarking suite to map exactly where CPU cycles and heap allocations are going during extreme load.
 
 ## PHASE 3: HARDWARE AUTH & SECURE PROVISIONING (WEEKS 5-6)
 - [x] **3.1: Mochi-MQTT Integration (`internal/broker/`)**

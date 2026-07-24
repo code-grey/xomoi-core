@@ -679,86 +679,7 @@
             </div>
         </div>
 
-        <div style="margin-top: 3rem; background: var(--surface-hover); padding: 2rem; border-radius: 8px; border: 1px solid var(--border);">
-            <h3 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1.4rem; font-weight: 800;">Official Edge Performance Benchmarks</h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem;">
-                <strong>Test Conditions:</strong> Sustained 60-second stress tests over a Tailscale WireGuard VPN into a legacy Intel Pentium edge node. All tests include active Zstd compression and raw SQLite WAL disk persistence.
-            </p>
 
-            <h4 style="color: var(--fg); margin-bottom: 1rem; font-size: 1.1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">1. Ingestion Engine (Disk Persistence)</h4>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 3rem;">
-                <!-- Protobuf Winner -->
-                <div style="background: var(--surface); padding: 1.5rem; border-left: 4px solid var(--accent); border-radius: 0 4px 4px 0; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
-                    <div style="font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Protobuf Payload (56b)</div>
-                    <div style="font-size: 2rem; font-weight: 800; color: var(--accent); margin: 10px 0;">6,754 <span style="font-size: 1rem; color: var(--text-muted);">msg/s</span></div>
-                    <ul style="list-style: none; color: var(--text-muted); font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; line-height: 1.8;">
-                        <li>Packets: <span style="color: var(--fg)">460,214</span></li>
-                        <li>RAM Used: <span style="color: var(--fg)">179.56 MB</span></li>
-                        <li>GC Pause: <span style="color: var(--fg)">0.061 ms</span></li>
-                        <li>GC Triggers: <span style="color: var(--fg)">414</span></li>
-                        <li>Goroutines: <span style="color: var(--fg)">1,019</span></li>
-                        <li>Data Rate: <span style="color: var(--fg)">0.36 MB/sec</span></li>
-                    </ul>
-                </div>
-                
-                <!-- JSON -->
-                <div style="background: var(--surface); padding: 1.5rem; border-left: 4px solid var(--accent-cyan); border-radius: 0 4px 4px 0; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
-                    <div style="font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">JSON Payload (178b)</div>
-                    <div style="font-size: 2rem; font-weight: 800; color: var(--accent-cyan); margin: 10px 0;">5,892 <span style="font-size: 1rem; color: var(--text-muted);">msg/s</span></div>
-                    <ul style="list-style: none; color: var(--text-muted); font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; line-height: 1.8;">
-                        <li>Packets: <span style="color: var(--fg)">364,805</span></li>
-                        <li>RAM Used: <span style="color: var(--fg)">177.92 MB</span></li>
-                        <li>GC Pause: <span style="color: var(--fg)">0.040 ms</span></li>
-                        <li>GC Triggers: <span style="color: var(--fg)">432</span></li>
-                        <li>Goroutines: <span style="color: var(--fg)">1,019</span></li>
-                        <li>Data Rate: <span style="color: var(--fg)">1.00 MB/sec</span></li>
-                    </ul>
-                </div>
-            </div>
-
-            <h4 style="color: var(--fg); margin-bottom: 1rem; font-size: 1.1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">2. Fanout Engine (Pub-Sub Routing)</h4>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Stress testing the Mochi-MQTT routing engine's internal goroutine limits by broadcasting publishers to concurrent subscribers.</p>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
-                <!-- 1k Subs Winner -->
-                <div style="background: var(--surface); padding: 1.5rem; border-top: 4px solid var(--accent); border-radius: 0 0 4px 4px; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
-                    <div style="font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; text-align: center;">50 Pubs / 1,000 Subs</div>
-                    <div style="font-size: 2.2rem; font-weight: 800; color: var(--accent); margin: 10px 0; text-align: center;">11,106 <span style="font-size: 1rem; color: var(--text-muted);">msg/s</span></div>
-                    <div style="text-align: center; font-size: 0.8rem; color: var(--accent); margin-bottom: 15px; font-weight: 600;">THE GOLDILOCKS ZONE</div>
-                    
-                    <ul style="list-style: none; color: var(--text-muted); font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; line-height: 1.8; text-align: center;">
-                        <li>Routed: <span style="color: var(--fg)">760,672 packets</span></li>
-                        <li>Max RAM: <span style="color: var(--fg)">198.49 MB</span></li>
-                        <li>Drain Time: <span style="color: var(--accent)">60s</span></li>
-                        <li>Goroutines: <span style="color: var(--fg)">2,117</span></li>
-                    </ul>
-                </div>
-                
-                <!-- 2k Subs -->
-                <div style="background: var(--surface); padding: 1.5rem; border-top: 4px solid #ff4444; border-radius: 0 0 4px 4px; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
-                    <div style="font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; text-align: center;">100 Pubs / 2,000 Subs</div>
-                    <div style="font-size: 2.2rem; font-weight: 800; color: #ff4444; margin: 10px 0; text-align: center;">8,666 <span style="font-size: 1rem; color: var(--text-muted);">msg/s</span></div>
-                    <div style="text-align: center; font-size: 0.8rem; color: #ff4444; margin-bottom: 15px; font-weight: 600;">BOTTLENECKED (SPILLOVER)</div>
-                    
-                    <ul style="list-style: none; color: var(--text-muted); font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; line-height: 1.8; text-align: center;">
-                        <li>Routed: <span style="color: var(--fg)">1,006,754 packets</span></li>
-                        <li>Max RAM: <span style="color: #ff4444">357.15 MB (Spilled)</span></li>
-                        <li>Drain Time: <span style="color: #ff4444">116s (Backed up)</span></li>
-                        <li>Goroutines: <span style="color: var(--fg)">5,409</span></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h4 style="color: var(--fg); margin-bottom: 0.5rem; font-size: 1rem;">Architectural Supremacy</h4>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
-                By completely eliminating IPC (Inter-Process Communication) UNIX sockets and merging Mochi-MQTT directly into a single Go binary with SQLite, Xomoi-Core routes <strong>11,000+</strong> telemetry packets per second while simultaneously compressing and persisting them to a WAL file. This drastically outperforms standard industry stacks on identical edge hardware:
-            </p>
-            <ul style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.6; list-style-type: square; padding-left: 1.5rem;">
-                <li><strong style="color: var(--text-muted);">Node-RED + InfluxDB:</strong> Chokes at ~2,000 msgs/sec due to Node.js event-loop saturation and heavy HTTP batching network hops.</li>
-                <li><strong style="color: var(--text-muted);">Mosquitto (Pure RAM):</strong> Typically maxes out at ~8,000 msgs/sec on this hardware—but does <strong>not</strong> write to disk, losing all data upon power loss.</li>
-                <li><strong style="color: var(--accent);">Xomoi-Core:</strong> 11,000+ msgs/sec routed and persisted natively, utilizing only ~200MB of memory footprint.</li>
-            </ul>
-        </div>
     </section>
 
 
@@ -788,7 +709,146 @@
         </div>
     </section>
 
-    <section class="roadmap" style="margin-top: 8rem; max-width: 1200px;">
+    <section class="metrics-section" style="max-width: 1200px; margin: 6rem auto; padding: 0 2rem;">
+        <h2 class="roadmap-title" style="margin-bottom: 1rem;">Bare-Metal <span>Benchmarks</span></h2>
+        <p style="text-align: center; color: var(--text-muted); max-width: 800px; margin: 0 auto 4rem; font-size: 1.1rem;">
+            Ran on a low-power Intel Pentium 4405U @ 2.10GHz (2 Cores / 4 Threads). Xomoi-Core utilizes zero-allocation routing (O(1) subscriptions) and bypasses GC thrashing entirely.
+        </p>
+
+        <style>
+            .metric-table-container {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                overflow-x: auto;
+                margin-bottom: 4rem;
+            }
+            .metric-table {
+                width: 100%;
+                border-collapse: collapse;
+                text-align: left;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.85rem;
+                white-space: nowrap;
+            }
+            .metric-table th, .metric-table td {
+                padding: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .metric-table th {
+                background: var(--surface-hover);
+                color: var(--fg);
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 0.75rem;
+                letter-spacing: 0.5px;
+            }
+            .metric-table tr:last-child td { border-bottom: none; }
+            .metric-table tr:hover { background: rgba(255,255,255,0.02); }
+            
+            .bar-chart-cell { min-width: 150px; }
+            .bar-bg {
+                width: 100%; height: 6px; background: #222;
+                border-radius: 3px; overflow: hidden; margin-top: 4px;
+            }
+            .bar-fill {
+                height: 100%; background: var(--accent);
+                border-radius: 3px;
+            }
+            .bar-fill.red { background: #ff5f56; }
+            .bar-fill.yellow { background: #ffbd2e; }
+            .error-text { color: #ff5f56; }
+            .section-header {
+                color: var(--accent-cyan);
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .section-header::after {
+                content: ""; flex: 1; height: 1px; background: var(--border);
+            }
+        </style>
+
+        <h3 class="section-header">PHASE A: Ingestion Ceiling (Protobuf, QoS 1)</h3>
+        <div class="metric-table-container">
+            <table class="metric-table">
+                <thead>
+                    <tr>
+                        <th>Workers</th>
+                        <th>Avg Tput (msgs/s)</th>
+                        <th>Max Tput (msgs/s)</th>
+                        <th>Visual (Avg)</th>
+                        <th>Max RAM</th>
+                        <th>GC Triggers</th>
+                        <th>Max GC Pause</th>
+                        <th>Avg GC Pause</th>
+                        <th>Goroutines</th>
+                        <th>SQLite WAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>100</td><td>6876.31</td><td>9476.00</td><td class="bar-chart-cell"><div class="bar-bg"><div class="bar-fill" style="width: 100%"></div></div></td><td>119.96 MB</td><td>28</td><td>3.028 ms</td><td>0.783 ms</td><td>1119</td><td>18.97 MB</td></tr>
+                    <tr><td>250</td><td>6815.29</td><td>12663.00</td><td class="bar-chart-cell"><div class="bar-bg"><div class="bar-fill" style="width: 99%"></div></div></td><td>142.35 MB</td><td>47</td><td>4.226 ms</td><td>0.599 ms</td><td>1269</td><td>19.21 MB</td></tr>
+                    <tr><td>500</td><td>5852.90</td><td>12634.00</td><td class="bar-chart-cell"><div class="bar-bg"><div class="bar-fill" style="width: 85%"></div></div></td><td>175.39 MB</td><td>61</td><td>1.718 ms</td><td>0.159 ms</td><td>1519</td><td>23.50 MB</td></tr>
+                    <tr><td>750</td><td>5455.35</td><td>12731.00</td><td class="bar-chart-cell"><div class="bar-bg"><div class="bar-fill" style="width: 79%"></div></div></td><td>186.83 MB</td><td>74</td><td>4.482 ms</td><td>0.252 ms</td><td>1769</td><td>27.59 MB</td></tr>
+                    <tr><td>1000</td><td>5639.29</td><td>12585.00</td><td class="bar-chart-cell"><div class="bar-bg"><div class="bar-fill" style="width: 82%"></div></div></td><td>177.70 MB</td><td>91</td><td>3.981 ms</td><td>0.245 ms</td><td>2019</td><td>31.36 MB</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="section-header">PHASE B: Fanout Limits (50 Publishers, QoS 1)</h3>
+        <div class="metric-table-container">
+            <table class="metric-table">
+                <thead>
+                    <tr>
+                        <th>Subscribers</th>
+                        <th>Avg Tput (msgs/s)</th>
+                        <th>Max Tput (msgs/s)</th>
+                        <th>Visual (Max)</th>
+                        <th>Max RAM</th>
+                        <th>GC Triggers</th>
+                        <th>Max GC Pause</th>
+                        <th>Avg GC Pause</th>
+                        <th>Goroutines</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>100</td><td>16369.14</td><td>23310.00</td><td class="bar-chart-cell"><div class="bar-bg"><div class="bar-fill" style="width: 52%"></div></div></td><td>74.28 MB</td><td>102</td><td>2.389 ms</td><td>0.066 ms</td><td>1167</td></tr>
+                    <tr><td>500</td><td>12958.22</td><td>37644.00</td><td class="bar-chart-cell"><div class="bar-bg"><div class="bar-fill" style="width: 85%"></div></div></td><td>185.19 MB</td><td>232</td><td>5.454 ms</td><td>0.192 ms</td><td>1567</td></tr>
+                    <tr><td>1000</td><td>1155.82</td><td>11264.00</td><td class="bar-chart-cell"><div class="bar-bg"><div class="bar-fill" style="width: 25%"></div></div></td><td>139.11 MB</td><td>309</td><td>4.483 ms</td><td>0.016 ms</td><td>2017</td></tr>
+                    <tr><td>1500</td><td>6576.79</td><td>44220.00</td><td class="bar-chart-cell"><div class="bar-bg"><div class="bar-fill" style="width: 100%"></div></div></td><td>108.23 MB</td><td>355</td><td>1.196 ms</td><td>0.005 ms</td><td>2017</td></tr>
+                    <tr><td>2000</td><td class="error-text">6.27</td><td class="error-text">849.00 (Timeout)</td><td class="bar-chart-cell"><div class="bar-bg"><div class="bar-fill red" style="width: 2%"></div></div></td><td>141.65 MB</td><td>513</td><td>3.012 ms</td><td>0.009 ms</td><td>2017</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="section-header">PHASE C: Thundering Herd (5,000 Concurrent Connects)</h3>
+        <div class="metric-table-container">
+            <table class="metric-table">
+                <thead>
+                    <tr>
+                        <th>Connections</th>
+                        <th>Sent Packets</th>
+                        <th>Duration</th>
+                        <th>Avg Tput (msgs/s)</th>
+                        <th>Max Tput (msgs/s)</th>
+                        <th>Max RAM</th>
+                        <th>Max GC Pause</th>
+                        <th>Avg GC Pause</th>
+                        <th>Goroutines</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>5,000</td><td>460,381</td><td>99.18 s</td><td>4641.82</td><td>12829.00</td><td>169.20 MB</td><td>11.240 ms</td><td>0.034 ms</td><td>2029</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="roadmap" style="max-width: 1200px;">
         <h2 class="roadmap-title">The Brutal Truth</h2>
         <p style="text-align: center; color: var(--text-muted); max-width: 800px; margin: -2rem auto 4rem; font-size: 1.1rem;">Xomoi isn't a silver bullet. We built it to solve a very specific problem: <strong style="color: var(--fg);">deploying mission-critical IoT infrastructure on fragile, low-power edge devices without the nightmare of managing 5 different Docker containers.</strong></p>
         

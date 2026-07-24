@@ -19,6 +19,7 @@ package sqlite
 import (
 	"context"
 	"database/sql"
+	"strings"
 	"time"
 
 	"github.com/code-grey/xomoi-core/internal/core"
@@ -61,36 +62,57 @@ func (r *sqliteTelemetryRepository) InsertTelemetry(ctx context.Context, deviceI
 }
 
 func (r *sqliteTelemetryRepository) BulkInsert(ctx context.Context, records []repository.TelemetryRecord) error {
+	if len(records) == 0 {
+		return nil
+	}
+
 	tx, err := r.db.BeginTx(ctx, nil)
 	if err != nil {
 		return err
 	}
 	defer tx.Rollback()
 
-	stmt, err := tx.PrepareContext(ctx, `
-		INSERT INTO telemetry (id, device_id, timestamp, temperature, humidity, state, payload)
-		VALUES (?, ?, ?, ?, ?, ?, ?)
-	`)
-	if err != nil {
-		return err
-	}
-	defer stmt.Close()
+	// SQLite has a maximum parameter limit of 32766. With 7 columns per row,
+	// the absolute maximum is 4680 rows per INSERT statement.
+	// We chunk in batches of 1000 to be safe and efficient.
+	const chunkSize = 1000
+	const cols = 7
 
-	for _, rec := range records {
-		var nTemp, nHum sql.NullFloat64
-		var nState sql.NullString
+	for i := 0; i < len(records); i += chunkSize {
+		end := i + chunkSize
+		if end > len(records) {
+			end = len(records)
+		}
+		chunk := records[i:end]
 
-		if rec.Temperature != nil {
-			nTemp = sql.NullFloat64{Float64: *rec.Temperature, Valid: true}
-		}
-		if rec.Humidity != nil {
-			nHum = sql.NullFloat64{Float64: *rec.Humidity, Valid: true}
-		}
-		if rec.State != nil {
-			nState = sql.NullString{String: *rec.State, Valid: true}
+		var sb strings.Builder
+		sb.WriteString("INSERT INTO telemetry (id, device_id, timestamp, temperature, humidity, state, payload) VALUES ")
+		
+		vals := make([]interface{}, 0, len(chunk)*cols)
+
+		for j, rec := range chunk {
+			var nTemp, nHum sql.NullFloat64
+			var nState sql.NullString
+
+			if rec.Temperature != nil {
+				nTemp = sql.NullFloat64{Float64: *rec.Temperature, Valid: true}
+			}
+			if rec.Humidity != nil {
+				nHum = sql.NullFloat64{Float64: *rec.Humidity, Valid: true}
+			}
+			if rec.State != nil {
+				nState = sql.NullString{String: *rec.State, Valid: true}
+			}
+
+			if j > 0 {
+				sb.WriteString(", ")
+			}
+			sb.WriteString("(?, ?, ?, ?, ?, ?, ?)")
+			vals = append(vals, rec.ID, rec.DeviceID, rec.Timestamp, nTemp, nHum, nState, rec.PayloadBlob)
 		}
 
-		_, err = stmt.ExecContext(ctx, rec.ID, rec.DeviceID, rec.Timestamp, nTemp, nHum, nState, rec.PayloadBlob)
+		// A single, massive CGO call containing up to 1000 rows
+		_, err = tx.ExecContext(ctx, sb.String(), vals...)
 		if err != nil {
 			return err
 		}

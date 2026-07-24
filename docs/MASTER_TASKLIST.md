@@ -55,6 +55,8 @@
 - [x] **3.3: The Ingestion Pipeline**
     - [x] `worker_pool.go`: Fixed-size Worker Pool for message processing.
     - [x] `processor.go`: OnPublish -> Proto Unmarshal -> Worker Channel (Backpressure enabled).
+- [x] **3.4: In-Memory Session Caching**
+    - [x] Bypass SQLite and SHA-256 computation on reconnects using a `sync.Map` of static deterministic HMAC hashes.
 
 ## PHASE 4: THE IMMORTAL GOSSIP MESH & EDGE ORCHESTRATION
 - [ ] **4.1: Immortal Gossip Mesh**

@@ -1,0 +1,360 @@
+﻿==========================================
+  PHASE A: INGESTION CEILING (PROTOBUF)   
+==========================================
+
+---> Running Ingest with 100 Workers
+go : 2026/07/24 21:51:47 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 21:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 21:51:47 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 100 | Time: 60s
+2026/07/24 21:51:47 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 464443
+Duration: 61.29 seconds
+Average Throughput: 7577.62 msgs/sec
+Max Throughput: 9458.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.40 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 93.24 MB
+Total GC Triggers: 36
+Max GC Pause Latency: 2516549 ns (2.517 ms)
+Avg GC Pause Latency: 602541 ns (0.603 ms)
+Max Goroutines Sprawled: 1119
+Max SQLite WAL Size: 16.22 MB
+
+---> Running Ingest with 250 Workers
+go : 2026/07/24 21:53:23 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 21:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 21:53:23 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 250 | Time: 60s
+2026/07/24 21:53:23 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 435643
+Duration: 61.45 seconds
+Average Throughput: 7088.95 msgs/sec
+Max Throughput: 11948.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.38 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 142.57 MB
+Total GC Triggers: 54
+Max GC Pause Latency: 2648445 ns (2.648 ms)
+Avg GC Pause Latency: 351592 ns (0.352 ms)
+Max Goroutines Sprawled: 1269
+Max SQLite WAL Size: 19.11 MB
+
+---> Running Ingest with 500 Workers
+go : 2026/07/24 21:54:55 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 21:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 21:54:55 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 500 | Time: 60s
+2026/07/24 21:54:55 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 410505
+Duration: 65.51 seconds
+Average Throughput: 6266.49 msgs/sec
+Max Throughput: 12604.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.33 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 179.41 MB
+Total GC Triggers: 70
+Max GC Pause Latency: 5897091 ns (5.897 ms)
+Avg GC Pause Latency: 338619 ns (0.339 ms)
+Max Goroutines Sprawled: 1519
+Max SQLite WAL Size: 23.43 MB
+
+---> Running Ingest with 750 Workers
+go : 2026/07/24 21:56:31 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 21:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 21:56:31 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 750 | Time: 60s
+2026/07/24 21:56:31 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 394753
+Duration: 62.15 seconds
+Average Throughput: 6351.90 msgs/sec
+Max Throughput: 13240.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.34 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 183.20 MB
+Total GC Triggers: 85
+Max GC Pause Latency: 7870996 ns (7.871 ms)
+Avg GC Pause Latency: 307208 ns (0.307 ms)
+Max Goroutines Sprawled: 1769
+Max SQLite WAL Size: 27.05 MB
+
+---> Running Ingest with 1000 Workers
+go : 2026/07/24 21:58:04 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 21:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 21:58:04 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 1000 | Time: 60s
+2026/07/24 21:58:04 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 366261
+Duration: 66.06 seconds
+Average Throughput: 5544.41 msgs/sec
+Max Throughput: 12705.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.30 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 168.55 MB
+Total GC Triggers: 94
+Max GC Pause Latency: 2253467 ns (2.253 ms)
+Avg GC Pause Latency: 87535 ns (0.088 ms)
+Max Goroutines Sprawled: 2019
+Max SQLite WAL Size: 30.63 MB
+
+==========================================
+  PHASE B: FANOUT QUEUE LIMITS (PROTOBUF) 
+==========================================
+
+---> Running Fanout with 50 Pubs and 100 Subs
+go : 2026/07/24 21:59:41 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 21:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 21:59:41 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 100 | Time: 60s
+2026/07/24 21:59:41 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/24 21:59:41 Connecting 100 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/24 21:59:42 Connecting 50 publishers...
+2026/07/24 22:00:43 
+--- FANOUT RESULTS ---
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 92.85 MB
+Total GC Triggers: 193
+Max GC Pause Latency: 11833171 ns (11.833 ms)
+Avg GC Pause Latency: 745657 ns (0.746 ms)
+Max Goroutines Sprawled: 1170
+Max SQLite WAL Size: 30.63 MB
+2026/07/24 22:00:43 Publishers: 50 | Subscribers: 100
+2026/07/24 22:00:43 Total Packets Received by Subs: 1065184
+2026/07/24 22:00:43 Average Fan-out Throughput: 17439.10 msgs/sec
+2026/07/24 22:00:43 Max Fan-out Throughput: 23055.00 msgs/sec
+
+---> Running Fanout with 50 Pubs and 500 Subs
+go : 2026/07/24 22:01:13 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 22:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 22:01:13 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 500 | Time: 60s
+2026/07/24 22:01:13 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/24 22:01:13 Connecting 500 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/24 22:01:14 Connecting 50 publishers...
+2026/07/24 22:02:16 
+--- FANOUT RESULTS ---
+2026/07/24 22:02:16 Publishers: 50 | Subscribers: 500
+2026/07/24 22:02:16 Total Packets Received by Subs: 795436
+2026/07/24 22:02:16 Average Fan-out Throughput: 12960.72 msgs/sec
+2026/07/24 22:02:16 Max Fan-out Throughput: 38570.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 195.88 MB
+Total GC Triggers: 217
+Max GC Pause Latency: 3837116 ns (3.837 ms)
+Avg GC Pause Latency: 95708 ns (0.096 ms)
+Max Goroutines Sprawled: 1568
+Max SQLite WAL Size: 30.63 MB
+
+---> Running Fanout with 50 Pubs and 1000 Subs
+go : 2026/07/24 22:02:46 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 22:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 22:02:46 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 1000 | Time: 60s
+2026/07/24 22:02:47 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/24 22:02:47 Connecting 1000 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/24 22:02:48 Connecting 50 publishers...
+2026/07/24 22:03:50 
+--- FANOUT RESULTS ---
+
+--- BROKER HARDWARE LIMITS HIT ---
+2026/07/24 22:03:50 Publishers: 50 | Subscribers: 1000
+2026/07/24 22:03:50 Total Packets Received by Subs: 1593
+2026/07/24 22:03:50 Average Fan-out Throughput: 25.64 msgs/sec
+2026/07/24 22:03:50 Max Fan-out Throughput: 1593.00 msgs/sec
+Max RAM Allocated: 108.34 MB
+Total GC Triggers: 311
+Max GC Pause Latency: 1130546 ns (1.131 ms)
+Avg GC Pause Latency: 3635 ns (0.004 ms)
+Max Goroutines Sprawled: 2018
+Max SQLite WAL Size: 30.63 MB
+
+---> Running Fanout with 50 Pubs and 1500 Subs
+go : 2026/07/24 22:04:20 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 22:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 22:04:20 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 1500 | Time: 60s
+2026/07/24 22:04:20 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/24 22:04:20 Connecting 1500 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/24 22:04:21 Connecting 50 publishers...
+2026/07/24 22:06:27 
+--- FANOUT RESULTS ---
+2026/07/24 22:06:27 Publishers: 50 | Subscribers: 1500
+2026/07/24 22:06:27 Total Packets Received by Subs: 862836
+2026/07/24 22:06:27 Average Fan-out Throughput: 6869.00 msgs/sec
+2026/07/24 22:06:27 Max Fan-out Throughput: 36741.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 156.53 MB
+Total GC Triggers: 317
+Max GC Pause Latency: 1903300 ns (1.903 ms)
+Avg GC Pause Latency: 8346 ns (0.008 ms)
+Max Goroutines Sprawled: 2018
+Max SQLite WAL Size: 30.63 MB
+
+---> Running Fanout with 50 Pubs and 2000 Subs
+go : 2026/07/24 22:06:58 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 22:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 22:06:58 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 2000 | Time: 60s
+2026/07/24 22:06:58 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/24 22:06:58 Connecting 2000 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/24 22:06:59 Connecting 50 publishers...
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61498->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61496->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61497->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61502->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61503->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61501->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61500->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61499->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61507->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61505->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61506->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61504->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61509->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61511->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61510->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61508->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61512->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61514->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61515->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61513->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61517->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61516->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61518->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61519->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61523->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61522->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61520->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61521->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61524->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61526->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61525->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61528->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61527->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61529->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61530->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61531->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61532->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61533->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61535->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61534->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61536->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61537->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61538->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61539->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61540->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61542->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61541->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61544->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61543->100.102.191.66:1883: i/o timeout
+2026/07/24 22:08:59 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:61545->100.102.191.66:1883: i/o timeout
+2026/07/24 22:09:16 
+--- FANOUT RESULTS ---
+2026/07/24 22:09:16 Publishers: 50 | Subscribers: 2000
+2026/07/24 22:09:16 Total Packets Received by Subs: 0
+2026/07/24 22:09:16 Average Fan-out Throughput: 0.00 msgs/sec
+2026/07/24 22:09:16 Max Fan-out Throughput: 0.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 137.24 MB
+Total GC Triggers: 437
+Max GC Pause Latency: 1039074 ns (1.039 ms)
+Avg GC Pause Latency: 2660 ns (0.003 ms)
+Max Goroutines Sprawled: 2018
+Max SQLite WAL Size: 30.63 MB
+
+==========================================
+  PHASE C: THUNDERING HERD (CONNECTION SPIKE) 
+==========================================
+
+---> Hitting broker with 5,000 simultaneous connections...
+go : 2026/07/24 22:09:46 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:34 char:1
++ go run scripts/benchmark.go -ip $IP -mode ingest -payload proto -time ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 22:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 22:09:46 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 5000 | Time: 15s
+2026/07/24 22:09:46 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 460228
+Duration: 93.32 seconds
+Average Throughput: 4931.51 msgs/sec
+Max Throughput: 12777.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.26 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 170.68 MB
+Total GC Triggers: 446
+Max GC Pause Latency: 6067386 ns (6.067 ms)
+Avg GC Pause Latency: 27515 ns (0.028 ms)
+Max Goroutines Sprawled: 2026
+Max SQLite WAL Size: 30.63 MB
+
+[MATRIX COMPLETE] Results have been saved to tests/benchmark_results/matrix_mochi_opt_20260724_215029.txt. Please copy the contents of that file and paste them here!

@@ -1,0 +1,546 @@
+﻿==========================================
+  PHASE A: INGESTION CEILING (PROTOBUF)   
+==========================================
+
+---> Running Ingest with 100 Workers
+go : 2026/07/24 23:46:09 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 23:4...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 23:46:09 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 100 | Time: 60s
+2026/07/24 23:46:09 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 491198
+Duration: 61.38 seconds
+Average Throughput: 8002.09 msgs/sec
+Max Throughput: 9626.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.43 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 104.11 MB
+Total GC Triggers: 38
+Max GC Pause Latency: 3045055 ns (3.045 ms)
+Avg GC Pause Latency: 742702 ns (0.743 ms)
+Max Goroutines Sprawled: 1119
+Max SQLite WAL Size: 16.20 MB
+
+---> Running Ingest with 250 Workers
+go : 2026/07/24 23:47:41 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 23:4...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 23:47:41 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 250 | Time: 60s
+2026/07/24 23:47:41 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 419234
+Duration: 61.43 seconds
+Average Throughput: 6824.21 msgs/sec
+Max Throughput: 12628.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.36 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 136.73 MB
+Total GC Triggers: 54
+Max GC Pause Latency: 2501648 ns (2.502 ms)
+Avg GC Pause Latency: 329560 ns (0.330 ms)
+Max Goroutines Sprawled: 1269
+Max SQLite WAL Size: 19.19 MB
+
+---> Running Ingest with 500 Workers
+go : 2026/07/24 23:49:13 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 23:4...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 23:49:13 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 500 | Time: 60s
+2026/07/24 23:49:13 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 391282
+Duration: 67.03 seconds
+Average Throughput: 5837.07 msgs/sec
+Max Throughput: 12764.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.31 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 179.73 MB
+Total GC Triggers: 67
+Max GC Pause Latency: 3655095 ns (3.655 ms)
+Avg GC Pause Latency: 283494 ns (0.283 ms)
+Max Goroutines Sprawled: 1519
+Max SQLite WAL Size: 23.51 MB
+
+---> Running Ingest with 750 Workers
+go : 2026/07/24 23:50:51 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 23:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 23:50:51 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 750 | Time: 60s
+2026/07/24 23:50:51 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 372616
+Duration: 61.89 seconds
+Average Throughput: 6020.16 msgs/sec
+Max Throughput: 12967.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.32 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 184.57 MB
+Total GC Triggers: 81
+Max GC Pause Latency: 3796104 ns (3.796 ms)
+Avg GC Pause Latency: 165405 ns (0.165 ms)
+Max Goroutines Sprawled: 1769
+Max SQLite WAL Size: 27.43 MB
+
+---> Running Ingest with 1000 Workers
+go : 2026/07/24 23:52:24 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:13 char:5
++     go run scripts/benchmark.go -ip $IP -mode ingest -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 23:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 23:52:24 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 1000 | Time: 60s
+2026/07/24 23:52:25 [INFO] Intercepted WebSockets Node Health stream...
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 360746
+Duration: 68.42 seconds
+Average Throughput: 5272.89 msgs/sec
+Max Throughput: 12599.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.28 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 179.88 MB
+Total GC Triggers: 98
+Max GC Pause Latency: 4024372 ns (4.024 ms)
+Avg GC Pause Latency: 226748 ns (0.227 ms)
+Max Goroutines Sprawled: 2019
+Max SQLite WAL Size: 31.28 MB
+
+==========================================
+  PHASE B: FANOUT QUEUE LIMITS (PROTOBUF) 
+==========================================
+
+---> Running Fanout with 50 Pubs and 100 Subs
+go : 2026/07/24 23:54:04 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 23:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 23:54:04 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 100 | Time: 60s
+2026/07/24 23:54:04 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/24 23:54:04 Connecting 100 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/24 23:54:05 Connecting 50 publishers...
+2026/07/24 23:55:06 
+--- FANOUT RESULTS ---
+2026/07/24 23:55:06 Publishers: 50 | Subscribers: 100
+2026/07/24 23:55:06 Total Packets Received by Subs: 1075437
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 97.13 MB
+Total GC Triggers: 190
+Max GC Pause Latency: 7742021 ns (7.742 ms)
+Avg GC Pause Latency: 600127 ns (0.600 ms)
+Max Goroutines Sprawled: 1167
+Max SQLite WAL Size: 31.28 MB
+2026/07/24 23:55:06 Average Fan-out Throughput: 17606.96 msgs/sec
+2026/07/24 23:55:06 Max Fan-out Throughput: 23014.00 msgs/sec
+
+---> Running Fanout with 50 Pubs and 500 Subs
+go : 2026/07/24 23:55:37 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 23:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 23:55:37 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 500 | Time: 60s
+2026/07/24 23:55:37 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/24 23:55:37 Connecting 500 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/24 23:55:38 Connecting 50 publishers...
+2026/07/24 23:56:39 
+--- FANOUT RESULTS ---
+2026/07/24 23:56:39 Publishers: 50 | Subscribers: 500
+2026/07/24 23:56:39 Total Packets Received by Subs: 858378
+2026/07/24 23:56:39 Average Fan-out Throughput: 13985.35 msgs/sec
+2026/07/24 23:56:39 Max Fan-out Throughput: 47294.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 196.64 MB
+Total GC Triggers: 270
+Max GC Pause Latency: 9322076 ns (9.322 ms)
+Avg GC Pause Latency: 294961 ns (0.295 ms)
+Max Goroutines Sprawled: 1567
+Max SQLite WAL Size: 31.28 MB
+
+---> Running Fanout with 50 Pubs and 1000 Subs
+go : 2026/07/24 23:57:10 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 23:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 23:57:10 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 1000 | Time: 60s
+2026/07/24 23:57:10 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/24 23:57:10 Connecting 1000 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/24 23:57:11 Connecting 50 publishers...
+2026/07/24 23:58:13 
+--- FANOUT RESULTS ---
+2026/07/24 23:58:13 Publishers: 50 | Subscribers: 1000
+2026/07/24 23:58:13 Total Packets Received by Subs: 2248
+2026/07/24 23:58:13 Average Fan-out Throughput: 36.22 msgs/sec
+2026/07/24 23:58:13 Max Fan-out Throughput: 2206.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 112.49 MB
+Total GC Triggers: 299
+Max GC Pause Latency: 575257 ns (0.575 ms)
+Avg GC Pause Latency: 1924 ns (0.002 ms)
+Max Goroutines Sprawled: 2017
+Max SQLite WAL Size: 31.28 MB
+
+---> Running Fanout with 50 Pubs and 1500 Subs
+go : 2026/07/24 23:58:44 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/24 23:5...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/24 23:58:44 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 1500 | Time: 60s
+2026/07/24 23:58:44 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/24 23:58:44 Connecting 1500 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/24 23:58:45 Connecting 50 publishers...
+2026/07/25 00:00:51 
+--- FANOUT RESULTS ---
+
+--- BROKER HARDWARE LIMITS HIT ---
+2026/07/25 00:00:51 Publishers: 50 | Subscribers: 1500
+2026/07/25 00:00:51 Total Packets Received by Subs: 809502
+2026/07/25 00:00:51 Average Fan-out Throughput: 6401.76 msgs/sec
+2026/07/25 00:00:51 Max Fan-out Throughput: 32275.00 msgs/sec
+Max RAM Allocated: 108.63 MB
+Total GC Triggers: 305
+Max GC Pause Latency: 1772657 ns (1.773 ms)
+Avg GC Pause Latency: 5812 ns (0.006 ms)
+Max Goroutines Sprawled: 2017
+Max SQLite WAL Size: 31.28 MB
+
+---> Running Fanout with 50 Pubs and 2000 Subs
+go : 2026/07/25 00:01:22 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:25 char:5
++     go run scripts/benchmark.go -ip $IP -mode fanout -payload proto - ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/25 00:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/25 00:01:22 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: fanout | Workers: 2000 | Time: 60s
+2026/07/25 00:01:22 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/25 00:01:22 Connecting 2000 subscribers to shared topic /xomoi/FANOUT:BENCHMARK/telemetry...
+2026/07/25 00:01:23 Connecting 50 publishers...
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4050->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4053->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4052->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4051->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4054->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4055->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4057->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4056->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4058->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4060->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4059->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4061->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4062->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4064->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4063->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4066->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4068->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4065->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4067->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4069->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4073->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4071->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4072->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4070->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4075->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4076->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4074->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4077->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4079->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4078->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4081->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4083->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4084->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4082->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4080->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4088->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4086->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4089->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4087->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4085->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4092->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4090->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4091->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4093->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4094->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4096->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4095->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4098->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4099->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:23 Failed to connect FANOUT:BENCHMARK: network Error : read tcp 100.127.250.27:4097->100.102.191.66:1883: i/o timeout
+2026/07/25 00:03:39 
+--- FANOUT RESULTS ---
+2026/07/25 00:03:39 Publishers: 50 | Subscribers: 2000
+2026/07/25 00:03:39 Total Packets Received by Subs: 588
+2026/07/25 00:03:39 Average Fan-out Throughput: 4.32 msgs/sec
+2026/07/25 00:03:39 Max Fan-out Throughput: 403.00 msgs/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 192.43 MB
+Total GC Triggers: 590
+Max GC Pause Latency: 11039393 ns (11.039 ms)
+Avg GC Pause Latency: 26683 ns (0.027 ms)
+Max Goroutines Sprawled: 2017
+Max SQLite WAL Size: 31.28 MB
+
+==========================================
+  PHASE C: THUNDERING HERD (CONNECTION SPIKE) 
+==========================================
+
+---> Hitting broker with 5,000 simultaneous connections...
+go : 2026/07/25 00:04:10 Starting Xomoi-Core Benchmark Suite
+At D:\0_SERIOUS\xomoi-core\scripts\run_matrix.ps1:34 char:1
++ go run scripts/benchmark.go -ip $IP -mode ingest -payload proto -time ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026/07/25 00:0...Benchmark Suite:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026/07/25 00:04:10 Target: tcp://100.102.191.66:1883 | QoS: 1 | Mode: ingest | Workers: 5000 | Time: 15s
+2026/07/25 00:04:10 [INFO] Intercepted WebSockets Node Health stream...
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:721: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:B10: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:78B: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:BEC: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6A4: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6DA: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6DD: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:7A2: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:70C: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6AD: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6A7: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:99B: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6D4: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:689: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:62F: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:AFA: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6C4: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6B2: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:836: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:98E: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:46E: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:868: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6CD: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6EA: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:990: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:842: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:A41: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:BD8: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:BBA: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:AFE: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:BC7: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:98C: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6C1: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:71A: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:C0D: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6B1: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:69E: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:846: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:984: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6A9: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:B83: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:C1A: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:98D: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:B01: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6CC: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:840: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:70F: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:71D: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:797: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:78A: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:C0B: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:757: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:C3A: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:82C: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:989: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:464: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:B69: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:64: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the connected 
+party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6D6: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:BDB: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:992: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:85E: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6C0: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:85F: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:6CA: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:C12: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:A4A: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:BD0: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:BD1: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:BE2: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:BE8: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:C0E: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:31 Failed to connect AA:BB:CC:DD:EE:C35: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:82D: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:A58: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:6E0: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:C15: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:B11: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:748: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:981: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:A4C: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:987: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:BCF: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:A46: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:78C: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:C34: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:6CF: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:BCB: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:831: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:ECC: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:867: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:991: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2026/07/25 00:04:32 Failed to connect AA:BB:CC:DD:EE:A44: network Error : dial tcp 100.102.191.66:1883: connectex: A connection attempt failed because the 
+connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+
+--- INGESTION RESULTS ---
+Total Packets Sent: 459110
+Duration: 88.21 seconds
+Average Throughput: 5204.89 msgs/sec
+Max Throughput: 12791.00 msgs/sec
+Payload size: 56 bytes
+Data Rate: 0.28 MB/sec
+
+--- BROKER HARDWARE LIMITS HIT ---
+Max RAM Allocated: 173.38 MB
+Total GC Triggers: 599
+Max GC Pause Latency: 7358239 ns (7.358 ms)
+Avg GC Pause Latency: 34640 ns (0.035 ms)
+Max Goroutines Sprawled: 2046
+Max SQLite WAL Size: 31.28 MB
+
+[MATRIX COMPLETE] Results have been saved to tests/benchmark_results/matrix_mochi_opt_20260724_234501.txt. Please copy the contents of that file and paste them here!

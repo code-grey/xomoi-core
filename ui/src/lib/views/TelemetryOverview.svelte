@@ -84,16 +84,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
   let activeColor = $derived(
     activeMetric === 'temperature' ? 'var(--accent-orange)' :
-    activeMetric === 'humidity' ? 'var(--accent-cyan)' : 'var(--accent-purple)'
+    activeMetric === 'humidity' ? 'var(--accent-cyan)' :
+    activeMetric === 'pressure' ? 'var(--accent-purple)' :
+    activeMetric === 'voltage' ? '#eccc68' :
+    activeMetric === 'lux' ? '#ffeaa7' :
+    activeMetric === 'fan_speed' ? '#7bed9f' :
+    '#ff4757' // imu_hz
   );
 
   // Map the real WebRTC fleet into the chart components
   let realSensors = $derived(
-    activeMetric === 'temperature' ? tempDevices.map(d => ({
-      id: d.id, name: d.friendlyName || d.id, val: d.temp.toFixed(1), hist: d.tempHistory, min: 0, max: 50, unit: 'Â°C'
-    })) : humDevices.map(d => ({
-      id: d.id, name: d.friendlyName || d.id, val: d.hum.toFixed(1), hist: d.humHistory, min: 0, max: 100, unit: '%'
-    }))
+    activeMetric === 'temperature' ? tempDevices.map(d => ({ id: d.id, name: d.friendlyName || d.id, val: d.temp.toFixed(1), hist: d.tempHistory, min: 0, max: 50, unit: '°C' })) :
+    activeMetric === 'humidity' ? humDevices.map(d => ({ id: d.id, name: d.friendlyName || d.id, val: d.hum.toFixed(1), hist: d.humHistory, min: 0, max: 100, unit: '%' })) :
+    activeMetric === 'pressure' ? pressDevices.map(d => ({ id: d.id, name: d.friendlyName || d.id, val: d.pressure.toFixed(1), hist: d.pressureHistory, min: 900, max: 1100, unit: 'hPa' })) :
+    activeMetric === 'voltage' ? voltDevices.map(d => ({ id: d.id, name: d.friendlyName || d.id, val: d.voltage.toFixed(2), hist: d.voltageHistory, min: 0, max: 5, unit: 'V' })) :
+    activeMetric === 'lux' ? luxDevices.map(d => ({ id: d.id, name: d.friendlyName || d.id, val: d.lux, hist: d.luxHistory, min: 0, max: 1000, unit: 'lx' })) :
+    activeMetric === 'fan_speed' ? fanDevices.map(d => ({ id: d.id, name: d.friendlyName || d.id, val: d.fan_speed, hist: d.fanSpeedHistory, min: 0, max: 3000, unit: 'RPM' })) :
+    imuDevices.map(d => ({ id: d.id, name: d.friendlyName || d.id, val: d.imu_hz, hist: d.imuHistory, min: 0, max: 2000, unit: 'Hz' }))
   );
 
   let selectedSensor = $state<any>(null);
@@ -102,8 +109,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {#if fleet.length > 0}
   <div class="view-container">
     <div class="metrics-grid">
-      <MetricCard title="Temperature" value={temperature} unit="Â°C" Icon={Thermometer} sparkline={tempPoints} active={activeMetric === 'temperature'} onclick={() => activeMetric = 'temperature'} />
+      <MetricCard title="Temperature" value={temperature} unit="°C" Icon={Thermometer} sparkline={tempPoints} active={activeMetric === 'temperature'} onclick={() => activeMetric = 'temperature'} />
       <MetricCard title="Humidity" value={humidity} unit="%" Icon={Droplets} sparkline={humPoints} active={activeMetric === 'humidity'} onclick={() => activeMetric = 'humidity'} />
+      <MetricCard title="Pressure" value={pressure} unit="hPa" Icon={Gauge} sparkline={pressPoints} active={activeMetric === 'pressure'} onclick={() => activeMetric = 'pressure'} />
+      <MetricCard title="Voltage" value={voltage} unit="V" Icon={Zap} sparkline={voltPoints} active={activeMetric === 'voltage'} onclick={() => activeMetric = 'voltage'} />
+      <MetricCard title="Ambient Light" value={lux} unit="lx" Icon={Sun} sparkline={luxPoints} active={activeMetric === 'lux'} onclick={() => activeMetric = 'lux'} />
+      <MetricCard title="Fan Speed" value={fan_speed} unit="RPM" Icon={Fan} sparkline={fanPoints} active={activeMetric === 'fan_speed'} onclick={() => activeMetric = 'fan_speed'} />
+      <MetricCard title="IMU Polling" value={imu_hz} unit="Hz" Icon={Activity} sparkline={imuPoints} active={activeMetric === 'imu_hz'} onclick={() => activeMetric = 'imu_hz'} />
       <MetricCard title="Active Devices" value={activeDevices} unit="Sensors" Icon={Network} onclick={() => window.location.hash = 'fleet'} />
     </div>
 

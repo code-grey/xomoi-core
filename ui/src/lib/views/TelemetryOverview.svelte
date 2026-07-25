@@ -20,10 +20,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   import { onMount, onDestroy } from 'svelte';
   import MetricCard from '../MetricCard.svelte';
   import HistoricalExplorer from './HistoricalExplorer.svelte';
-  import { Thermometer, Droplets, Network, Gauge, Zap, Sun, Fan, Activity } from 'lucide-svelte';
+  import { Thermometer, Droplets, Network, Gauge, Zap, Sun, Fan, Activity, Power, Lightbulb } from 'lucide-svelte';
   import { globalState } from '../store.svelte';
 
   let activeMetric = $state('temperature');
+
+  // RPC Demo State
+  let rpcMainPower = $state(true);
+  let rpcAuxPower = $state(false);
+  let rpcFanSpeed = $state(45);
+  let rpcIrrigation = $state(false);
+  let rpcDimmer = $state(80);
 
   let fleet = $derived(globalState.fleet);
   let activeDevices = $derived(fleet.length.toString());
@@ -119,6 +126,42 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       <MetricCard title="Active Devices" value={activeDevices} unit="Sensors" Icon={Network} onclick={() => window.location.hash = 'fleet'} />
     </div>
 
+    <!-- RPC Remote Controls -->
+    <div class="rpc-controls-panel glass-panel">
+      <div class="rpc-panel-header">
+        <h3 class="panel-title">Quick Actions (RPC)</h3>
+        <span class="rpc-status glow-dot green"></span>
+      </div>
+      <div class="rpc-cards-grid">
+        <div class="rpc-card {rpcMainPower ? 'active' : ''}">
+          <div class="rpc-header"><Power size={18} /> Main Relay</div>
+          <button class="rpc-toggle {rpcMainPower ? 'on' : 'off'}" onclick={() => rpcMainPower = !rpcMainPower}>
+            {rpcMainPower ? 'ON' : 'OFF'}
+          </button>
+        </div>
+        <div class="rpc-card {rpcAuxPower ? 'active' : ''}">
+          <div class="rpc-header"><Zap size={18} /> Aux Power</div>
+          <button class="rpc-toggle {rpcAuxPower ? 'on' : 'off'}" onclick={() => rpcAuxPower = !rpcAuxPower}>
+            {rpcAuxPower ? 'ON' : 'OFF'}
+          </button>
+        </div>
+        <div class="rpc-card {rpcIrrigation ? 'active' : ''}">
+          <div class="rpc-header"><Droplets size={18} /> Irrigation</div>
+          <button class="rpc-toggle {rpcIrrigation ? 'on' : 'off'}" onclick={() => rpcIrrigation = !rpcIrrigation}>
+            {rpcIrrigation ? 'ON' : 'OFF'}
+          </button>
+        </div>
+        <div class="rpc-card slider-card">
+          <div class="rpc-header"><Fan size={18} /> HVAC Speed <span class="rpc-val">{rpcFanSpeed}%</span></div>
+          <input type="range" min="0" max="100" bind:value={rpcFanSpeed} class="rpc-slider" />
+        </div>
+        <div class="rpc-card slider-card">
+          <div class="rpc-header"><Lightbulb size={18} /> Dimmer <span class="rpc-val">{rpcDimmer}%</span></div>
+          <input type="range" min="0" max="100" bind:value={rpcDimmer} class="rpc-slider" />
+        </div>
+      </div>
+    </div>
+
     <div class="content-layout">
       <!-- Grid of all sensors reporting the active metric -->
       <div class="charts-grid">
@@ -195,6 +238,89 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 24px;
+  }
+
+  /* RPC Controls */
+  .rpc-controls-panel {
+    padding: 20px;
+  }
+  .rpc-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--bg-panel-border);
+    padding-bottom: 12px;
+  }
+  .panel-title {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+  }
+  .glow-dot.green {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #00ff66;
+    box-shadow: 0 0 8px #00ff66;
+  }
+  .rpc-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .rpc-card {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--bg-panel-border);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: all 0.2s ease;
+  }
+  .rpc-card.active {
+    border-color: rgba(0, 255, 102, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 255, 102, 0.05);
+  }
+  .rpc-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .rpc-toggle {
+    background: transparent;
+    border: 2px solid var(--bg-panel-border);
+    color: var(--text-secondary);
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .rpc-toggle.on {
+    background: rgba(0, 255, 102, 0.1);
+    border-color: #00ff66;
+    color: #00ff66;
+    text-shadow: 0 0 8px rgba(0,255,102,0.5);
+  }
+  .rpc-toggle:hover {
+    border-color: var(--text-secondary);
+  }
+  .rpc-toggle.on:hover {
+    border-color: #00cc52;
+  }
+  .rpc-val {
+    margin-left: auto;
+    color: var(--accent-cyan);
+  }
+  .rpc-slider {
+    width: 100%;
+    accent-color: var(--accent-cyan);
+    cursor: pointer;
   }
 
   .content-layout {

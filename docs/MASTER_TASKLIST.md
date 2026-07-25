@@ -130,6 +130,9 @@
     - [x] Robust WebRTC Signaling (Exponential Backoff).
     - [x] Time-Series UI legend interpolation logic fixed.
     - [ ] Security Audit, Binary Optimization (`ldflags`), and v1.0 Release.
+- [ ] **9.4: Build Profiles & Interactive Installer**
+    - [ ] Use Go `//go:build` tags to compile distinct variants (e.g., `xomoi-lite` for barebones telemetry vs `xomoi-full` with UI/WebRTC).
+    - [ ] Build a lightweight TUI installer (`install.sh`) to let users select features and deploy the matching pre-compiled binary.
 
 ## PHASE 9.5: THE TERMINAL DASHBOARD (TUI)
 - [x] **9.5.1: Xomoi-CLI (`cmd/xomoi-cli/`)**
@@ -164,3 +167,11 @@
 - [ ] **13.2: Xomoi Plugin Engine**
     - [ ] Build the OTA receiver to download and unpack `tar.gz` RootFS payloads.
     - [ ] Orchestrate Silo namespaces from within Xomoi to run untrusted AI/Edge workloads securely.
+
+## PHASE 14: XOMOI-VISION (EDGE NVR & RTSP WEBRTC BRIDGE)
+- [ ] **14.1: Sub-Second Video Ingestion**
+    - [ ] Integrate pure-Go RTSP client (e.g., `gortsplib`) to ingest raw H.264 IP Camera feeds locally.
+- [ ] **14.2: Zero-CPU Transcoding Bridge**
+    - [ ] Repackage H.264 RTSP frames directly into Pion WebRTC `TrackLocalStaticSample` without re-encoding.
+- [ ] **14.3: Real-Time Svelte Vision Dashboard**
+    - [ ] Add `VideoTrack` rendering to the Svelte UI via WebRTC `ontrack` events for zero-latency monitoring.

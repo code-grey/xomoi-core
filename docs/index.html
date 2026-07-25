@@ -430,14 +430,30 @@
         .cross { color: #ff5f56; font-weight: 600; }
 
         @media (max-width: 768px) {
-            .timeline-item { flex-direction: column; gap: 1rem; }
-            header { padding: 1rem; }
+            header { padding: 1rem !important; flex-direction: column; gap: 1rem; align-items: flex-start !important; }
+            .hero { padding: 4rem 1rem 3rem; }
+            h1 { font-size: clamp(2.2rem, 8vw, 3rem); line-height: 1.2; }
+            .btn-group { flex-direction: column; width: 100%; }
+            .btn-group .btn { width: 100%; justify-content: center; }
+            .architecture-grid { grid-template-columns: 1fr !important; padding: 0 1rem; gap: 1rem; margin-bottom: 3rem; }
+            .schematic-card { padding: 1.5rem; }
+            .timeline-item { flex-direction: column; gap: 1rem; padding: 1.5rem; }
+            .roadmap-title { font-size: 2rem; margin-bottom: 2rem; }
+            .roadmap-title span { display: block; }
+            .data-flow-container { padding: 1rem; margin: 3rem auto; }
+            .level-tabs { flex-direction: column; width: 100%; }
+            .terminal-wrapper { padding: 0 1rem; margin-bottom: 4rem; }
+            .terminal-body { padding: 1rem; font-size: 0.75rem; }
+            .live-demo-section { padding: 0 1rem; margin: 4rem auto; }
+            .live-demo-section h2 { font-size: 1.6rem; }
+            .live-demo-section img { height: 300px !important; }
+            .metric-table-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         }
     </style>
 </head>
 <body>
 
-<header style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem;">
+<header>
     <div style="display: flex; align-items: center; gap: 1rem;">
         <div class="logo">XOMOI-CORE <span>// SOVEREIGN EDGE</span></div>
         <div class="status-badge">AGPLv3 LICENSED</div>
@@ -683,7 +699,7 @@
     </section>
 
 
-    <section class="terminal-wrapper animate-up">
+    <section class="terminal-wrapper">
         <div class="terminal">
             <div class="terminal-header">
                 <div class="dot red"></div>
@@ -709,6 +725,57 @@
         </div>
     </section>
 
+    <section class="live-demo-section" style="max-width: 1000px; margin: 4rem auto; text-align: center; padding: 0 2rem;">
+        <h2 style="font-size: 2rem; color: var(--fg); margin-bottom: 1rem;">Experience the <span style="color: var(--accent);">Real-Time Dashboard</span></h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+            Watch how Xomoi-Core pairs directly with your browser via WebRTC for an ultra-low latency, O(1) telemetry dashboard. No cloud intermediaries, no extra latency.
+        </p>
+        <div class="schematic-card" style="padding: 0; overflow: hidden; position: relative; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.4);" id="demo-container">
+            <!-- Using a reliable abstract tech particle loop for the preview -->
+            <video id="demo-video" src="https://assets.codepen.io/3364143/7btrrd.mp4" poster="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2070" style="width: 100%; height: 500px; object-fit: cover; opacity: 0.8; filter: grayscale(10%) contrast(120%); display: block;" autoplay loop muted playsinline></video>
+            
+            <div id="demo-overlay" style="background: rgba(0, 0, 0, 0.4); position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; transition: opacity 0.3s ease;">
+                <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 30px rgba(0, 229, 255, 0.4); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" onclick="playFullVideo()">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--bg)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p style="margin-top: 1rem; color: var(--fg); font-weight: 600; font-size: 1.2rem; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">Watch Full Demo</p>
+            </div>
+        </div>
+
+        <script>
+            const demoVideo = document.getElementById('demo-video');
+            const demoOverlay = document.getElementById('demo-overlay');
+            let isFullVideoMode = false;
+
+            // Optional: You can set demoVideo.playbackRate = 1.5 here for a faster 5-second teaser
+
+            demoVideo.addEventListener('timeupdate', () => {
+                // Pause automatically after 5 seconds if in preview mode
+                if (!isFullVideoMode && demoVideo.currentTime >= 5) {
+                    demoVideo.pause();
+                }
+            });
+
+            function playFullVideo() {
+                isFullVideoMode = true;
+                demoVideo.currentTime = 0; // Restart from beginning
+                demoVideo.muted = false;   // Unmute the full video
+                demoVideo.controls = true; // Show native player controls (timeline, volume)
+                demoVideo.style.opacity = '1';
+                demoVideo.style.filter = 'none';
+                demoOverlay.style.opacity = '0';
+                demoOverlay.style.pointerEvents = 'none';
+                demoVideo.play();
+            }
+        </script>
+        <div style="margin-top: 2rem;">
+            <a href="https://xomoi-demo.onrender.com" target="_blank" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: #000; box-shadow: 0 0 20px var(--accent-glow); border: none;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                Launch Live Dashboard
+            </a>
+        </div>
+    </section>
+    
     
     <section class="metrics-section" style="max-width: 1200px; margin: 6rem auto; padding: 0 2rem;">
         <h2 class="roadmap-title" style="margin-bottom: 1rem;">Bare-Metal <span>Benchmarks</span></h2>
@@ -716,74 +783,146 @@
             Ran on a low-power Intel Pentium 4405U @ 2.10GHz (2 Cores / 4 Threads). Xomoi-Core utilizes zero-allocation routing (O(1) subscriptions) and true Multi-Row SQLite batching to bypass GC thrashing and CGO overhead entirely.
         </p>
 
-        <!-- Graph Section -->
-        <div class="schematic-card animate-up" style="margin-bottom: 2rem;">
-            <h3 style="color: var(--accent); margin-top: 0; text-align: center;">Maximum Throughput Ceiling (msgs/sec)</h3>
-            <div style="display: flex; align-items: flex-end; justify-content: space-around; height: 250px; margin-top: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 10px;">
+        <style>
+            .chart-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+                margin-bottom: 3rem;
+            }
+            @media (max-width: 1024px) {
+                .chart-grid { grid-template-columns: 1fr; }
+            }
+            .chart-container {
+                position: relative;
+                aspect-ratio: 1 / 1;
+                width: 100%;
+                margin-top: 1rem;
+            }
+            @media (max-width: 768px) {
+                .chart-container { aspect-ratio: 4 / 3; }
+            }
+        </style>
 
-                <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
-                    <div style="font-size: 0.8rem; color: var(--fg); margin-bottom: 5px;">9,967</div>
-                    <div style="width: 40px; height: 44.29777777777778px; background: linear-gradient(180deg, var(--accent) 0%, transparent 100%); border-radius: 4px 4px 0 0; opacity: 0.8;"></div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 10px; transform: rotate(-45deg); white-space: nowrap;">Ingest 100 Workers</div>
+        <!-- Chart.js Graph Section -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
+        <div class="chart-grid">
+            <div class="schematic-card animate-up" style="padding: 1.5rem; display: flex; flex-direction: column;">
+                <h3 style="color: var(--accent); margin-top: 0; text-align: center; font-size: 1.1rem;">Phase A: Ingestion</h3>
+                <div class="chart-container">
+                    <canvas id="chartPhaseA"></canvas>
                 </div>
-
-                <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
-                    <div style="font-size: 0.8rem; color: var(--fg); margin-bottom: 5px;">12,319</div>
-                    <div style="width: 40px; height: 54.75111111111111px; background: linear-gradient(180deg, var(--accent) 0%, transparent 100%); border-radius: 4px 4px 0 0; opacity: 0.8;"></div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 10px; transform: rotate(-45deg); white-space: nowrap;">Ingest 250 Workers</div>
-                </div>
-
-                <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
-                    <div style="font-size: 0.8rem; color: var(--fg); margin-bottom: 5px;">11,906</div>
-                    <div style="width: 40px; height: 52.91555555555556px; background: linear-gradient(180deg, var(--accent) 0%, transparent 100%); border-radius: 4px 4px 0 0; opacity: 0.8;"></div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 10px; transform: rotate(-45deg); white-space: nowrap;">Ingest 500 Workers</div>
-                </div>
-
-                <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
-                    <div style="font-size: 0.8rem; color: var(--fg); margin-bottom: 5px;">12,181</div>
-                    <div style="width: 40px; height: 54.13777777777777px; background: linear-gradient(180deg, var(--accent) 0%, transparent 100%); border-radius: 4px 4px 0 0; opacity: 0.8;"></div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 10px; transform: rotate(-45deg); white-space: nowrap;">Ingest 750 Workers</div>
-                </div>
-
-                <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
-                    <div style="font-size: 0.8rem; color: var(--fg); margin-bottom: 5px;">11,501</div>
-                    <div style="width: 40px; height: 51.11555555555556px; background: linear-gradient(180deg, var(--accent) 0%, transparent 100%); border-radius: 4px 4px 0 0; opacity: 0.8;"></div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 10px; transform: rotate(-45deg); white-space: nowrap;">Ingest 1000 Workers</div>
-                </div>
-
-                <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
-                    <div style="font-size: 0.8rem; color: var(--fg); margin-bottom: 5px;">21,559</div>
-                    <div style="width: 40px; height: 95.81777777777778px; background: linear-gradient(180deg, var(--accent) 0%, transparent 100%); border-radius: 4px 4px 0 0; opacity: 0.8;"></div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 10px; transform: rotate(-45deg); white-space: nowrap;">Fanout 50 Pubs and 100 Subs</div>
-                </div>
-
-                <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
-                    <div style="font-size: 0.8rem; color: var(--fg); margin-bottom: 5px;">40,228</div>
-                    <div style="width: 40px; height: 178.7911111111111px; background: linear-gradient(180deg, var(--accent) 0%, transparent 100%); border-radius: 4px 4px 0 0; opacity: 0.8;"></div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 10px; transform: rotate(-45deg); white-space: nowrap;">Fanout 50 Pubs and 500 Subs</div>
-                </div>
-
-                <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
-                    <div style="font-size: 0.8rem; color: var(--fg); margin-bottom: 5px;">42,575</div>
-                    <div style="width: 40px; height: 189.22222222222223px; background: linear-gradient(180deg, var(--accent) 0%, transparent 100%); border-radius: 4px 4px 0 0; opacity: 0.8;"></div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 10px; transform: rotate(-45deg); white-space: nowrap;">Fanout 50 Pubs and 1500 Subs</div>
-                </div>
-
-                <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
-                    <div style="font-size: 0.8rem; color: var(--fg); margin-bottom: 5px;">18,434</div>
-                    <div style="width: 40px; height: 81.92888888888888px; background: linear-gradient(180deg, var(--accent) 0%, transparent 100%); border-radius: 4px 4px 0 0; opacity: 0.8;"></div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 10px; transform: rotate(-45deg); white-space: nowrap;">Fanout 50 Pubs and 2000 Subs</div>
-                </div>
-
-                <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
-                    <div style="font-size: 0.8rem; color: var(--fg); margin-bottom: 5px;">11,859</div>
-                    <div style="width: 40px; height: 52.70666666666667px; background: linear-gradient(180deg, var(--accent) 0%, transparent 100%); border-radius: 4px 4px 0 0; opacity: 0.8;"></div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 10px; transform: rotate(-45deg); white-space: nowrap;">Herd 5k</div>
-                </div>
-
             </div>
-            <div style="height: 40px;"></div>
+            
+            <div class="schematic-card animate-up" style="padding: 1.5rem; display: flex; flex-direction: column;">
+                <h3 style="color: var(--accent); margin-top: 0; text-align: center; font-size: 1.1rem;">Phase B: Fanout</h3>
+                <div class="chart-container">
+                    <canvas id="chartPhaseB"></canvas>
+                </div>
+            </div>
+            
+            <div class="schematic-card animate-up" style="padding: 1.5rem; display: flex; flex-direction: column;">
+                <h3 style="color: var(--accent); margin-top: 0; text-align: center; font-size: 1.1rem;">Phase C: Herd 5k</h3>
+                <div class="chart-container">
+                    <canvas id="chartPhaseC"></canvas>
+                </div>
+            </div>
         </div>
+        
+        <script>
+            Chart.defaults.color = '#8b949e';
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.font.size = 11;
+            
+            const commonScales = {
+                y: { 
+                    type: 'linear', display: true, position: 'left', 
+                    title: { display: false },
+                    ticks: { color: '#00e5ff', maxTicksLimit: 6 },
+                    grid: { color: 'rgba(255,255,255,0.05)' } 
+                },
+                y1: { 
+                    type: 'linear', display: true, position: 'right', 
+                    title: { display: false },
+                    ticks: { color: '#f87171', maxTicksLimit: 6 },
+                    grid: { drawOnChartArea: false } 
+                },
+                y2: { 
+                    type: 'linear', display: true, position: 'right', 
+                    title: { display: false },
+                    ticks: { color: '#ffbd2e', maxTicksLimit: 6 },
+                    grid: { drawOnChartArea: false } 
+                }
+            };
+            
+            const commonOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 10, padding: 10 } }
+                },
+                scales: commonScales
+            };
+
+            // Phase A Data
+            const labelsA = ['100W','250W','500W','750W','1000W'];
+            const tputA = [9967.00,12319.00,11906.00,12181.00,11501.00];
+            const gcA = [4.317,7.092,11.660,1.869,6.479];
+            const ramA = [87.90,140.20,183.39,186.09,177.93];
+
+            new Chart(document.getElementById('chartPhaseA'), {
+                type: 'line',
+                data: {
+                    labels: labelsA,
+                    datasets: [
+                        { label: 'Tput (msg/s)', data: tputA, borderColor: '#00e5ff', backgroundColor: 'rgba(0, 229, 255, 0.1)', yAxisID: 'y', tension: 0.4, fill: true, borderWidth: 2, pointRadius: 2 },
+                        { label: 'GC (ms)', data: gcA, borderColor: '#f87171', borderDash: [4, 4], yAxisID: 'y1', tension: 0.4, borderWidth: 2, pointRadius: 2 },
+                        { label: 'RAM (MB)', data: ramA, borderColor: '#ffbd2e', borderDash: [2, 2], yAxisID: 'y2', tension: 0.4, borderWidth: 2, pointRadius: 2 }
+                    ]
+                },
+                options: commonOptions
+            });
+
+            // Phase B Data
+            const labelsB = ['50P/100S','50P/500S','50P/1500S','50P/2000S'];
+            const tputB = [21559.00,40228.00,42575.00,18434.00];
+            const gcB = [7.857,0.249,3.549,0.735];
+            const ramB = [86.23,86.68,109.62,109.54];
+
+            new Chart(document.getElementById('chartPhaseB'), {
+                type: 'line',
+                data: {
+                    labels: labelsB,
+                    datasets: [
+                        { label: 'Tput (msg/s)', data: tputB, borderColor: '#00ff66', backgroundColor: 'rgba(0, 255, 102, 0.1)', yAxisID: 'y', tension: 0.4, fill: true, borderWidth: 2, pointRadius: 2 },
+                        { label: 'GC (ms)', data: gcB, borderColor: '#f87171', borderDash: [4, 4], yAxisID: 'y1', tension: 0.4, borderWidth: 2, pointRadius: 2 },
+                        { label: 'RAM (MB)', data: ramB, borderColor: '#ffbd2e', borderDash: [2, 2], yAxisID: 'y2', tension: 0.4, borderWidth: 2, pointRadius: 2 }
+                    ]
+                },
+                options: { ...commonOptions, scales: { ...commonScales, y: { ...commonScales.y, ticks: { color: '#00ff66' } } } }
+            });
+
+            // Phase C Data
+            new Chart(document.getElementById('chartPhaseC'), {
+                type: 'bar',
+                data: {
+                    labels: ['5k Herd'],
+                    datasets: [
+                        { label: 'Tput (msg/s)', data: [11859], backgroundColor: 'rgba(0, 229, 255, 0.6)', yAxisID: 'y' },
+                        { label: 'GC (ms)', data: [3.242], backgroundColor: 'rgba(248, 113, 113, 0.6)', yAxisID: 'y1' },
+                        { label: 'RAM (MB)', data: [172.04], backgroundColor: 'rgba(255, 189, 46, 0.6)', yAxisID: 'y2' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10 } } },
+                    scales: commonScales
+                }
+            });
+        </script>
 
         <style>
             .metric-table-container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 2rem; overflow: hidden; }
@@ -803,16 +942,19 @@
                 <p>Heavy disk persistence load using True Multi-Row SQL chunking.</p>
             </div>
             <div style="overflow-x: auto;">
-                <table class="metric-table" style="min-width: 1000px; font-size: 0.85rem;">
+                <table class="metric-table" style="min-width: 1200px; font-size: 0.85rem;">
                     <thead>
                         <tr>
                             <th>Scenario</th>
                             <th>Total Pkts</th>
+                            <th>Duration</th>
                             <th>Avg Tput</th>
                             <th>Max Tput</th>
+                            <th>Payload</th><th>Data Rate</th>
                             <th>Max RAM</th>
                             <th>GC Trigs</th>
                             <th>Max GC Pause</th>
+                            <th>Avg GC Pause</th>
                             <th>Goroutines</th>
                             <th>WAL Size</th>
                         </tr>
@@ -822,11 +964,14 @@
                         <tr>
                             <td style="color: var(--fg); font-weight: bold;">100 Workers</td>
                             <td>505834</td>
+                            <td>61.25 seconds</td>
                             <td>8259.04</td>
                             <td style="color: #4ade80;">9967.00</td>
+                            <td>56 bytes</td><td>0.44 MB/sec</td>
                             <td>87.90 MB</td>
                             <td>38</td>
                             <td style="color: #f87171;">4.317 ms</td>
+                            <td style="color: #fca5a5;">0.865 ms</td>
                             <td>1119</td>
                             <td>16.23 MB</td>
                         </tr>
@@ -834,11 +979,14 @@
                         <tr>
                             <td style="color: var(--fg); font-weight: bold;">250 Workers</td>
                             <td>404214</td>
+                            <td>62.48 seconds</td>
                             <td>6469.09</td>
                             <td style="color: #4ade80;">12319.00</td>
+                            <td>56 bytes</td><td>0.35 MB/sec</td>
                             <td>140.20 MB</td>
                             <td>56</td>
                             <td style="color: #f87171;">7.092 ms</td>
+                            <td style="color: #fca5a5;">0.534 ms</td>
                             <td>1269</td>
                             <td>22.37 MB</td>
                         </tr>
@@ -846,11 +994,14 @@
                         <tr>
                             <td style="color: var(--fg); font-weight: bold;">500 Workers</td>
                             <td>410483</td>
+                            <td>65.10 seconds</td>
                             <td>6305.45</td>
                             <td style="color: #4ade80;">11906.00</td>
+                            <td>56 bytes</td><td>0.34 MB/sec</td>
                             <td>183.39 MB</td>
                             <td>71</td>
                             <td style="color: #f87171;">11.660 ms</td>
+                            <td style="color: #fca5a5;">0.478 ms</td>
                             <td>1519</td>
                             <td>23.58 MB</td>
                         </tr>
@@ -858,11 +1009,14 @@
                         <tr>
                             <td style="color: var(--fg); font-weight: bold;">750 Workers</td>
                             <td>350276</td>
+                            <td>64.65 seconds</td>
                             <td>5417.76</td>
                             <td style="color: #4ade80;">12181.00</td>
+                            <td>56 bytes</td><td>0.29 MB/sec</td>
                             <td>186.09 MB</td>
                             <td>84</td>
                             <td style="color: #f87171;">1.869 ms</td>
+                            <td style="color: #fca5a5;">0.116 ms</td>
                             <td>1770</td>
                             <td>27.68 MB</td>
                         </tr>
@@ -870,11 +1024,14 @@
                         <tr>
                             <td style="color: var(--fg); font-weight: bold;">1000 Workers</td>
                             <td>357490</td>
+                            <td>67.43 seconds</td>
                             <td>5301.38</td>
                             <td style="color: #4ade80;">11501.00</td>
+                            <td>56 bytes</td><td>0.28 MB/sec</td>
                             <td>177.93 MB</td>
                             <td>100</td>
                             <td style="color: #f87171;">6.479 ms</td>
+                            <td style="color: #fca5a5;">0.260 ms</td>
                             <td>2019</td>
                             <td>31.39 MB</td>
                         </tr>
@@ -890,16 +1047,19 @@
                 <p>O(1) pointer-injection routing stress test.</p>
             </div>
             <div style="overflow-x: auto;">
-                <table class="metric-table" style="min-width: 1000px; font-size: 0.85rem;">
+                <table class="metric-table" style="min-width: 1200px; font-size: 0.85rem;">
                     <thead>
                         <tr>
                             <th>Scenario</th>
                             <th>Total Pkts</th>
+                            <th>Duration</th>
                             <th>Avg Tput</th>
                             <th>Max Tput</th>
+                            
                             <th>Max RAM</th>
                             <th>GC Trigs</th>
                             <th>Max GC Pause</th>
+                            <th>Avg GC Pause</th>
                             <th>Goroutines</th>
                             <th>WAL Size</th>
                         </tr>
@@ -909,11 +1069,14 @@
                         <tr>
                             <td style="color: var(--fg); font-weight: bold;">50 Pubs and 100 Subs</td>
                             <td>1081218</td>
+                            <td>61.14s</td>
                             <td>17685.23</td>
                             <td style="color: #4ade80;">21559.00</td>
+                            
                             <td>86.23 MB</td>
                             <td>188</td>
                             <td style="color: #f87171;">7.857 ms</td>
+                            <td style="color: #fca5a5;">0.747 ms</td>
                             <td>1167</td>
                             <td>31.39 MB</td>
                         </tr>
@@ -921,11 +1084,14 @@
                         <tr>
                             <td style="color: var(--fg); font-weight: bold;">50 Pubs and 500 Subs</td>
                             <td>836627</td>
+                            <td>61.34s</td>
                             <td>13639.40</td>
                             <td style="color: #4ade80;">40228.00</td>
+                            
                             <td>86.68 MB</td>
                             <td>189</td>
                             <td style="color: #f87171;">0.249 ms</td>
+                            <td style="color: #fca5a5;">0.001 ms</td>
                             <td>1517</td>
                             <td>31.39 MB</td>
                         </tr>
@@ -933,11 +1099,14 @@
                         <tr>
                             <td style="color: var(--fg); font-weight: bold;">50 Pubs and 1500 Subs</td>
                             <td>842095</td>
+                            <td>125.95s</td>
                             <td>6685.73</td>
                             <td style="color: #4ade80;">42575.00</td>
+                            
                             <td>109.62 MB</td>
                             <td>306</td>
                             <td style="color: #f87171;">3.549 ms</td>
+                            <td style="color: #fca5a5;">0.012 ms</td>
                             <td>2017</td>
                             <td>31.39 MB</td>
                         </tr>
@@ -945,11 +1114,14 @@
                         <tr>
                             <td style="color: var(--fg); font-weight: bold;">50 Pubs and 2000 Subs</td>
                             <td>834135</td>
+                            <td>126.00s</td>
                             <td>6620.00</td>
                             <td style="color: #4ade80;">18434.00</td>
+                            
                             <td>109.54 MB</td>
                             <td>423</td>
                             <td style="color: #f87171;">0.735 ms</td>
+                            <td style="color: #fca5a5;">0.002 ms</td>
                             <td>2017</td>
                             <td>31.39 MB</td>
                         </tr>
@@ -965,16 +1137,19 @@
                 <p>5,000 connection spike simulating massive simultaneous drone reconnections.</p>
             </div>
             <div style="overflow-x: auto;">
-                <table class="metric-table" style="min-width: 1000px; font-size: 0.85rem;">
+                <table class="metric-table" style="min-width: 1200px; font-size: 0.85rem;">
                     <thead>
                         <tr>
                             <th>Scenario</th>
                             <th>Total Pkts</th>
+                            <th>Duration</th>
                             <th>Avg Tput</th>
                             <th>Max Tput</th>
+                            <th>Payload</th><th>Data Rate</th>
                             <th>Max RAM</th>
                             <th>GC Trigs</th>
                             <th>Max GC Pause</th>
+                            <th>Avg GC Pause</th>
                             <th>Goroutines</th>
                             <th>WAL Size</th>
                         </tr>
@@ -984,11 +1159,14 @@
                         <tr>
                             <td style="color: var(--fg); font-weight: bold;">Thundering Herd (5000 Conns)</td>
                             <td>460508</td>
+                            <td>96.54 seconds</td>
                             <td>4770.01</td>
                             <td style="color: #4ade80;">11859.00</td>
+                            <td>56 bytes</td><td>0.25 MB/sec</td>
                             <td>172.04 MB</td>
                             <td>526</td>
                             <td style="color: #f87171;">3.242 ms</td>
+                            <td style="color: #fca5a5;">0.039 ms</td>
                             <td>2025</td>
                             <td>31.39 MB</td>
                         </tr>

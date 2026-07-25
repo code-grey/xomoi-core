@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   import { onMount, onDestroy } from 'svelte';
   import MetricCard from '../MetricCard.svelte';
   import HistoricalExplorer from './HistoricalExplorer.svelte';
-  import { Thermometer, Droplets, Network } from 'lucide-svelte';
+  import { Thermometer, Droplets, Network, Gauge, Zap, Sun, Fan, Activity } from 'lucide-svelte';
   import { globalState } from '../store.svelte';
 
   let activeMetric = $state('temperature');
@@ -31,6 +31,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   // Aggregate current values from the real fleet
   let tempDevices = $derived(fleet.filter(d => d.temp !== undefined && d.temp !== 0));
   let humDevices = $derived(fleet.filter(d => d.hum !== undefined && d.hum !== 0));
+  let pressDevices = $derived(fleet.filter(d => d.pressure !== undefined && d.pressure !== 0));
+  let voltDevices = $derived(fleet.filter(d => d.voltage !== undefined && d.voltage !== 0));
+  let luxDevices = $derived(fleet.filter(d => d.lux !== undefined && d.lux !== 0));
+  let fanDevices = $derived(fleet.filter(d => d.fan_speed !== undefined && d.fan_speed !== 0));
+  let imuDevices = $derived(fleet.filter(d => d.imu_hz !== undefined && d.imu_hz !== 0));
 
   let temperature = $derived(
     tempDevices.length > 0 
@@ -44,9 +49,20 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
       : '0.0'
   );
 
+  let pressure = $derived(pressDevices.length > 0 ? (pressDevices.reduce((acc, d) => acc + d.pressure, 0) / pressDevices.length).toFixed(1) : '0.0');
+  let voltage = $derived(voltDevices.length > 0 ? (voltDevices.reduce((acc, d) => acc + d.voltage, 0) / voltDevices.length).toFixed(2) : '0.00');
+  let lux = $derived(luxDevices.length > 0 ? Math.floor(luxDevices.reduce((acc, d) => acc + d.lux, 0) / luxDevices.length).toString() : '0');
+  let fan_speed = $derived(fanDevices.length > 0 ? Math.floor(fanDevices.reduce((acc, d) => acc + d.fan_speed, 0) / fanDevices.length).toString() : '0');
+  let imu_hz = $derived(imuDevices.length > 0 ? Math.floor(imuDevices.reduce((acc, d) => acc + d.imu_hz, 0) / imuDevices.length).toString() : '0');
+
   // Use the first valid sensor's history for the top-level sparklines
   let tempHistory = $derived(tempDevices.length > 0 ? tempDevices[0].tempHistory : Array(40).fill(0));
-  let humHistory = $derived(humDevices.length > 0 ? humDevices[0].humHistory : Array(40).fill(0)); 
+  let humHistory = $derived(humDevices.length > 0 ? humDevices[0].humHistory : Array(40).fill(0));
+  let pressHistory = $derived(pressDevices.length > 0 ? pressDevices[0].pressureHistory : Array(40).fill(0));
+  let voltHistory = $derived(voltDevices.length > 0 ? voltDevices[0].voltageHistory : Array(40).fill(0));
+  let luxHistory = $derived(luxDevices.length > 0 ? luxDevices[0].luxHistory : Array(40).fill(0));
+  let fanHistory = $derived(fanDevices.length > 0 ? fanDevices[0].fanSpeedHistory : Array(40).fill(0));
+  let imuHistory = $derived(imuDevices.length > 0 ? imuDevices[0].imuHistory : Array(40).fill(0)); 
 
   function buildPoints(history: number[], min: number, max: number) {
     if (!history) return '';
@@ -60,6 +76,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
   let tempPoints = $derived(buildPoints(tempHistory, 0, 50));
   let humPoints = $derived(buildPoints(humHistory, 0, 100));
+  let pressPoints = $derived(buildPoints(pressHistory, 900, 1100));
+  let voltPoints = $derived(buildPoints(voltHistory, 0, 5));
+  let luxPoints = $derived(buildPoints(luxHistory, 0, 1000));
+  let fanPoints = $derived(buildPoints(fanHistory, 0, 3000));
+  let imuPoints = $derived(buildPoints(imuHistory, 0, 2000));
 
   let activeColor = $derived(
     activeMetric === 'temperature' ? 'var(--accent-orange)' :
@@ -69,7 +90,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   // Map the real WebRTC fleet into the chart components
   let realSensors = $derived(
     activeMetric === 'temperature' ? tempDevices.map(d => ({
-      id: d.id, name: d.friendlyName || d.id, val: d.temp.toFixed(1), hist: d.tempHistory, min: 0, max: 50, unit: '°C'
+      id: d.id, name: d.friendlyName || d.id, val: d.temp.toFixed(1), hist: d.tempHistory, min: 0, max: 50, unit: 'Â°C'
     })) : humDevices.map(d => ({
       id: d.id, name: d.friendlyName || d.id, val: d.hum.toFixed(1), hist: d.humHistory, min: 0, max: 100, unit: '%'
     }))
@@ -81,7 +102,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 {#if fleet.length > 0}
   <div class="view-container">
     <div class="metrics-grid">
-      <MetricCard title="Temperature" value={temperature} unit="°C" Icon={Thermometer} sparkline={tempPoints} active={activeMetric === 'temperature'} onclick={() => activeMetric = 'temperature'} />
+      <MetricCard title="Temperature" value={temperature} unit="Â°C" Icon={Thermometer} sparkline={tempPoints} active={activeMetric === 'temperature'} onclick={() => activeMetric = 'temperature'} />
       <MetricCard title="Humidity" value={humidity} unit="%" Icon={Droplets} sparkline={humPoints} active={activeMetric === 'humidity'} onclick={() => activeMetric = 'humidity'} />
       <MetricCard title="Active Devices" value={activeDevices} unit="Sensors" Icon={Network} onclick={() => window.location.hash = 'fleet'} />
     </div>

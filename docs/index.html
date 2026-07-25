@@ -512,8 +512,14 @@
 
         <div class="schematic-card animate-up delay-2">
             <h3>The Blacksmith SDK</h3>
-            <p>A C++ hardware client enforcing zero-allocation NanoPB (Protobuf) batching. It slashes cellular bandwidth by 99% and generates completely static structs to prevent heap fragmentation on ESP32 microcontrollers.</p>
+            <p>A C++ hardware client enforcing zero-allocation NanoPB (Protobuf) batching. It slashes cellular bandwidth by 99% and generates completely static structs to prevent heap fragmentation on microcontrollers.</p>
             <div class="tag">sdk/XomoiCore.cpp</div>
+        </div>
+
+        <div class="schematic-card animate-up delay-3">
+            <h3>Universal Hardware Agnostic</h3>
+            <p>Built purely on TCP, MQTT, and Protobuf schemas, Xomoi is completely untethered from vendor ecosystems. It accommodates everything from simple ESP32 analog relays, up to 1000Hz extreme-frequency IMU sensors processed flawlessly via our lossless ring buffer.</p>
+            <div class="tag">proto/v1/telemetry_base.proto</div>
         </div>
 
         <div class="schematic-card animate-up delay-3">

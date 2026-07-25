@@ -22,10 +22,14 @@ function handleIncomingData(rawJson: string) {
                 status: 'healthy', 
                 uptime: '0h',
                 state: 'OFF',
-                temp: 0,
-                hum: 0,
+                temp: 0, hum: 0, pressure: 0, voltage: 0, lux: 0, fan_speed: 0, imu_hz: 0,
                 tempHistory: Array(40).fill(0),
-                humHistory: Array(40).fill(0)
+                humHistory: Array(40).fill(0),
+                pressureHistory: Array(40).fill(0),
+                voltageHistory: Array(40).fill(0),
+                luxHistory: Array(40).fill(0),
+                fanSpeedHistory: Array(40).fill(0),
+                imuHistory: Array(40).fill(0)
             };
             globalState.fleet.push(device);
         }
@@ -39,6 +43,26 @@ function handleIncomingData(rawJson: string) {
         if (msg.hum !== undefined) {
             device.hum = msg.hum;
             device.humHistory = [...device.humHistory.slice(1), msg.hum];
+        }
+        if (msg.pressure !== undefined) {
+            device.pressure = msg.pressure;
+            device.pressureHistory = [...device.pressureHistory.slice(1), msg.pressure];
+        }
+        if (msg.voltage !== undefined) {
+            device.voltage = msg.voltage;
+            device.voltageHistory = [...device.voltageHistory.slice(1), msg.voltage];
+        }
+        if (msg.lux !== undefined) {
+            device.lux = msg.lux;
+            device.luxHistory = [...device.luxHistory.slice(1), msg.lux];
+        }
+        if (msg.fan_speed !== undefined) {
+            device.fan_speed = msg.fan_speed;
+            device.fanSpeedHistory = [...device.fanSpeedHistory.slice(1), msg.fan_speed];
+        }
+        if (msg.imu_hz !== undefined) {
+            device.imu_hz = msg.imu_hz;
+            device.imuHistory = [...device.imuHistory.slice(1), msg.imu_hz];
         }
         if (msg.ack === 'relay_success' && msg.state) device.state = msg.state;
         
@@ -64,10 +88,14 @@ export function bootWebRTC() {
                 status: 'healthy',
                 uptime: '99h',
                 state: 'ON',
-                temp: 42.5,
-                hum: 50.0,
+                temp: 42.5, hum: 50.0, pressure: 1013.2, voltage: 3.3, lux: 500, fan_speed: 1500, imu_hz: 1000,
                 tempHistory: Array.from({length: 40}, () => parseFloat((35 + Math.random() * 15).toFixed(1))),
-                humHistory: Array.from({length: 40}, () => parseFloat((45 + Math.random() * 10).toFixed(1)))
+                humHistory: Array.from({length: 40}, () => parseFloat((45 + Math.random() * 10).toFixed(1))),
+                pressureHistory: Array.from({length: 40}, () => parseFloat((1010 + Math.random() * 5).toFixed(1))),
+                voltageHistory: Array.from({length: 40}, () => parseFloat((3.2 + Math.random() * 0.2).toFixed(2))),
+                luxHistory: Array.from({length: 40}, () => Math.floor(400 + Math.random() * 200)),
+                fanSpeedHistory: Array.from({length: 40}, () => Math.floor(1400 + Math.random() * 200)),
+                imuHistory: Array.from({length: 40}, () => Math.floor(980 + Math.random() * 40))
             });
         });
         
@@ -82,6 +110,11 @@ export function bootWebRTC() {
                     type: 'Render Edge Simulator',
                     temp: parseFloat((35 + Math.random() * 15).toFixed(1)),
                     hum: parseFloat((45 + Math.random() * 10).toFixed(1)),
+                    pressure: parseFloat((1010 + Math.random() * 5).toFixed(1)),
+                    voltage: parseFloat((3.2 + Math.random() * 0.2).toFixed(2)),
+                    lux: Math.floor(400 + Math.random() * 200),
+                    fan_speed: Math.floor(1400 + Math.random() * 200),
+                    imu_hz: Math.floor(980 + Math.random() * 40),
                     status: Math.random() > 0.98 ? 'warning' : 'healthy'
                 });
                 

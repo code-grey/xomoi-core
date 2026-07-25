@@ -123,6 +123,7 @@
     - [ ] Go unit tests (`go test`) for all core business logic (evaluators, parsers, state maps).
     - [ ] Svelte UI component tests using Vitest or Playwright.
     - [x] E2E integration tests (spin up broker -> mock C++ hardware -> verify UI state).
+    - [ ] **RPC Digital Twin Simulator** (`scripts/sim_device.go`): Pure-Go MQTT subscriber to mock physical hardware and respond to UI commands in real-time.
 - [x] **9.3: Pre-Production Polish & Hardening**
     - [x] Graceful Shutdown (force SQLite flush + Backup on SIGTERM).
     - [x] Centralized Environment Configuration (`internal/config/config.go`).

@@ -86,28 +86,7 @@
         .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: 2px; }
         .logo span { color: var(--text-muted); font-weight: 300; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;}
 
-        .status-badge {
-            background: rgba(0, 255, 102, 0.1);
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 0.3rem 0.8rem;
-            border-radius: var(--radius);
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .status-badge::before {
-            content: "";
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: blink 1.5s infinite;
-        }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
 
         /* HERO SECTION */
         .hero {
@@ -455,9 +434,9 @@
 <body>
 
 <header>
-    <div style="display: flex; align-items: center; gap: 1rem;">
+    <div style="display: flex; align-items: baseline; gap: 0.5rem;">
         <div class="logo">XOMOI-CORE <span>// SOVEREIGN EDGE</span></div>
-        <div class="status-badge">AGPLv3 LICENSED</div>
+        <a href="https://github.com/code-grey/xomoi-core/blob/main/LICENSE" target="_blank" style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; color: var(--text-dim); text-decoration: none; letter-spacing: 1px; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-dim)'">AGPLv3</a>
     </div>
     <button class="theme-toggle" onclick="document.body.classList.toggle('light-mode')" title="Toggle Light/Dark Mode" style="background: var(--surface); border: 1px solid var(--border); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--fg); transition: all 0.3s;">
         <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">

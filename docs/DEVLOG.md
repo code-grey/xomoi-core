@@ -168,3 +168,11 @@ Even after fixing the OS queue, the hardware bottleneck during a Thundering Herd
 Instead of blindly guessing hardware bottlenecks or hardcoding debugging servers into production code, we established an enterprise profiling pattern:
 * **Environment Toggle:** `pprof` is toggled exclusively via `$env:XOMOI_PPROF_PORT="6060"`, ensuring 0 overhead in production.
 * **Synchronized Benchmarking:** The benchmark script hits the `pprof` HTTP endpoint just as the Thundering Herd payload firing begins, capturing a surgical 15-second statistical slice of CPU execution for Flamegraph generation without diluting the data with idle time.
+
+ # #   [ 2 0 2 6 - 0 7 - 2 5 ]   D e m o   P o l i s h   &   R P C   U I 
+ -   E x p a n d e d   V i t e   M o c k   M o d e   w i t h   P r e s s u r e ,   V o l t a g e ,   L u x ,   F a n   S p e e d ,   a n d   I M U   d a t a . 
+ -   R e p l a c e d   d e f a u l t   V i t e   f a v i c o n   w i t h   g e n e r a t e d   X o m o i   l o g o . 
+ -   I n j e c t e d   i n t e r a c t i v e   R P C   Q u i c k   A c t i o n s   P a n e l   ( T o g g l e s / S l i d e r s )   i n t o   t h e   d a s h b o a r d . 
+ -   M e r g e d   t o   m a i n   a n d   d e p l o y e d . 
+ -   N e x t   S e s s i o n :   B u i l d   R P C   D i g i t a l   T w i n   S i m u l a t o r   ( s c r i p t s / s i m _ d e v i c e . g o ) .  
+ 

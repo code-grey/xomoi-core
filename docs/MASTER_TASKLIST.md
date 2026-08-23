@@ -53,7 +53,8 @@
     - [x] `mochi.go`: Initialize embedded server (TCP + WebSockets).
     - [x] `auth.go`: Implement HMAC-Lite zero-allocation authentication.
 - [ ] **3.2: Dynamic Schema Registry (Phase 2 Carryover)**
-    - [ ] Decouple hardcoded Temp/Hum types to allow dynamic Protobuf/JSON schema ingestion (e.g., Voltage Monitors).
+    - [ ] Implement a toggleable feature flag for "Universal JSON Parsing" to allow broad third-party hardware integration (trading minor CPU cycles for maximum compatibility).
+    - [ ] Replace hardcoded "temp"/"hum" extraction with dynamic `jsonparser.ObjectEach()` to enable zero-allocation parsing of any arbitrary metric (e.g., Voltage, Motion) on the fly.
 - [x] **3.3: The Ingestion Pipeline**
     - [x] `worker_pool.go`: Fixed-size Worker Pool for message processing.
     - [x] `processor.go`: OnPublish -> Proto Unmarshal -> Worker Channel (Backpressure enabled).
@@ -176,3 +177,18 @@
     - [ ] Repackage H.264 RTSP frames directly into Pion WebRTC `TrackLocalStaticSample` without re-encoding.
 - [ ] **14.3: Real-Time Svelte Vision Dashboard**
     - [ ] Add `VideoTrack` rendering to the Svelte UI via WebRTC `ontrack` events for zero-latency monitoring.
+
+## PHASE 15: THE QUALCOMM ARCHITECTURE (SAFE-RIDE & RUST REWRITE)
+- [ ] **15.1: Xomoi Data-Plane Rewrite (Rust)**
+    - [ ] Rewrite telemetry ingestion, Ring Buffer, and MQTT parsing in Rust for deterministic latency and <5MB footprint.
+    - [ ] Maintain Control Plane in Go.
+    - [ ] Utilize C-FFI (via `cxx`) for native zero-overhead integration with hardware NPUs (Qualcomm QNN SDK).
+- [ ] **15.2: IoT Security (The Immortal Edge)**
+    - [ ] Implement Public Key Pinning (with offline backup lifeline keys) for WSS/TLS connections.
+    - [ ] Deprecate heavy 250KB Root CA bundles on constrained devices (Pico W) in favor of Pinned Keys + HMAC-Lite to eliminate MITM and OTA Hijacking risks.
+- [ ] **15.3: Sovereign Remote Networking**
+    - [ ] Implement native support for IPv6 P2P routing (dynamic DNS updating via DuckDNS) to bypass Cloudflare.
+    - [ ] Provide Zero-CC (Credit Card) fallback proxying via `Playit.gg` for strict IPv4 NATs.
+- [ ] **15.4: Pico W C++ SDK Validation**
+    - [ ] Compile NanoPB inside the Arduino `earlephilhower` core for true Protobuf telemetry.
+    - [ ] Implement OLED Dashboard (U8g2) for real-time RPC Command displays and telemetry visualization.

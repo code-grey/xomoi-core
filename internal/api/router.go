@@ -17,12 +17,14 @@
 package api
 
 import (
+	"io/fs"
 	"net/http"
 
 	"github.com/code-grey/xomoi-core/internal/api/handlers"
 	"github.com/code-grey/xomoi-core/internal/api/middleware"
 	"github.com/code-grey/xomoi-core/internal/repository"
 	"github.com/code-grey/xomoi-core/internal/worker"
+	"github.com/code-grey/xomoi-core/ui"
 	mqtt "github.com/mochi-mqtt/server/v2"
 )
 
@@ -59,6 +61,13 @@ func (s *Server) SetupRouter() http.Handler {
 	mux := http.NewServeMux()
 
 	authHandler := handlers.NewAuthHandler(s.userRepo, s.sessionRepo)
+
+	// Serve the Embedded Svelte Dashboard on the root path
+	uiFS, err := fs.Sub(ui.Assets, "dist")
+	if err != nil {
+		panic("Failed to load embedded UI assets: " + err.Error())
+	}
+	mux.Handle("/", http.FileServer(http.FS(uiFS)))
 
 	// Public Endpoints
 	mux.HandleFunc("POST /api/v1/auth/login", authHandler.Login)

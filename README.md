@@ -4,6 +4,18 @@ Xomoi-Core is a hyper-converged, single-binary edge node built entirely in Go. I
 
 At a mere 15MB binary size, it orchestrates embedded Time-Series databases, high-speed telemetry ingestion pipelines, and isolated container executions without a heavy control plane or Docker daemon.
 
+## ⚡ Quick Start (v1.0.0-alpha)
+
+Download the single 15MB binary (Linux/Windows/Mac) from the **[GitHub Releases](#)** page. It contains the MQTT Broker, the SQLite TSDB, and the embedded Svelte UI.
+
+```bash
+# Run the node
+./xomoi-core
+```
+Then open `http://localhost:8085` to view the Svelte Dashboard.
+
+---
+
 ## Architecture
 
 Xomoi is built for the extreme edge (e.g., Raspberry Pi 3/4, Industrial PCs) where memory is scarce, SD card IO is fragile, and network connectivity is highly intermittent.
